@@ -1,6 +1,6 @@
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 
-import { CircularLoader } from "../Monitors/CustomLoader";
+import { CircularLoader } from "../Monitors";
 import React from "react";
 import { Typography } from "@mui/material";
 
