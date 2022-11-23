@@ -5,4 +5,5 @@ export { default as Stepper } from "./Stepper";
 export { default as Table } from "./Table";
 export { default as Tabs } from "./Tabs";
 
+export * from "./Alerts";
 export * from "./Monitors";
