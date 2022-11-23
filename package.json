@@ -3,7 +3,7 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/ochom"
     },
-    "version": "1.0.3",
+    "version": "1.0.7",
     "description": "custom react components",
     "type": "module",
     "scripts": {
@@ -25,6 +25,7 @@
         "@rollup/plugin-typescript": "^9.0.2",
         "@types/react": "^18.0.25",
         "auto-version-js": "^0.3.10",
+        "dayjs": "^1.11.6",
         "react": "^18.2.0",
         "rollup": "^3.4.0",
         "rollup-plugin-dts": "^5.0.0",
