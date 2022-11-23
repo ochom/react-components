@@ -18,20 +18,20 @@ import { Save } from "@mui/icons-material";
 
 interface loadingIconOptions {
   loading: boolean;
-  loadingIconPosition: "start" | "end";
-  endIcon?: React.ReactNode;
+  loadingPosition: "start" | "end";
   startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
 export default function Form(props: FormProps) {
   const iconOptions: loadingIconOptions = {
     loading: props.processing || false,
-    loadingIconPosition: props.submitIconPosition || "start",
+    loadingPosition: props.submitIconPosition || "start",
   };
 
-  if (props.submitIconPosition === "start") {
+  if (iconOptions.loadingPosition === "start") {
     iconOptions.startIcon = props.submitIcon || <Save />;
-  } else if (props.submitIconPosition === "end") {
+  } else if (iconOptions.loadingPosition === "end") {
     iconOptions.endIcon = props.submitIcon || <Save />;
   }
 
