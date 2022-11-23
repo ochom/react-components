@@ -1,9 +1,6 @@
 {
-    "name": "@ochom/react-components",
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/ochom"
-    },
-    "version": "1.0.24",
+    "name": "ochom-react-components",
+    "version": "1.0.26",
     "description": "custom react components",
     "main": "dist/index.js",
     "module": "dist/index.es.js",
