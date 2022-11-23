@@ -4,6 +4,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 
+const production = !process.env.ROLLUP_WATCH;
+
 export default [
   {
     input: "src/index.ts",
@@ -11,11 +13,13 @@ export default [
       {
         file: "dist/index.js",
         format: "cjs",
+        sourcemap: !production,
       },
       {
         file: "dist/index.es.js",
         format: "es",
         exports: "named",
+        sourcemap: !production,
       },
     ],
     plugins: [
