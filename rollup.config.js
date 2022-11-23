@@ -1,10 +1,9 @@
 import babel from "@rollup/plugin-babel";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import postcss from "rollup-plugin-postcss";
 import resolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
-
-const production = !process.env.ROLLUP_WATCH;
 
 export default [
   {
@@ -13,24 +12,26 @@ export default [
       {
         file: "dist/index.js",
         format: "cjs",
-        sourcemap: !production,
+        sourcemap: true,
       },
       {
         file: "dist/index.es.js",
         format: "es",
         exports: "named",
-        sourcemap: !production,
+        sourcemap: true,
       },
     ],
     plugins: [
       babel({
         exclude: "node_modules/**",
         presets: ["@babel/preset-react"],
+        babelHelpers: "runtime",
       }),
       resolve(),
       typescript({ tsconfig: "./tsconfig.json" }),
       peerDepsExternal(),
       terser(),
+      postcss(),
     ],
   },
 ];
