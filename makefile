@@ -1,0 +1,2 @@
+roll:
+	npm run rollup
