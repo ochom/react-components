@@ -23,7 +23,7 @@ interface loadingIconOptions {
   startIcon?: React.ReactNode;
 }
 
-function CustomForm(props: FormProps) {
+export default function Form(props: FormProps) {
   const iconOptions: loadingIconOptions = {
     loading: props.processing || false,
     loadingIconPosition: props.submitIconPosition || "start",
@@ -141,5 +141,3 @@ function CustomForm(props: FormProps) {
     </form>
   );
 }
-
-export default CustomForm;
