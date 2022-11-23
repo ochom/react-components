@@ -3,7 +3,7 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/ochom"
     },
-    "version": "1.0.22",
+    "version": "1.0.23",
     "description": "custom react components",
     "main": "dist/index.js",
     "module": "dist/index.es.js",
@@ -32,8 +32,7 @@
         "rollup-plugin-peer-deps-external": "^2.2.4",
         "rollup-plugin-terser": "^7.0.2",
         "tslib": "^2.4.1",
-        "typescript": "^4.9.3",
-        "react-fancy-loader": "^0.3.17"
+        "typescript": "^4.9.3"
     },
     "peerDependencies": {
         "@mui/icons-material": "^5.10.15",
@@ -44,7 +43,6 @@
         "dayjs": "^1.11.6",
         "react": "^17.0.0",
         "react-dom": "^17.0.0",
-        "reactstrap": "^8.9.0",
-        "react-fancy-loader": "^0.3.17"
+        "reactstrap": "^8.9.0"
     }
 }
