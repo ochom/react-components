@@ -1,16 +1,16 @@
 import { Box, Tab, Tabs } from "@mui/material";
 
 import React from "react";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/system";
 
-const AntTabs = styled((props) => <Tabs {...props} />)(({ theme }) => ({
+const AntTabs = styled((props: any) => <Tabs {...props} />)(({ theme }) => ({
   borderBottom: "1px solid #e8e8e8",
   "&.MuiTabs-indicator": {
     backgroundColor: theme.palette.primary.main,
   },
 }));
 
-const AntTab = styled((props) => <Tab disableRipple {...props} />)(
+const AntTab = styled((props: any) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
     textTransform: "none",
     minWidth: 0,
