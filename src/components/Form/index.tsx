@@ -24,15 +24,25 @@ interface loadingIconOptions {
 }
 
 export default function Form(props: FormProps) {
+  const {
+    submitIcon = <Save />,
+    submitText = "Submit",
+    cancelText = "Cancel",
+    processing = false,
+    submitIconPosition = "start",
+    showCancel = true,
+    showSubmitIcon = true,
+  } = props;
+
   const iconOptions: loadingIconOptions = {
-    loading: props.processing || false,
-    loadingPosition: props.submitIconPosition || "start",
+    loading: processing,
+    loadingPosition: submitIconPosition,
   };
 
   if (iconOptions.loadingPosition === "start") {
-    iconOptions.startIcon = props.submitIcon || <Save />;
+    iconOptions.startIcon = submitIcon;
   } else if (iconOptions.loadingPosition === "end") {
-    iconOptions.endIcon = props.submitIcon || <Save />;
+    iconOptions.endIcon = submitIcon;
   }
 
   return (
@@ -112,14 +122,14 @@ export default function Form(props: FormProps) {
 
         <Grid item>
           <Stack direction="row" spacing={3} justifyContent="left">
-            {props.showSubmitIcon ? (
+            {showSubmitIcon ? (
               <LoadingButton
                 type="submit"
                 variant="contained"
                 {...iconOptions}
                 {...props.submitButtonProps}
               >
-                {props.submitText || "Submit"}
+                {submitText}
               </LoadingButton>
             ) : (
               <Button
@@ -127,12 +137,16 @@ export default function Form(props: FormProps) {
                 variant="contained"
                 {...props.submitButtonProps}
               >
-                {props.submitText || "Submit"}
+                {submitText}
               </Button>
             )}
-            {props.showCancel && (
-              <Button onClick={props.onCancel} {...props.cancelButtonProps}>
-                {props.cancelText || "Cancel"}
+            {showCancel && (
+              <Button
+                onClick={props.onCancel}
+                variant="outlined"
+                {...props.cancelButtonProps}
+              >
+                {cancelText}
               </Button>
             )}
           </Stack>
