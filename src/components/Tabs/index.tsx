@@ -1,55 +1,67 @@
 import { Box, Tab, Tabs } from "@mui/material";
 
 import React from "react";
-import { styled } from "@mui/system";
-
-const AntTabs = styled((props: any) => <Tabs {...props} />)(({ theme }) => ({
-  borderBottom: "1px solid #e8e8e8",
-  "&.MuiTabs-indicator": {
-    backgroundColor: theme.palette.primary.main,
-  },
-}));
-
-const AntTab = styled((props: any) => <Tab disableRipple {...props} />)(
-  ({ theme }) => ({
-    textTransform: "none",
-    minWidth: 0,
-    [theme.breakpoints.up("sm")]: {
-      minWidth: 0,
-    },
-    fontWeight: theme.typography.fontWeightRegular,
-    marginRight: theme.spacing(1),
-    "&.Mui-selected": {
-      color: theme.palette.secondary.main,
-      fontWeight: theme.typography.fontWeightMedium,
-    },
-  })
-);
 
 export interface TabProps {
   title: string;
   panel: React.ReactNode;
 }
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box>{children}</Box>}
+    </div>
+  );
+}
+
 export default function CustomTabs(tabs: TabProps[]) {
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [tabIndex, setTabIndex] = React.useState<number>(0);
+
+  const handleChange = (e: any, newValue: number) => {
+    setTabIndex(newValue);
+  };
 
   return (
     <Box sx={{ mt: 3 }}>
-      <AntTabs
+      <Tabs
         value={tabIndex}
-        onChange={(e: any, val: any) => setTabIndex(val)}
+        onChange={handleChange}
         indicatorColor="secondary"
+        textColor="secondary"
       >
         {tabs.map((tab, index) => (
-          <AntTab key={index} label={tab.title} sx={{ fontWeight: 400 }} />
+          <Tab
+            key={index}
+            label={tab.title}
+            sx={{ fontWeight: 400, textTransform: "none" }}
+            id={`simple-tab-${index}`}
+            aria-controls={`simple-tabpanel-${index}`}
+          />
         ))}
-      </AntTabs>
+      </Tabs>
 
       {tabs.map((tab, index) => (
-        <Box key={index} hidden={tabIndex !== index}>
-          {tab.panel}
-        </Box>
+        <TabPanel
+          key={index}
+          value={tabIndex}
+          index={index}
+          children={tab.panel}
+        />
       ))}
     </Box>
   );
