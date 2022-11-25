@@ -7,6 +7,10 @@ export interface TabProps {
   panel: React.ReactNode;
 }
 
+export interface TabsProps {
+  tabs: TabProps[];
+}
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -29,7 +33,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function CustomTabs(tabs: TabProps[]) {
+export default function CustomTabs({ tabs }: TabsProps) {
   const [tabIndex, setTabIndex] = React.useState<number>(0);
 
   const handleChange = (e: any, newValue: number) => {
