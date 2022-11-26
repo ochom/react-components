@@ -23,17 +23,21 @@ interface loadingIconOptions {
   endIcon?: React.ReactNode;
 }
 
-export default function Form(props: FormProps) {
-  const {
-    submitIcon = <Save />,
-    submitText = "Submit",
-    cancelText = "Cancel",
-    processing = false,
-    submitIconPosition = "start",
-    showCancel = true,
-    showSubmitIcon = true,
-  } = props;
-
+export default function Form({
+  fields = [],
+  onSubmit = () => {},
+  onCancel = () => {},
+  submitIcon = <Save />,
+  submitText = "Submit",
+  cancelText = "Cancel",
+  processing = false,
+  showButtons = true,
+  submitIconPosition = "start",
+  showCancel = true,
+  showSubmitIcon = true,
+  submitButtonProps = {},
+  cancelButtonProps = {},
+}: FormProps) {
   const iconOptions: loadingIconOptions = {
     loading: processing,
     loadingPosition: submitIconPosition,
@@ -46,111 +50,89 @@ export default function Form(props: FormProps) {
   }
 
   return (
-    <form onSubmit={props.onSubmit}>
+    <form onSubmit={onSubmit}>
       <Grid container spacing={4}>
-        {props.fields.map((field, index) => {
-          const {
-            name,
-            label,
-            type,
-            options,
-            custom,
-            required,
-            placeholder,
-            disabled,
-            multiline,
-            rows,
-            hidden,
-          } = field;
-          if (hidden) return null;
+        {fields.map((field, index) => {
+          if (field.hidden) return null;
           return (
             <Grid item key={index} xs={12}>
-              {type === "select" ? (
+              {field.type === "select" ? (
                 <FormControl fullWidth>
-                  <InputLabel id={`${name}-label`}>{label}</InputLabel>
+                  <InputLabel id={`${field.name}-label`}>
+                    {field.label}
+                  </InputLabel>
                   <Select
-                    labelId={`${name}-label`}
+                    labelId={`${field.name}-label`}
                     fullWidth
-                    id={name}
-                    value={props.formData[name]}
-                    onChange={props.onChange}
+                    id={field.name}
                     {...field}
                   >
-                    {(options || []).map((opt, index) => (
+                    {(field.options || []).map((opt, index) => (
                       <MenuItem key={index} value={opt.value}>
                         {opt.label}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-              ) : type === "custom" ? (
-                <FormControl fullWidth>{custom}</FormControl>
-              ) : type === "date" ? (
+              ) : field.type === "custom" ? (
+                <FormControl fullWidth>{field.component}</FormControl>
+              ) : field.type === "date" ? (
                 <FormControl fullWidth>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
-                      value={props.formData[name]}
-                      onChange={(value) =>
-                        props.onChange({ target: { name, value: value["$d"] } })
-                      }
                       {...field}
+                      onChange={(val: any) => {
+                        field.onChange &&
+                          field.onChange({
+                            target: { value: val["$d"], name: field.name },
+                          });
+                      }}
                     />
                   </LocalizationProvider>
                 </FormControl>
               ) : (
                 <FormControl fullWidth>
-                  <TextField
-                    fullWidth
-                    id={name}
-                    type={type}
-                    label={label}
-                    required={required}
-                    name={name}
-                    value={props.formData[name]}
-                    onChange={props.onChange}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    multiline={multiline}
-                    rows={rows}
-                  />
+                  <TextField fullWidth {...field} />
                 </FormControl>
               )}
             </Grid>
           );
         })}
 
-        <Grid item>
-          <Stack direction="row" spacing={3} justifyContent="left">
-            {showSubmitIcon ? (
-              <LoadingButton
-                type="submit"
-                variant="contained"
-                {...iconOptions}
-                {...props.submitButtonProps}
-              >
-                {submitText}
-              </LoadingButton>
-            ) : (
-              <Button
-                type="submit"
-                variant="contained"
-                {...props.submitButtonProps}
-              >
-                {submitText}
-              </Button>
-            )}
-            {showCancel && (
-              <Button
-                onClick={props.onCancel}
-                variant="outlined"
-                {...props.cancelButtonProps}
-              >
-                {cancelText}
-              </Button>
-            )}
-          </Stack>
-        </Grid>
+        {showButtons && (
+          <Grid item>
+            <Stack direction="row" spacing={3} justifyContent="left">
+              {showSubmitIcon ? (
+                <LoadingButton
+                  type="submit"
+                  variant="contained"
+                  {...iconOptions}
+                  {...submitButtonProps}
+                >
+                  {submitText}
+                </LoadingButton>
+              ) : (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  {...submitButtonProps}
+                >
+                  {submitText}
+                </Button>
+              )}
+              {showCancel && (
+                <Button
+                  onClick={onCancel}
+                  variant="outlined"
+                  {...cancelButtonProps}
+                >
+                  {cancelText}
+                </Button>
+              )}
+            </Stack>
+          </Grid>
+        )}
       </Grid>
     </form>
   );

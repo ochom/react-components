@@ -16,8 +16,10 @@ export interface FormField {
   name: string;
   label: string;
   type: FieldType;
+  value: string;
+  onChange: (val:any) => void;
   options?: SelectOption[]; // for select
-  custom?: React.ReactNode; // for custom
+  component?: React.ReactNode; // for custom
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
@@ -35,19 +37,16 @@ export interface ButtonProps {
 
 export interface FormProps {
   fields: FormField[];
-  formData: Record<string, any>;
-  onChange: (e: any) => void;
   onSubmit: () => void;
   onCancel?: () => void;
   processing?: boolean;
   submitText?: string;
   submitIcon?: React.ReactNode;
   cancelText?: string;
-  cancelIcon?: React.ReactNode;
   submitIconPosition?: "start" | "end";
+  showButtons?: boolean;
   showCancel?: boolean;
   showSubmitIcon?: boolean;
-  showCancelIcon?: boolean;
   submitButtonProps?: ButtonProps;
   cancelButtonProps?: ButtonProps;
 }
