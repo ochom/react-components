@@ -1,0 +1,29 @@
+.network-error {
+    width: 100%;
+    height: auto;
+}
+
+.network-error .svg {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(./network_error.svg);
+}
+
+.page-under-construction {
+    width: 100%;
+    height: auto;
+}
+
+.page-under-construction .svg {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(./page_under_construction.svg);
+}
