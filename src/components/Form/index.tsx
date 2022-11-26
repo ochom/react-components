@@ -14,7 +14,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { FormProps } from "./types";
 import { LoadingButton } from "@mui/lab";
 import React from "react";
-import { Cancel, Save } from "@mui/icons-material";
+import { Save } from "@mui/icons-material";
 
 interface loadingIconOptions {
   loading: boolean;
@@ -35,10 +35,9 @@ export default function Form({
   submitIconPosition = "start",
   showCancel = true,
   showSubmitIcon = true,
-  submitButtonProps={},
-  cancelButtonProps={},
+  submitButtonProps = {},
+  cancelButtonProps = {},
 }: FormProps) {
-
   const iconOptions: loadingIconOptions = {
     loading: processing,
     loadingPosition: submitIconPosition,
@@ -59,7 +58,9 @@ export default function Form({
             <Grid item key={index} xs={12}>
               {field.type === "select" ? (
                 <FormControl fullWidth>
-                  <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+                  <InputLabel id={`${field.name}-label`}>
+                    {field.label}
+                  </InputLabel>
                   <Select
                     labelId={`${field.name}-label`}
                     fullWidth
@@ -74,63 +75,64 @@ export default function Form({
                   </Select>
                 </FormControl>
               ) : field.type === "custom" ? (
-                <FormControl fullWidth>{field.custom}</FormControl>
+                <FormControl fullWidth>{field.component}</FormControl>
               ) : field.type === "date" ? (
                 <FormControl fullWidth>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
-                      onChange={(val) => {
-                        field.onChange && field.onChange({ target: { value: val, name: field.name } });
+                      {...field}
+                      onChange={(val: any) => {
+                        field.onChange &&
+                          field.onChange({
+                            target: { value: val["$d"], name: field.name },
+                          });
                       }}
-                      value={field.value}
-                      label={field.label}
                     />
                   </LocalizationProvider>
                 </FormControl>
               ) : (
                 <FormControl fullWidth>
-                  <TextField
-                    fullWidth
-                    {...field}
-                  />
+                  <TextField fullWidth {...field} />
                 </FormControl>
               )}
             </Grid>
           );
         })}
 
-        <Grid item>
-          <Stack direction="row" spacing={3} justifyContent="left">
-            {showSubmitIcon ? (
-              <LoadingButton
-                type="submit"
-                variant="contained"
-                {...iconOptions}
-                {...submitButtonProps}
-              >
-                {submitText}
-              </LoadingButton>
-            ) : (
-              <Button
-                type="submit"
-                variant="contained"
-                {...submitButtonProps}
-              >
-                {submitText}
-              </Button>
-            )}
-            {showCancel && (
-              <Button
-                onClick={onCancel}
-                variant="outlined"
-                {...cancelButtonProps}
-              >
-                {cancelText}
-              </Button>
-            )}
-          </Stack>
-        </Grid>
+        {showButtons && (
+          <Grid item>
+            <Stack direction="row" spacing={3} justifyContent="left">
+              {showSubmitIcon ? (
+                <LoadingButton
+                  type="submit"
+                  variant="contained"
+                  {...iconOptions}
+                  {...submitButtonProps}
+                >
+                  {submitText}
+                </LoadingButton>
+              ) : (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  {...submitButtonProps}
+                >
+                  {submitText}
+                </Button>
+              )}
+              {showCancel && (
+                <Button
+                  onClick={onCancel}
+                  variant="outlined"
+                  {...cancelButtonProps}
+                >
+                  {cancelText}
+                </Button>
+              )}
+            </Stack>
+          </Grid>
+        )}
       </Grid>
     </form>
   );

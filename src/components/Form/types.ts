@@ -16,10 +16,10 @@ export interface FormField {
   name: string;
   label: string;
   type: FieldType;
-  value?: string;
-  onChange?: (val:any) => void;
+  value: string;
+  onChange: (val:any) => void;
   options?: SelectOption[]; // for select
-  custom?: React.ReactNode; // for custom
+  component?: React.ReactNode; // for custom
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
