@@ -14,7 +14,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { FormProps } from "./types";
 import { LoadingButton } from "@mui/lab";
 import React from "react";
-import { Save } from "@mui/icons-material";
+import { Cancel, Save } from "@mui/icons-material";
 
 interface loadingIconOptions {
   loading: boolean;
@@ -23,16 +23,21 @@ interface loadingIconOptions {
   endIcon?: React.ReactNode;
 }
 
-export default function Form(props: FormProps) {
-  const {
-    submitIcon = <Save />,
-    submitText = "Submit",
-    cancelText = "Cancel",
-    processing = false,
-    submitIconPosition = "start",
-    showCancel = true,
-    showSubmitIcon = true,
-  } = props;
+export default function Form({
+  fields = [],
+  onSubmit = () => {},
+  onCancel = () => {},
+  submitIcon = <Save />,
+  submitText = "Submit",
+  cancelText = "Cancel",
+  processing = false,
+  showButtons = true,
+  submitIconPosition = "start",
+  showCancel = true,
+  showSubmitIcon = true,
+  submitButtonProps={},
+  cancelButtonProps={},
+}: FormProps) {
 
   const iconOptions: loadingIconOptions = {
     loading: processing,
@@ -46,55 +51,40 @@ export default function Form(props: FormProps) {
   }
 
   return (
-    <form onSubmit={props.onSubmit}>
+    <form onSubmit={onSubmit}>
       <Grid container spacing={4}>
-        {props.fields.map((field, index) => {
-          const {
-            name,
-            label,
-            type,
-            options,
-            custom,
-            required,
-            placeholder,
-            disabled,
-            multiline,
-            rows,
-            hidden,
-          } = field;
-          if (hidden) return null;
+        {fields.map((field, index) => {
+          if (field.hidden) return null;
           return (
             <Grid item key={index} xs={12}>
-              {type === "select" ? (
+              {field.type === "select" ? (
                 <FormControl fullWidth>
-                  <InputLabel id={`${name}-label`}>{label}</InputLabel>
+                  <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
                   <Select
-                    labelId={`${name}-label`}
+                    labelId={`${field.name}-label`}
                     fullWidth
-                    id={name}
-                    value={props.formData[name]}
-                    onChange={props.onChange}
+                    id={field.name}
                     {...field}
                   >
-                    {(options || []).map((opt, index) => (
+                    {(field.options || []).map((opt, index) => (
                       <MenuItem key={index} value={opt.value}>
                         {opt.label}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-              ) : type === "custom" ? (
-                <FormControl fullWidth>{custom}</FormControl>
-              ) : type === "date" ? (
+              ) : field.type === "custom" ? (
+                <FormControl fullWidth>{field.custom}</FormControl>
+              ) : field.type === "date" ? (
                 <FormControl fullWidth>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
-                      value={props.formData[name]}
-                      onChange={(value) =>
-                        props.onChange({ target: { name, value: value["$d"] } })
-                      }
-                      {...field}
+                      onChange={(val) => {
+                        field.onChange && field.onChange({ target: { value: val, name: field.name } });
+                      }}
+                      value={field.value}
+                      label={field.label}
                     />
                   </LocalizationProvider>
                 </FormControl>
@@ -102,17 +92,7 @@ export default function Form(props: FormProps) {
                 <FormControl fullWidth>
                   <TextField
                     fullWidth
-                    id={name}
-                    type={type}
-                    label={label}
-                    required={required}
-                    name={name}
-                    value={props.formData[name]}
-                    onChange={props.onChange}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    multiline={multiline}
-                    rows={rows}
+                    {...field}
                   />
                 </FormControl>
               )}
@@ -127,7 +107,7 @@ export default function Form(props: FormProps) {
                 type="submit"
                 variant="contained"
                 {...iconOptions}
-                {...props.submitButtonProps}
+                {...submitButtonProps}
               >
                 {submitText}
               </LoadingButton>
@@ -135,16 +115,16 @@ export default function Form(props: FormProps) {
               <Button
                 type="submit"
                 variant="contained"
-                {...props.submitButtonProps}
+                {...submitButtonProps}
               >
                 {submitText}
               </Button>
             )}
             {showCancel && (
               <Button
-                onClick={props.onCancel}
+                onClick={onCancel}
                 variant="outlined"
-                {...props.cancelButtonProps}
+                {...cancelButtonProps}
               >
                 {cancelText}
               </Button>
