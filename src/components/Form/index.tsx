@@ -66,6 +66,37 @@ const DateField = ({ ...field }: FormField) => {
   );
 };
 
+const CustomField = ({ ...field }: FormField) => {
+  return (
+    <Grid item xs={12}>
+      {field.component}
+    </Grid>
+  );
+};
+
+const TextFieldComponent = ({ ...field }: FormField) => {
+  return (
+    <Grid item xs={12}>
+      <FormControl fullWidth>
+        <TextField {...field} />
+      </FormControl>
+    </Grid>
+  );
+};
+
+const FormFieldComponent = ({ field }: { field: FormField }) => {
+  switch (field.type) {
+    case "select":
+      return <SelectField {...field} />;
+    case "date":
+      return <DateField {...field} />;
+    case "custom":
+      return <CustomField {...field} />;
+    default:
+      return <TextFieldComponent {...field} />;
+  }
+};
+
 export default function Form({
   processing = false,
   fields = [],
@@ -96,21 +127,8 @@ export default function Form({
     <form onSubmit={onSubmit}>
       <Grid container spacing={4}>
         {fields.map((field, index) => {
-          console.log(field);
           if (field.hidden) return null;
-
-          if (field.type === "custom") return field.component;
-          if (field.type === "select")
-            return <SelectField key={index} {...field} />;
-          if (field.type === "date")
-            return <DateField key={index} {...field} />;
-
-          return (
-            <FormControl
-              fullWidth
-              children={<TextField fullWidth {...field} />}
-            />
-          );
+          return <FormFieldComponent key={index} field={field} />;
         })}
 
         {showButtons && (
