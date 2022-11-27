@@ -1,9 +1,12 @@
+import "./styles.css";
+
 import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
 
+import { CircularLoader } from "../Monitors";
+import ConstructionSVG from "./construction-svg";
+import NetworkErrorSVG from "./network-svg";
 import React from "react";
 import Swal from "sweetalert2";
-import { CircularLoader } from "../Monitors";
-import "./styles.css";
 
 export interface AlertProps {
   title: string;
@@ -86,19 +89,19 @@ export interface ErrorPageProps {
   error: Error;
 }
 
-export const ErrorPage = ({ error, title="Oops!" }: ErrorPageProps) => {
- return (
+export const ErrorPage = ({ error, title = "Oops!" }: ErrorPageProps) => {
+  return (
     <Stack className="network-error">
-      <Box className="svg"></Box>
+      <NetworkErrorSVG />
       <Box>
-        <Typography variant="h4" align="center">
+        <Typography variant="h4" align="center" color="primary">
           {title}
         </Typography>
         <Typography align="center">{error.message}</Typography>
       </Box>
     </Stack>
   );
-}
+};
 
 export interface PageConstructionProps {
   feature: string;
@@ -107,7 +110,12 @@ export interface PageConstructionProps {
   delay?: number;
 }
 
-export const PageConstruction = ( { feature="", mobile = "+254 708 113 456", email = "ochomrichard752@gmail.com", delay = 3000 }: PageConstructionProps) => {
+export const PageConstruction = ({
+  feature = "",
+  mobile = "+254 708 113 456",
+  email = "ochomrichard752@gmail.com",
+  delay = 3000,
+}: PageConstructionProps) => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -121,9 +129,9 @@ export const PageConstruction = ( { feature="", mobile = "+254 708 113 456", ema
 
   return (
     <Stack className="page-under-construction">
-      <Box className="svg"></Box>
+      <ConstructionSVG />
       <Box>
-        <Typography variant="h4" align="center">
+        <Typography variant="h4" align="center" color="primary">
           {feature} Feature Coming Soon
         </Typography>
         <Box sx={{ py: 2 }}>
@@ -132,8 +140,7 @@ export const PageConstruction = ( { feature="", mobile = "+254 708 113 456", ema
             contribute.
           </Typography>
           <Typography align="center">
-            Call Us: <b>{mobile}</b> or Email Us:{" "}
-            <b>{email}</b>
+            Call Us: <b>{mobile}</b> or Email Us: <b>{email}</b>
           </Typography>
         </Box>
       </Box>
