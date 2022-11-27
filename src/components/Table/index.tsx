@@ -56,7 +56,7 @@ export default function Table({
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
-    const filteredRows = data.filter((row: any) =>
+    const filteredRows = rows.filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
     );
 
@@ -89,7 +89,7 @@ export default function Table({
         highlightOnHover
         pointerOnHover
         columns={columns}
-        data={rows}
+        data={data}
         onRowClicked={onRowClicked}
       />
       {rows.length > 0 && (
