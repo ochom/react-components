@@ -1,9 +1,5 @@
-.network-error {
-  width: 100%;
-  height: auto;
-}
-
-svg {
+.my-svg {
   width: 500px;
   height: 500px;
+  margin: 0 auto;
 }
