@@ -108,6 +108,7 @@ export interface PageConstructionProps {
   mobile?: string;
   email?: string;
   delay?: number;
+  color?: string;
 }
 
 export const PageConstruction = ({
@@ -115,6 +116,7 @@ export const PageConstruction = ({
   mobile = "+254 708 113 456",
   email = "ochomrichard752@gmail.com",
   delay = 3000,
+  color = "grey",
 }: PageConstructionProps) => {
   const [loading, setLoading] = React.useState(true);
 
@@ -129,7 +131,7 @@ export const PageConstruction = ({
 
   return (
     <Stack className="page-under-construction">
-      <ConstructionSVG />
+      <ConstructionSVG color={color} />
       <Box>
         <Typography variant="h4" align="center" color="primary">
           {feature} Feature Coming Soon
