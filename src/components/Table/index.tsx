@@ -52,7 +52,11 @@ export default function Table({
   onRowClicked = () => {},
   pagination = [10, 20, 30, 40, 50],
 }: TableProps) {
-  const [data, setData] = React.useState<any[]>(rows);
+  const [data, setData] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    setData(rows);
+  }, [rows]);
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
