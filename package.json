@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "1.0.51",
+    "version": "1.0.52",
     "description": "custom react components",
     "repository": {
         "type": "git",
@@ -34,6 +34,7 @@
         "rollup": "^2.0.0",
         "rollup-plugin-peer-deps-external": "^2.2.4",
         "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-static-files": "^0.2.0",
         "rollup-plugin-terser": "^7.0.2",
         "sweetalert2": "^11.4.8",
         "tslib": "^2.4.1",
