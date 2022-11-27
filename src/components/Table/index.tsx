@@ -1,4 +1,4 @@
-import { Checkbox, Paper, TextField } from "@mui/material";
+import { Checkbox, Paper, TextField, Typography } from "@mui/material";
 
 import { ArrowDownward } from "@mui/icons-material";
 import { BarLoader } from "../Monitors";
@@ -36,22 +36,78 @@ const customStyles = {
 };
 
 export interface TableProps {
+  loading?: boolean;
+  error?: Error;
   columns: [];
   rows: [];
-  loading?: boolean;
-  handleSearch?: (val: string) => void;
+  searchKeys?: string[];
   onRowClicked?: (row: any) => void;
   pagination?: number[];
 }
 
 export default function Table({
   loading = false,
+  error,
   columns,
   rows,
-  handleSearch = (val) => {},
+  searchKeys = [],
   onRowClicked = (row) => {},
   pagination = [10, 20, 30, 40, 50],
 }: TableProps) {
+  const [data, setData] = React.useState<any>(rows);
+
+  // search in objects
+  const searchInObject = (obj: any, key: string, value: string): boolean => {
+    if (obj[key] === undefined) {
+      return false;
+    }
+
+    if (typeof obj[key] === "object") {
+      return Object.keys(obj[key]).some((k) =>
+        searchInObject(obj[key], k, value)
+      );
+    }
+
+    if (typeof obj[key] === "string") {
+      return obj[key].toLowerCase().includes(value.toLowerCase());
+    }
+
+    if (typeof obj[key] === "number") {
+      return obj[key].toString().includes(value);
+    }
+
+    if (typeof obj[key] === "boolean") {
+      return obj[key].toString().includes(value);
+    }
+
+    return false;
+  };
+
+  const handleSearch = (e: any) => {
+    const value = e.target.value;
+    const filteredRows = data.filter((row: any) => {
+      let found = false;
+      searchKeys.forEach((key) => {
+        found = searchInObject(row, key, value);
+      });
+      return found;
+    });
+
+    if (filteredRows.length > 0) {
+      setData(filteredRows);
+    }
+  };
+
+  if (error) {
+    return (
+      <Paper sx={{ p: 3 }}>
+        <Typography variant="h6" textAlign="center">
+          {error.message}
+        </Typography>
+      </Paper>
+    );
+  }
+
   return (
     <Paper sx={{ position: "relative" }}>
       <DataTable
@@ -77,7 +133,7 @@ export default function Table({
             color="primary"
             size="small"
             placeholder="Search ..."
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={handleSearch}
           />
         </Box>
       )}
