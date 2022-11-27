@@ -9,9 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { FormField, FormProps } from "./types";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { FormProps } from "./types";
 import { LoadingButton } from "@mui/lab";
 import React from "react";
 import { Save } from "@mui/icons-material";
@@ -23,14 +23,57 @@ interface loadingIconOptions {
   endIcon?: React.ReactNode;
 }
 
+const SelectField = ({ ...field }: FormField) => {
+  return (
+    <Grid item xs={12}>
+      <FormControl fullWidth>
+        <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+        <Select
+          labelId={`${field.name}-label`}
+          fullWidth
+          id={field.name}
+          {...field}
+        >
+          {(field.options || []).map((opt, i) => (
+            <MenuItem key={i} value={opt.value}>
+              {opt.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Grid>
+  );
+};
+
+const DateField = ({ ...field }: FormField) => {
+  return (
+    <Grid item xs={12}>
+      <FormControl fullWidth>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateTimePicker
+            renderInput={(props) => <TextField {...props} />}
+            {...field}
+            onChange={(val: any) => {
+              field.onChange &&
+                field.onChange({
+                  target: { value: val["$d"], name: field.name },
+                });
+            }}
+          />
+        </LocalizationProvider>
+      </FormControl>
+    </Grid>
+  );
+};
+
 export default function Form({
+  processing = false,
   fields = [],
   onSubmit = () => {},
   onCancel = () => {},
   submitIcon = <Save />,
   submitText = "Submit",
   cancelText = "Cancel",
-  processing = false,
   showButtons = true,
   submitIconPosition = "start",
   showCancel = true,
@@ -53,50 +96,20 @@ export default function Form({
     <form onSubmit={onSubmit}>
       <Grid container spacing={4}>
         {fields.map((field, index) => {
+          console.log(field);
           if (field.hidden) return null;
+
+          if (field.type === "custom") return field.component;
+          if (field.type === "select")
+            return <SelectField key={index} {...field} />;
+          if (field.type === "date")
+            return <DateField key={index} {...field} />;
+
           return (
-            <Grid item key={index} xs={12}>
-              {field.type === "select" ? (
-                <FormControl fullWidth>
-                  <InputLabel id={`${field.name}-label`}>
-                    {field.label}
-                  </InputLabel>
-                  <Select
-                    labelId={`${field.name}-label`}
-                    fullWidth
-                    id={field.name}
-                    {...field}
-                  >
-                    {(field.options || []).map((opt, index) => (
-                      <MenuItem key={index} value={opt.value}>
-                        {opt.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              ) : field.type === "custom" ? (
-                <FormControl fullWidth>{field.component}</FormControl>
-              ) : field.type === "date" ? (
-                <FormControl fullWidth>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker
-                      renderInput={(props) => <TextField {...props} />}
-                      {...field}
-                      onChange={(val: any) => {
-                        field.onChange &&
-                          field.onChange({
-                            target: { value: val["$d"], name: field.name },
-                          });
-                      }}
-                    />
-                  </LocalizationProvider>
-                </FormControl>
-              ) : (
-                <FormControl fullWidth>
-                  <TextField fullWidth {...field} />
-                </FormControl>
-              )}
-            </Grid>
+            <FormControl
+              fullWidth
+              children={<TextField fullWidth {...field} />}
+            />
           );
         })}
 
