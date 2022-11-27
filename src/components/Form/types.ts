@@ -17,7 +17,7 @@ export interface FormField {
   label: string;
   type: FieldType;
   value: string;
-  onChange: (val:any) => void;
+  onChange: (val: any) => void;
   options?: SelectOption[]; // for select
   component?: React.ReactNode; // for custom
   required?: boolean;
@@ -36,10 +36,10 @@ export interface ButtonProps {
 }
 
 export interface FormProps {
+  processing?: boolean;
   fields: FormField[];
   onSubmit: () => void;
   onCancel?: () => void;
-  processing?: boolean;
   submitText?: string;
   submitIcon?: React.ReactNode;
   cancelText?: string;
