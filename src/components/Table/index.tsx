@@ -40,7 +40,6 @@ export interface TableProps {
   error?: Error;
   columns: [];
   rows: [];
-  searchKeys?: string[];
   onRowClicked?: (row: any) => void;
   pagination?: number[];
 }
@@ -50,48 +49,16 @@ export default function Table({
   error,
   columns,
   rows,
-  searchKeys = [],
   onRowClicked = (row) => {},
   pagination = [10, 20, 30, 40, 50],
 }: TableProps) {
   const [data, setData] = React.useState<any>(rows);
 
-  // search in objects
-  const searchInObject = (obj: any, key: string, value: string): boolean => {
-    if (obj[key] === undefined) {
-      return false;
-    }
-
-    if (typeof obj[key] === "object") {
-      return Object.keys(obj[key]).some((k) =>
-        searchInObject(obj[key], k, value)
-      );
-    }
-
-    if (typeof obj[key] === "string") {
-      return obj[key].toLowerCase().includes(value.toLowerCase());
-    }
-
-    if (typeof obj[key] === "number") {
-      return obj[key].toString().includes(value);
-    }
-
-    if (typeof obj[key] === "boolean") {
-      return obj[key].toString().includes(value);
-    }
-
-    return false;
-  };
-
   const handleSearch = (e: any) => {
     const value = e.target.value;
-    const filteredRows = data.filter((row: any) => {
-      let found = false;
-      searchKeys.forEach((key) => {
-        found = searchInObject(row, key, value);
-      });
-      return found;
-    });
+    const filteredRows = data.filter((row: any) =>
+      JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
+    );
 
     if (filteredRows.length > 0) {
       setData(filteredRows);
@@ -130,7 +97,6 @@ export default function Table({
           <TextField
             sx={{ width: "200px" }}
             label="Search"
-            color="primary"
             size="small"
             placeholder="Search ..."
             onChange={handleSearch}
