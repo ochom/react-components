@@ -91,13 +91,15 @@ export interface ErrorPageProps {
 
 export const ErrorPage = ({ error, title = "Oops!" }: ErrorPageProps) => {
   return (
-    <Stack className="network-error">
+    <Stack sx={{ width: "100%", py: 3 }}>
       <NetworkErrorSVG />
       <Box>
-        <Typography variant="h4" align="center" color="primary">
+        <Typography variant="h6" align="center" color="primary">
           {title}
         </Typography>
-        <Typography align="center">{error.message}</Typography>
+        <Box sx={{ py: 1 }}>
+          <Typography align="center">{error.message}</Typography>
+        </Box>
       </Box>
     </Stack>
   );
@@ -130,10 +132,10 @@ export const PageConstruction = ({
   if (loading) return <CircularLoader />;
 
   return (
-    <Stack className="page-under-construction">
+    <Stack sx={{ width: "100%", py: 3 }}>
       <ConstructionSVG color={color} />
       <Box>
-        <Typography variant="h4" align="center" color="primary">
+        <Typography variant="h6" align="center" color="primary">
           {feature} Feature Coming Soon
         </Typography>
         <Box sx={{ py: 2 }}>
