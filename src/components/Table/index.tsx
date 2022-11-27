@@ -48,15 +48,15 @@ export default function Table({
   loading = false,
   error,
   columns,
-  rows,
-  onRowClicked = (row) => {},
+  rows = [],
+  onRowClicked = () => {},
   pagination = [10, 20, 30, 40, 50],
 }: TableProps) {
-  const [data, setData] = React.useState<any>(rows);
+  const [data, setData] = React.useState<any[]>(rows);
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
-    const filteredRows = rows.filter((row: any) =>
+    const filteredRows: any[] = rows.filter((row) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
     );
 
@@ -92,7 +92,7 @@ export default function Table({
         data={data}
         onRowClicked={onRowClicked}
       />
-      {rows.length > 0 && (
+      {data.length > 0 && (
         <Box sx={{ position: "absolute", bottom: "30px", left: "50px" }}>
           <TextField
             sx={{ width: "200px" }}
