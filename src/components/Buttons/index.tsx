@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "@mui/material";
+import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 
-import { LoadingButton } from "@mui/lab";
 import React from "react";
 
 const CButton = ({ children, ...rest }: ButtonProps) => {
@@ -18,7 +18,7 @@ const CButton = ({ children, ...rest }: ButtonProps) => {
   );
 };
 
-const LButton = ({ children = {}, elevated = false, ...rest }) => {
+const LButton = ({ children, ...rest }: LoadingButtonProps) => {
   const { disableElevation = true } = rest;
   return (
     <LoadingButton
