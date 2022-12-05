@@ -123,7 +123,11 @@ export default function Form({
                 {submitText}
               </LButton>
               {showCancelButton && (
-                <CButton onClick={onCancel} {...cancelButtonProps}>
+                <CButton
+                  onClick={onCancel}
+                  variant="outlined"
+                  {...cancelButtonProps}
+                >
                   {cancelText}
                 </CButton>
               )}
