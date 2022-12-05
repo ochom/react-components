@@ -1,3 +1,6 @@
+import { ButtonProps } from "@mui/material";
+import { LoadingButtonProps } from "@mui/lab";
+
 export type FieldType =
   | "text"
   | "email"
@@ -28,25 +31,14 @@ export interface FormField {
   hidden?: boolean;
 }
 
-export interface ButtonProps {
-  disabled?: boolean;
-  size?: "small" | "medium" | "large";
-  variant?: "contained" | "outlined" | "text";
-  color?: "primary" | "secondary" | "success" | "error";
-}
-
 export interface FormProps {
-  processing?: boolean;
   fields: FormField[];
   onSubmit: () => void;
   onCancel?: () => void;
   submitText?: string;
-  submitIcon?: React.ReactNode;
   cancelText?: string;
-  submitIconPosition?: "start" | "end";
   showButtons?: boolean;
-  showCancel?: boolean;
-  showSubmitIcon?: boolean;
-  submitButtonProps?: ButtonProps;
+  showCancelButton?: boolean;
+  submitButtonProps?: LoadingButtonProps;
   cancelButtonProps?: ButtonProps;
 }
