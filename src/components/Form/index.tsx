@@ -12,16 +12,7 @@ import {
 import { FormField, FormProps } from "./types";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LoadingButton } from "@mui/lab";
 import React from "react";
-import { Save } from "@mui/icons-material";
-
-interface loadingIconOptions {
-  loading: boolean;
-  loadingPosition: "start" | "end";
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-}
 
 const SelectField = ({ ...field }: FormField) => {
   return (
