@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
+import { Alert, Box, Slide, Snackbar, Stack, Typography } from "@mui/material";
 
 import { CircularLoader } from "../Monitors";
 import ConstructionSVG from "./construction-svg";
@@ -59,6 +59,10 @@ export interface SnackProps {
   duration?: number;
 }
 
+const TransitionUp = (props: any) => {
+  return <Slide {...props} direction="up" />;
+};
+
 export const CustomSnackBar = ({
   open = false,
   message = "",
@@ -76,8 +80,9 @@ export const CustomSnackBar = ({
       anchorOrigin={anchorOrigin}
       autoHideDuration={duration}
       onClose={handleClose}
+      TransitionComponent={TransitionUp}
     >
-      <Alert severity={type} sx={{ width: "100%" }} variant="filled">
+      <Alert severity={type} sx={{ width: "100%" }}>
         {message}
       </Alert>
     </Snackbar>
