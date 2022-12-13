@@ -14,78 +14,78 @@ import { FormField, FormProps } from "./types";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React from "react";
 
-const SelectField = ({ ...field }: FormField) => {
+export const SelectField = ({ ...field }: FormField) => {
   return (
-    <Grid item xs={12}>
-      <FormControl fullWidth>
-        <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
-        <Select
-          labelId={`${field.name}-label`}
-          fullWidth
-          id={field.name}
-          {...field}
-        >
-          {(field.options || []).map((opt, i) => (
-            <MenuItem key={i} value={opt.value}>
-              {opt.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Grid>
+    <FormControl fullWidth>
+      <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+      <Select
+        labelId={`${field.name}-label`}
+        fullWidth
+        id={field.name}
+        {...field}
+      >
+        {(field.options || []).map((opt, i) => (
+          <MenuItem key={i} value={opt.value}>
+            {opt.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
-const DateField = ({ ...field }: FormField) => {
+export const DateField = ({ ...field }: FormField) => {
   return (
-    <Grid item xs={12}>
-      <FormControl fullWidth>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            renderInput={(props) => <TextField {...props} />}
-            {...field}
-            onChange={(val: any) => {
-              field.onChange &&
-                field.onChange({
-                  target: { value: val["$d"], name: field.name },
-                });
-            }}
-          />
-        </LocalizationProvider>
-      </FormControl>
-    </Grid>
+    <FormControl fullWidth>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateTimePicker
+          renderInput={(props) => <TextField {...props} />}
+          {...field}
+          onChange={(val: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { value: val["$d"], name: field.name },
+              });
+          }}
+        />
+      </LocalizationProvider>
+    </FormControl>
+  );
+};
+
+export const TextFieldComponent = ({ ...field }: FormField) => {
+  return (
+    <FormControl fullWidth>
+      <TextField {...field} />
+    </FormControl>
   );
 };
 
 const CustomField = ({ ...field }: FormField) => {
-  return (
-    <Grid item xs={12}>
-      {field.component}
-    </Grid>
-  );
-};
-
-const TextFieldComponent = ({ ...field }: FormField) => {
-  return (
-    <Grid item xs={12}>
-      <FormControl fullWidth>
-        <TextField {...field} />
-      </FormControl>
-    </Grid>
-  );
+  return <>{field.component}</>;
 };
 
 const FormFieldComponent = ({ field }: { field: FormField }) => {
+  let myField = null;
   switch (field.type) {
     case "select":
-      return <SelectField {...field} />;
+      myField = <SelectField {...field} />;
+      break;
     case "date":
-      return <DateField {...field} />;
+      myField = <DateField {...field} />;
+      break;
     case "custom":
-      return <CustomField {...field} />;
+      myField = <CustomField {...field} />;
+      break;
     default:
-      return <TextFieldComponent {...field} />;
+      myField = <TextFieldComponent {...field} />;
+      break;
   }
+  return (
+    <Grid item xs={12}>
+      {myField}
+    </Grid>
+  );
 };
 
 export default function Form({

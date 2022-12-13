@@ -8,3 +8,4 @@ export { default as Tabs } from "./Tabs";
 export * from "./Alerts";
 export * from "./Monitors";
 export * from "./Buttons";
+export * from "./Form";
