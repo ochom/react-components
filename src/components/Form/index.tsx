@@ -16,62 +16,57 @@ import React from "react";
 
 export const SelectField = ({ ...field }: FormField) => {
   return (
-      <FormControl fullWidth>
-        <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
-        <Select
-          labelId={`${field.name}-label`}
-          fullWidth
-          id={field.name}
-          {...field}
-        >
-          {(field.options || []).map((opt, i) => (
-            <MenuItem key={i} value={opt.value}>
-              {opt.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <FormControl fullWidth>
+      <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+      <Select
+        labelId={`${field.name}-label`}
+        fullWidth
+        id={field.name}
+        {...field}
+      >
+        {(field.options || []).map((opt, i) => (
+          <MenuItem key={i} value={opt.value}>
+            {opt.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
 export const DateField = ({ ...field }: FormField) => {
   return (
-      <FormControl fullWidth>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateTimePicker
-            renderInput={(props) => <TextField {...props} />}
-            {...field}
-            onChange={(val: any) => {
-              field.onChange &&
-                field.onChange({
-                  target: { value: val["$d"], name: field.name },
-                });
-            }}
-          />
-        </LocalizationProvider>
-      </FormControl>
+    <FormControl fullWidth>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateTimePicker
+          renderInput={(props) => <TextField {...props} />}
+          {...field}
+          onChange={(val: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { value: val["$d"], name: field.name },
+              });
+          }}
+        />
+      </LocalizationProvider>
+    </FormControl>
   );
 };
 
 export const TextFieldComponent = ({ ...field }: FormField) => {
   return (
-      <FormControl fullWidth>
-        <TextField {...field} />
-      </FormControl>
+    <FormControl fullWidth>
+      <TextField {...field} />
+    </FormControl>
   );
 };
 
 const CustomField = ({ ...field }: FormField) => {
-  return (
-    <>
-      {field.component}
-    </>
-  );
+  return <>{field.component}</>;
 };
 
-
 const FormFieldComponent = ({ field }: { field: FormField }) => {
-  let myField = null
+  let myField = null;
   switch (field.type) {
     case "select":
       myField = <SelectField {...field} />;
@@ -86,7 +81,11 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       myField = <TextFieldComponent {...field} />;
       break;
   }
-  return <Grid item xs={12}>{myField}</Grid>
+  return (
+    <Grid item xs={12}>
+      {myField}
+    </Grid>
+  );
 };
 
 export default function Form({
