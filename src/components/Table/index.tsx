@@ -42,6 +42,7 @@ export interface TableProps {
   rows: [];
   onRowClicked?: (row: any) => void;
   pagination?: number[];
+  responsive?: boolean;
 }
 
 export default function Table({
@@ -51,6 +52,7 @@ export default function Table({
   rows = [],
   onRowClicked = () => {},
   pagination = [10, 20, 30, 40, 50],
+  responsive = true,
 }: TableProps) {
   const [data, setData] = React.useState<any[]>([]);
 
@@ -60,7 +62,7 @@ export default function Table({
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
-    const filteredRows: any[] = rows.filter((row) =>
+    const filteredRows: any[] = rows.filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
     );
 
@@ -95,6 +97,7 @@ export default function Table({
         columns={columns}
         data={data}
         onRowClicked={onRowClicked}
+        responsive={responsive}
       />
       {data.length > 0 && (
         <Box sx={{ position: "absolute", bottom: "30px", left: "50px" }}>
