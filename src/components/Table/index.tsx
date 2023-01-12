@@ -1,9 +1,9 @@
-import { Checkbox, Paper, TextField, Typography } from "@mui/material";
+import DataTable, { TableProps } from "react-data-table-component";
+import { Paper, TextField, Typography } from "@mui/material";
 
 import { ArrowDownward } from "@mui/icons-material";
 import { BarLoader } from "../Monitors";
 import { Box } from "@mui/system";
-import DataTable from "react-data-table-component";
 import React from "react";
 
 const customStyles = {
@@ -35,34 +35,26 @@ const customStyles = {
   },
 };
 
-export interface TableProps {
+export interface MyTableProps<T> {
   loading?: boolean;
   error?: Error;
-  columns: [];
-  rows: [];
-  onRowClicked?: (row: any) => void;
-  pagination?: number[];
-  responsive?: boolean;
+  props?: TableProps<T>;
 }
 
 export default function Table({
   loading = false,
   error,
-  columns,
-  rows = [],
-  onRowClicked = () => {},
-  pagination = [10, 20, 30, 40, 50],
-  responsive = true,
-}: TableProps) {
+  props,
+}: MyTableProps<any>) {
   const [data, setData] = React.useState<any[]>([]);
 
   React.useEffect(() => {
-    setData(rows);
-  }, [rows]);
+    setData(props?.data || []);
+  }, [props?.data]);
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
-    const filteredRows: any[] = rows.filter((row: any) =>
+    const filteredRows: any[] = (props?.data || []).filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
     );
 
@@ -81,6 +73,10 @@ export default function Table({
     );
   }
 
+  const pagination = props?.paginationRowsPerPageOptions || [
+    10, 20, 30, 40, 50,
+  ];
+
   return (
     <Paper sx={{ position: "relative" }}>
       <DataTable
@@ -94,10 +90,10 @@ export default function Table({
         }
         highlightOnHover
         pointerOnHover
-        columns={columns}
         data={data}
-        onRowClicked={onRowClicked}
-        responsive={responsive}
+        columns={props?.columns || []}
+        responsive={false}
+        {...props}
       />
       {data.length > 0 && (
         <Box sx={{ position: "absolute", bottom: "30px", left: "50px" }}>
