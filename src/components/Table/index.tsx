@@ -78,7 +78,16 @@ export default function Table({
   ];
 
   return (
-    <Paper sx={{ position: "relative" }}>
+    <Paper elevation={0}>
+      <Box>
+        <TextField
+          sx={{ width: "200px" }}
+          label="Search"
+          size="small"
+          placeholder="Search ..."
+          onChange={handleSearch}
+        />
+      </Box>
       <DataTable
         progressComponent={<BarLoader />}
         progressPending={loading}
@@ -95,17 +104,6 @@ export default function Table({
         responsive={false}
         {...props}
       />
-      {data.length > 0 && (
-        <Box sx={{ position: "absolute", bottom: "30px", left: "50px" }}>
-          <TextField
-            sx={{ width: "200px" }}
-            label="Search"
-            size="small"
-            placeholder="Search ..."
-            onChange={handleSearch}
-          />
-        </Box>
-      )}
     </Paper>
   );
 }
