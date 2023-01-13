@@ -38,12 +38,14 @@ const customStyles = {
 export interface MyTableProps<T> {
   loading?: boolean;
   error?: Error;
+  showSearch?: boolean;
   props?: TableProps<T>;
 }
 
 export default function Table({
   loading = false,
   error,
+  showSearch = false,
   props,
 }: MyTableProps<any>) {
   const [data, setData] = React.useState<any[]>([]);
@@ -78,17 +80,10 @@ export default function Table({
   ];
 
   return (
-    <Paper elevation={0}>
-      <Box>
-        <TextField
-          sx={{ width: "200px" }}
-          label="Search"
-          size="small"
-          placeholder="Search ..."
-          onChange={handleSearch}
-        />
-      </Box>
+    <Paper sx={{ position: "relative", minWidth: "600px" }} elevation={0}>
       <DataTable
+        columns={props?.columns || []}
+        data={data}
         progressComponent={<BarLoader />}
         progressPending={loading}
         pagination
@@ -99,11 +94,23 @@ export default function Table({
         }
         highlightOnHover
         pointerOnHover
-        data={data}
-        columns={props?.columns || []}
-        responsive={false}
         {...props}
       />
+      {data.length > 0 && showSearch && <SearchBox onSearch={handleSearch} />}
     </Paper>
   );
 }
+
+const SearchBox = ({ onSearch }: any) => {
+  return (
+    <Box sx={{ position: "absolute", bottom: "30px", left: "50px" }}>
+      <TextField
+        sx={{ width: "200px" }}
+        label="Search"
+        size="small"
+        placeholder="Search ..."
+        onChange={onSearch}
+      />
+    </Box>
+  );
+};
