@@ -1,9 +1,8 @@
+import { Box, Paper, TextField, Typography } from "@mui/material";
 import DataTable, { TableProps } from "react-data-table-component";
-import { Paper, TextField, Typography } from "@mui/material";
 
 import { ArrowDownward } from "@mui/icons-material";
 import { BarLoader } from "../Monitors";
-import { Box } from "@mui/system";
 import React from "react";
 
 const customStyles = {
@@ -19,6 +18,10 @@ const customStyles = {
     },
   },
   rows: {
+    style: {
+      paddingTop: "5px",
+      paddingBottom: "5px",
+    },
     highlightOnHoverStyle: {
       backgroundColor: "#4e0c8b1c",
       borderBottomColor: "#FFFFFF",
@@ -35,17 +38,17 @@ const customStyles = {
   },
 };
 
-export interface MyTableProps<T> {
+export type MyTableProps<T> = {
   loading?: boolean;
   error?: Error;
   showSearch?: boolean;
   props?: TableProps<T>;
-}
+};
 
 export default function Table({
-  loading = false,
+  loading,
   error,
-  showSearch = false,
+  showSearch,
   props,
 }: MyTableProps<any>) {
   const [data, setData] = React.useState<any[]>([]);
@@ -85,7 +88,7 @@ export default function Table({
         columns={props?.columns || []}
         data={data}
         progressComponent={<BarLoader />}
-        progressPending={loading}
+        progressPending={loading || false}
         pagination
         paginationRowsPerPageOptions={pagination}
         customStyles={customStyles}
