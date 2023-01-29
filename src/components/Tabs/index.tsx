@@ -41,7 +41,7 @@ export default function CustomTabs({ tabs }: TabsProps) {
   };
 
   return (
-    <Box sx={{ mt: 3 }}>
+    <Box>
       <Tabs
         value={tabIndex}
         onChange={handleChange}
