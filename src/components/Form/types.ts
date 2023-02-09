@@ -15,6 +15,13 @@ export interface SelectOption {
   value: string;
 }
 
+export interface Grow {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+}
+
 export interface FormField {
   name: string;
   label: string;
@@ -29,6 +36,7 @@ export interface FormField {
   multiline?: boolean;
   rows?: number;
   hidden?: boolean;
+  grow?: Grow;
 }
 
 export interface FormProps {

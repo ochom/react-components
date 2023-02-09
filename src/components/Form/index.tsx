@@ -81,8 +81,11 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       myField = <TextFieldComponent {...field} />;
       break;
   }
+
+  const grow = field.grow || { xs: 12, sm: 12, md: 12, lg: 12 };
+
   return (
-    <Grid item xs={12}>
+    <Grid item xs={grow.xs} sm={grow.sm} md={grow.md} lg={grow.lg}>
       {myField}
     </Grid>
   );
