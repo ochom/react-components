@@ -82,16 +82,14 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       break;
   }
 
-  const grow = field.grow || { xs: 12, sm: 12, md: 12, lg: 12 };
+  // define grow dimensions
+  const xs = field.grow?.xs || 12;
+  const sm = field.grow?.sm || xs;
+  const md = field.grow?.md || sm;
+  const lg = field.grow?.lg || md;
 
   return (
-    <Grid
-      item
-      xs={grow.xs || 12}
-      sm={grow.sm || 12}
-      md={grow.md || 12}
-      lg={grow.lg || 12}
-    >
+    <Grid item xs={xs} sm={sm} md={md} lg={lg}>
       {myField}
     </Grid>
   );
