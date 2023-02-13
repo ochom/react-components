@@ -1,5 +1,4 @@
 import { CButton, LButton } from "../Buttons";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import {
   FormControl,
   Grid,
@@ -11,7 +10,9 @@ import {
 } from "@mui/material";
 import { FormField, FormProps } from "./types";
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import DateAdapter from "@mui/lab/AdapterMoment";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { MobileDateTimePicker } from "@mui/lab";
 import React from "react";
 
 export const SelectField = ({ ...field }: FormField) => {
@@ -37,16 +38,11 @@ export const SelectField = ({ ...field }: FormField) => {
 export const DateField = ({ ...field }: FormField) => {
   return (
     <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateTimePicker
-          renderInput={(props) => <TextField {...props} />}
+      <LocalizationProvider dateAdapter={DateAdapter}>
+        <MobileDateTimePicker
+          renderInput={(params: any) => <TextField fullWidth {...params} />}
+          inputFormat="DD/MM/yyyy"
           {...field}
-          onChange={(val: any) => {
-            field.onChange &&
-              field.onChange({
-                target: { value: val["$d"], name: field.name },
-              });
-          }}
         />
       </LocalizationProvider>
     </FormControl>
