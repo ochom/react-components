@@ -9,9 +9,12 @@ import {
   TextField,
 } from "@mui/material";
 import { FormField, FormProps } from "./types";
-import { LocalizationProvider, MobileDateTimePicker } from "@mui/lab";
+import {
+  LocalizationProvider,
+  MobileDateTimePicker,
+} from "@mui/x-date-pickers";
 
-import DateAdapter from "@mui/lab/AdapterMoment";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React from "react";
 
 export const SelectField = ({ ...field }: FormField) => {
@@ -37,9 +40,19 @@ export const SelectField = ({ ...field }: FormField) => {
 export const DateField = ({ ...field }: FormField) => {
   return (
     <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={DateAdapter}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        {/* <DateTimePicker
+          renderInput={(props) => <TextField {...props} />}
+          {...field}
+          onChange={(val: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { value: val["$d"], name: field.name },
+              });
+          }}
+        /> */}
         <MobileDateTimePicker
-          renderInput={(params: any) => <TextField fullWidth {...params} />}
+          renderInput={(props: any) => <TextField {...props} />}
           inputFormat="DD/MM/yyyy"
           {...field}
         />
