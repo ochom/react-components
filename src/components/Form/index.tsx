@@ -41,7 +41,7 @@ export const SelectField = ({ ...field }: FormField) => {
 export const DateField = ({ ...field }: FormField) => {
   return (
     <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-GB">
         <DatePicker
           renderInput={(props) => <TextField {...props} />}
           {...field}
@@ -60,7 +60,7 @@ export const DateField = ({ ...field }: FormField) => {
 export const DateTimeField = ({ ...field }: FormField) => {
   return (
     <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-GB">
         <DateTimePicker
           renderInput={(props) => <TextField {...props} />}
           {...field}
