@@ -9,10 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import { FormField, FormProps } from "./types";
+import { LocalizationProvider, MobileDateTimePicker } from "@mui/lab";
 
 import DateAdapter from "@mui/lab/AdapterMoment";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { MobileDateTimePicker } from "@mui/lab";
 import React from "react";
 
 export const SelectField = ({ ...field }: FormField) => {
