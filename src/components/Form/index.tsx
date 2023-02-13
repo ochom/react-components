@@ -55,6 +55,12 @@ export const DateField = ({ ...field }: FormField) => {
           renderInput={(props: any) => <TextField {...props} />}
           inputFormat="DD/MM/yyyy"
           {...field}
+          onChange={(val: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { value: val["$d"], name: field.name },
+              });
+          }}
         />
       </LocalizationProvider>
     </FormControl>
