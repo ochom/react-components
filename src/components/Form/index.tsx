@@ -1,8 +1,8 @@
 import { CButton, LButton } from "../Buttons";
 import {
+  DatePicker,
   DateTimePicker,
   LocalizationProvider,
-  MobileDateTimePicker,
 } from "@mui/x-date-pickers";
 import {
   FormControl,
@@ -42,6 +42,25 @@ export const DateField = ({ ...field }: FormField) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          renderInput={(props) => <TextField {...props} />}
+          {...field}
+          onChange={(val: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { value: val["$d"], name: field.name },
+              });
+          }}
+        />
+      </LocalizationProvider>
+    </FormControl>
+  );
+};
+
+export const DateTimeField = ({ ...field }: FormField) => {
+  return (
+    <FormControl fullWidth>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
           renderInput={(props) => <TextField {...props} />}
           {...field}
@@ -77,6 +96,9 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       break;
     case "date":
       myField = <DateField {...field} />;
+      break;
+    case "datetime":
+      myField = <DateTimeField {...field} />;
       break;
     case "custom":
       myField = <CustomField {...field} />;
