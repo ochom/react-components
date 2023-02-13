@@ -7,6 +7,7 @@ export type FieldType =
   | "password"
   | "number"
   | "date"
+  | "datetime"
   | "select"
   | "custom";
 
