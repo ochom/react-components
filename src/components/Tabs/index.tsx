@@ -34,38 +34,29 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function CustomTabs({ tabs }: TabsProps) {
-  const [tabIndex, setTabIndex] = React.useState<number>(0);
-
-  const handleChange = (e: any, newValue: number) => {
-    setTabIndex(newValue);
-  };
+  const [index, setIndex] = React.useState<number>(0);
 
   return (
     <Box>
       <Tabs
-        value={tabIndex}
-        onChange={handleChange}
+        value={index}
+        onChange={(e: any, newValue: number) => setIndex(newValue)}
         indicatorColor="secondary"
         textColor="secondary"
       >
-        {tabs.map((tab, index) => (
+        {tabs.map((tab, idx) => (
           <Tab
-            key={index}
+            key={idx}
             label={tab.title}
             sx={{ fontWeight: 400, textTransform: "none" }}
-            id={`simple-tab-${index}`}
-            aria-controls={`simple-tabpanel-${index}`}
+            id={`simple-tab-${idx}`}
+            aria-controls={`simple-tabpanel-${idx}`}
           />
         ))}
       </Tabs>
 
-      {tabs.map((tab, index) => (
-        <TabPanel
-          key={index}
-          value={tabIndex}
-          index={index}
-          children={tab.panel}
-        />
+      {tabs.map((tab, idx) => (
+        <TabPanel key={idx} value={index} index={idx} children={tab.panel} />
       ))}
     </Box>
   );
