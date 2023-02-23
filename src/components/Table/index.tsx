@@ -51,11 +51,7 @@ export default function Table({
   showSearch,
   props,
 }: MyTableProps<any>) {
-  const [data, setData] = React.useState<any[]>([]);
-
-  React.useEffect(() => {
-    setData(props?.data || []);
-  }, [props?.data]);
+  const [data, setData] = React.useState<any[]>(props?.data || []);
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
@@ -85,6 +81,7 @@ export default function Table({
   return (
     <Paper sx={{ position: "relative", minWidth: "600px" }} elevation={0}>
       <DataTable
+        {...props}
         columns={props?.columns || []}
         data={data}
         progressComponent={<BarLoader />}
@@ -97,7 +94,6 @@ export default function Table({
         }
         highlightOnHover
         pointerOnHover
-        {...props}
       />
       {data.length > 0 && showSearch && <SearchBox onSearch={handleSearch} />}
     </Paper>
