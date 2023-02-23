@@ -1,9 +1,9 @@
 import { Box, Paper, TextField, Typography } from "@mui/material";
 import DataTable, { TableProps } from "react-data-table-component";
+import React, { useEffect } from "react";
 
 import { ArrowDownward } from "@mui/icons-material";
 import { BarLoader } from "../Monitors";
-import React from "react";
 
 const customStyles = {
   headRow: {
@@ -43,6 +43,7 @@ export type MyTableProps<T> = {
   error?: Error;
   showSearch?: boolean;
   props?: TableProps<T>;
+  sx?: any;
 };
 
 export default function Table({
@@ -50,8 +51,13 @@ export default function Table({
   error,
   showSearch,
   props,
+  sx = {},
 }: MyTableProps<any>) {
   const [data, setData] = React.useState<any[]>(props?.data || []);
+
+  useEffect(() => {
+    setData(props?.data || []);
+  }, [props?.data]);
 
   const handleSearch = (e: any) => {
     const value = e.target.value;
@@ -78,8 +84,14 @@ export default function Table({
     10, 20, 30, 40, 50,
   ];
 
+  const paperStyle = {
+    ...sx,
+    position: "relative",
+    minWidth: "600px",
+  };
+
   return (
-    <Paper sx={{ position: "relative", minWidth: "600px" }} elevation={0}>
+    <Paper sx={paperStyle} elevation={0}>
       <DataTable
         {...props}
         columns={props?.columns || []}
