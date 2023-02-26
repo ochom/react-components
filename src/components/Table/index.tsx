@@ -1,6 +1,6 @@
 import { Box, Paper, TextField, Typography } from "@mui/material";
 import DataTable, { TableProps } from "react-data-table-component";
-import React, { useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 import { ArrowDownward } from "@mui/icons-material";
 import { BarLoader } from "../Monitors";
@@ -41,9 +41,10 @@ const customStyles = {
 export type MyTableProps<T> = {
   loading?: boolean;
   error?: Error;
-  showSearch?: boolean;
   props?: TableProps<T>;
   sx?: any;
+  showSearch?: boolean;
+  newButton?: ReactNode;
 };
 
 export default function Table({
@@ -52,6 +53,7 @@ export default function Table({
   showSearch,
   props,
   sx = {},
+  newButton = null,
 }: MyTableProps<any>) {
   const [data, setData] = React.useState<any[]>(props?.data || []);
 
@@ -92,6 +94,27 @@ export default function Table({
 
   return (
     <Paper sx={paperStyle} elevation={0}>
+      <Box
+        sx={{
+          mb: 1,
+          display: "flex",
+          justifyContent: showSearch ? "space-between" : "end",
+        }}
+      >
+        {newButton}
+        {showSearch ? (
+          <input
+            type="text"
+            placeholder="Search"
+            style={{
+              borderRadius: "5px",
+              border: "none",
+              padding: "5px 10px",
+            }}
+            onChange={handleSearch}
+          />
+        ) : null}
+      </Box>
       <DataTable
         {...props}
         columns={props?.columns || []}
@@ -107,21 +130,6 @@ export default function Table({
         highlightOnHover
         pointerOnHover
       />
-      {data.length > 0 && showSearch && <SearchBox onSearch={handleSearch} />}
     </Paper>
   );
 }
-
-const SearchBox = ({ onSearch }: any) => {
-  return (
-    <Box sx={{ position: "absolute", bottom: "30px", left: "50px" }}>
-      <TextField
-        sx={{ width: "200px" }}
-        label="Search"
-        size="small"
-        placeholder="Search ..."
-        onChange={onSearch}
-      />
-    </Box>
-  );
-};
