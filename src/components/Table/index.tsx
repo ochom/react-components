@@ -93,7 +93,7 @@ export default function Table({
   };
 
   return (
-    <Paper sx={paperStyle} elevation={0}>
+    <>
       <Box
         sx={{
           mb: 1,
@@ -115,21 +115,23 @@ export default function Table({
           />
         ) : null}
       </Box>
-      <DataTable
-        {...props}
-        columns={props?.columns || []}
-        data={data}
-        progressComponent={<BarLoader />}
-        progressPending={loading || false}
-        pagination
-        paginationRowsPerPageOptions={pagination}
-        customStyles={customStyles}
-        sortIcon={
-          <ArrowDownward style={{ color: "grey", marginLeft: "5px" }} />
-        }
-        highlightOnHover
-        pointerOnHover
-      />
-    </Paper>
+      <Paper sx={paperStyle} elevation={0}>
+        <DataTable
+          {...props}
+          columns={props?.columns || []}
+          data={data}
+          progressComponent={<BarLoader />}
+          progressPending={loading || false}
+          pagination
+          paginationRowsPerPageOptions={pagination}
+          customStyles={customStyles}
+          sortIcon={
+            <ArrowDownward style={{ color: "grey", marginLeft: "5px" }} />
+          }
+          highlightOnHover
+          pointerOnHover
+        />
+      </Paper>
+    </>
   );
 }
