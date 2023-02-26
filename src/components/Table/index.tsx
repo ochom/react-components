@@ -98,7 +98,12 @@ export default function Table({
         sx={{
           mb: 1,
           display: "flex",
-          justifyContent: showSearch ? "space-between" : "end",
+          justifyContent:
+            showSearch && newButton
+              ? "space-between"
+              : showSearch && !newButton
+              ? "end"
+              : "start",
         }}
       >
         {newButton}
