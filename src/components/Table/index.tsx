@@ -11,39 +11,6 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { BarLoader } from "../Monitors";
 import { ErrorPage } from "../Alerts";
 
-const customStyles = {
-  headRow: {
-    style: {
-      border: "none",
-    },
-  },
-  headCells: {
-    style: {
-      color: "#202124",
-      fontSize: "14px",
-    },
-  },
-  rows: {
-    style: {
-      paddingTop: "5px",
-      paddingBottom: "5px",
-    },
-    highlightOnHoverStyle: {
-      backgroundColor: "#4e0c8b1c",
-      borderBottomColor: "#FFFFFF",
-      borderRadius: "15px",
-      outline: "1px solid #FFFFFF",
-    },
-  },
-  pagination: {
-    style: {
-      border: "none",
-      marginTop: "30px",
-      paddingBottom: "30px",
-    },
-  },
-};
-
 export type TableProps<T> = {
   title?: string;
   loading?: boolean;
@@ -70,7 +37,9 @@ export default function Table({
   sx = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(
+    paginationRowsPerPageOptions[0]
+  );
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
@@ -169,9 +138,7 @@ export default function Table({
           <thead>
             <tr>
               {cols.map((column: any, cIndex: number) => (
-                <th key={cIndex} style={column.style}>
-                  {column.name}
-                </th>
+                <th key={cIndex}>{column.name}</th>
               ))}
             </tr>
           </thead>
@@ -179,9 +146,18 @@ export default function Table({
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item: any, rIndex: number) => (
-                <tr key={rIndex} onClick={() => handleRowClicked(item)}>
+                <tr key={rIndex}>
                   {cols.map((column: any, cIndex: number) => (
-                    <td key={cIndex} style={column.style}>
+                    <td
+                      key={cIndex}
+                      style={column.style}
+                      onClick={() => {
+                        if (column?.button) {
+                          return;
+                        }
+                        handleRowClicked(item);
+                      }}
+                    >
                       {typeof column.selector === "function"
                         ? column.selector(item)
                         : item[column.selector]}
