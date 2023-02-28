@@ -138,9 +138,7 @@ export default function Table({
           <thead>
             <tr>
               {cols.map((column: any, cIndex: number) => (
-                <th key={cIndex} style={column.style}>
-                  {column.name}
-                </th>
+                <th key={cIndex}>{column.name}</th>
               ))}
             </tr>
           </thead>
