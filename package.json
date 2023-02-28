@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "1.0.93",
+    "version": "1.0.94",
     "description": "custom react components",
     "repository": {
         "type": "git",
@@ -25,10 +25,10 @@
         "@rollup/plugin-babel": "^5.3.0",
         "@rollup/plugin-node-resolve": "^15.0.1",
         "@rollup/plugin-typescript": "^9.0.2",
+        "@types/styled-components": "^5.1.26",
         "auto-version-js": "^0.3.10",
         "dayjs": "^1.11.6",
         "react": "^17.0.0",
-        "react-data-table-component": "^7.5.3",
         "react-dom": "^17.0.0",
         "reactstrap": "^8.9.0",
         "rollup": "^2.0.0",
@@ -36,12 +36,12 @@
         "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-static-files": "^0.2.0",
         "rollup-plugin-terser": "^7.0.2",
+        "styled-components": "^5.3.6",
         "sweetalert2": "^11.4.8",
         "tslib": "^2.4.1",
         "typescript": "^4.9.3"
     },
     "peerDependencies": {
-        "@emotion/styled": "^11.10.5",
         "@mui/icons-material": "^5.10.15",
         "@mui/lab": "^5.0.0-alpha.109",
         "@mui/material": "^5.10.15",
@@ -49,7 +49,6 @@
         "@mui/x-date-pickers": "^5.0.8",
         "dayjs": "^1.11.6",
         "react": "^17.0.0",
-        "react-data-table-component": "^7.5.3",
         "react-dom": "^17.0.0",
         "reactstrap": "^8.9.0",
         "styled-components": "^5.3.6",
