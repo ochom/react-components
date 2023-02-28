@@ -132,73 +132,81 @@ export default function Table({
           />
         ) : null}
       </Box>
-      <Paper sx={paperStyle} elevation={0}>
-        {title ? <Typography variant="h6">{title}</Typography> : null}
-        <StyledTable>
-          <thead>
-            <tr>
-              {cols.map((column: any, cIndex: number) => (
-                <th key={cIndex}>{column.name}</th>
+      {rows.length === 0 ? (
+        <Paper sx={paperStyle} elevation={0}>
+          <Typography variant="h6" textAlign="center" sx={{ py: 3 }}>
+            No data found
+          </Typography>
+        </Paper>
+      ) : (
+        <Paper sx={paperStyle} elevation={0}>
+          {title ? <Typography variant="h6">{title}</Typography> : null}
+          <StyledTable>
+            <thead>
+              <tr>
+                {cols.map((column: any, cIndex: number) => (
+                  <th key={cIndex}>{column.name}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((item: any, rIndex: number) => (
+                  <tr key={rIndex}>
+                    {cols.map((column: any, cIndex: number) => (
+                      <td
+                        key={cIndex}
+                        style={column.style}
+                        onClick={() => {
+                          if (column?.button) {
+                            return;
+                          }
+                          handleRowClicked(item);
+                        }}
+                      >
+                        {typeof column.selector === "function"
+                          ? column.selector(item)
+                          : item[column.selector]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+            </tbody>
+          </StyledTable>
+          <Pagination>
+            <span>Rows per page</span>
+            <select value={rowsPerPage} onChange={handleChangeRowsPerPage}>
+              {paginationRowsPerPageOptions.map((option: number) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((item: any, rIndex: number) => (
-                <tr key={rIndex}>
-                  {cols.map((column: any, cIndex: number) => (
-                    <td
-                      key={cIndex}
-                      style={column.style}
-                      onClick={() => {
-                        if (column?.button) {
-                          return;
-                        }
-                        handleRowClicked(item);
-                      }}
-                    >
-                      {typeof column.selector === "function"
-                        ? column.selector(item)
-                        : item[column.selector]}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-          </tbody>
-        </StyledTable>
-        <Pagination>
-          <span>Rows per page</span>
-          <select value={rowsPerPage} onChange={handleChangeRowsPerPage}>
-            {paginationRowsPerPageOptions.map((option: number) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <button onClick={goToFirstPage} disabled={page === 0}>
-            <KeyboardDoubleArrowLeft />
-          </button>
-          <button onClick={goToPreviousPage} disabled={page === 0}>
-            <KeyboardArrowLeft />
-          </button>
-          <span>
-            {`Page ${page + 1} of ${Math.ceil(rows.length / rowsPerPage)}`}
-          </span>
-          <button
-            onClick={goToNextPage}
-            disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
-          >
-            <KeyboardArrowRight />
-          </button>
-          <button
-            onClick={goToLastPage}
-            disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
-          >
-            <KeyboardDoubleArrowRight />
-          </button>
-        </Pagination>
-      </Paper>
+            </select>
+            <button onClick={goToFirstPage} disabled={page === 0}>
+              <KeyboardDoubleArrowLeft />
+            </button>
+            <button onClick={goToPreviousPage} disabled={page === 0}>
+              <KeyboardArrowLeft />
+            </button>
+            <span>
+              {`Page ${page + 1} of ${Math.ceil(rows.length / rowsPerPage)}`}
+            </span>
+            <button
+              onClick={goToNextPage}
+              disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
+            >
+              <KeyboardArrowRight />
+            </button>
+            <button
+              onClick={goToLastPage}
+              disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
+            >
+              <KeyboardDoubleArrowRight />
+            </button>
+          </Pagination>
+        </Paper>
+      )}
     </>
   );
 }
