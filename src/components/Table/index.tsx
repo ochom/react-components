@@ -148,9 +148,18 @@ export default function Table({
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item: any, rIndex: number) => (
-                <tr key={rIndex} onClick={() => handleRowClicked(item)}>
+                <tr key={rIndex}>
                   {cols.map((column: any, cIndex: number) => (
-                    <td key={cIndex} style={column.style}>
+                    <td
+                      key={cIndex}
+                      style={column.style}
+                      onClick={() => {
+                        if (column?.button) {
+                          return;
+                        }
+                        handleRowClicked(item);
+                      }}
+                    >
                       {typeof column.selector === "function"
                         ? column.selector(item)
                         : item[column.selector]}
