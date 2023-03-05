@@ -91,3 +91,9 @@ export const Pagination = styled.div`
     font-size: inherit;
   }
 `;
+
+export const StyledSearch = styled.input`
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+`;

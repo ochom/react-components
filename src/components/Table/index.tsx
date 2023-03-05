@@ -5,7 +5,7 @@ import {
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
 } from "@mui/icons-material";
-import { Pagination, StyledTable } from "./styles";
+import { Pagination, StyledSearch, StyledTable } from "./styles";
 import React, { ReactNode, useEffect, useState } from "react";
 
 import { BarLoader } from "../Monitors";
@@ -18,9 +18,10 @@ export type TableProps<T> = {
   columns: any[];
   data: any[];
   showSearch?: boolean;
-  newButton?: ReactNode;
+  onSearch?: (value: string, setRows: any) => void;
+  buttons?: ReactNode[];
   onRowClicked?: (row: T) => void;
-  paginationRowsPerPageOptions?: number[];
+  rowsPerPageOptions?: number[];
   sx?: any;
 };
 
@@ -31,15 +32,14 @@ export default function Table({
   columns,
   data,
   showSearch,
-  newButton = null,
+  onSearch,
+  buttons = [],
   onRowClicked,
-  paginationRowsPerPageOptions = [10, 20, 30, 40, 50],
+  rowsPerPageOptions = [10, 20, 30, 40, 50],
   sx = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(
-    paginationRowsPerPageOptions[0]
-  );
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
@@ -77,8 +77,12 @@ export default function Table({
     setPage(0);
   };
 
-  const handleSearch = (e: any) => {
-    const value = e.target.value;
+  const handleSearch = ({ value, name }: any) => {
+    if (onSearch) {
+      onSearch(value, setRows);
+      return;
+    }
+
     const filteredRows: any[] = (data || []).filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
     );
@@ -111,101 +115,118 @@ export default function Table({
           mb: 1,
           display: "flex",
           justifyContent:
-            showSearch && newButton
+            showSearch && buttons.length > 0
               ? "space-between"
-              : showSearch && !newButton
+              : showSearch && buttons.length === 0
               ? "end"
               : "start",
         }}
       >
-        {newButton}
-        {showSearch ? (
-          <input
-            type="text"
-            placeholder="Search"
-            style={{
-              borderRadius: "5px",
-              border: "none",
-              padding: "5px 10px",
-            }}
-            onChange={handleSearch}
-          />
-        ) : null}
+        <Box>
+          {buttons.map((button, index) => (
+            <React.Fragment key={index}>{button}</React.Fragment>
+          ))}
+        </Box>
+        <StyledSearch
+          type="text"
+          placeholder="Search"
+          onChange={handleSearch}
+          style={{ display: showSearch ? "block" : "none" }}
+        />
       </Box>
-      {rows.length === 0 ? (
-        <Paper sx={paperStyle} elevation={0}>
-          <Typography variant="h6" textAlign="center" sx={{ py: 3 }}>
-            No data found
-          </Typography>
-        </Paper>
+
+      {loading ? (
+        <BarLoader />
+      ) : error ? (
+        <ErrorPage error={error} title="Oops!" />
       ) : (
-        <Paper sx={paperStyle} elevation={0}>
-          {title ? <Typography variant="h6">{title}</Typography> : null}
-          <StyledTable>
-            <thead>
-              <tr>
-                {cols.map((column: any, cIndex: number) => (
-                  <th key={cIndex}>{column.name}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((item: any, rIndex: number) => (
-                  <tr key={rIndex}>
+        <>
+          {rows.length === 0 ? (
+            <Paper sx={paperStyle} elevation={0}>
+              <Typography
+                variant="h6"
+                textAlign="center"
+                sx={{ py: 3 }}
+                color="grey"
+              >
+                No data found
+              </Typography>
+              <Typography variant="body2" textAlign="center" color="grey">
+                We couldn't find any data at the moment.
+              </Typography>
+            </Paper>
+          ) : (
+            <Paper sx={paperStyle} elevation={0}>
+              {title ? <Typography variant="h6">{title}</Typography> : null}
+              <StyledTable>
+                <thead>
+                  <tr>
                     {cols.map((column: any, cIndex: number) => (
-                      <td
-                        key={cIndex}
-                        style={column.style}
-                        onClick={() => {
-                          if (column?.button) {
-                            return;
-                          }
-                          handleRowClicked(item);
-                        }}
-                      >
-                        {typeof column.selector === "function"
-                          ? column.selector(item)
-                          : item[column.selector]}
-                      </td>
+                      <th key={cIndex}>{column.name}</th>
                     ))}
                   </tr>
-                ))}
-            </tbody>
-          </StyledTable>
-          <Pagination>
-            <span>Rows per page</span>
-            <select value={rowsPerPage} onChange={handleChangeRowsPerPage}>
-              {paginationRowsPerPageOptions.map((option: number) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <button onClick={goToFirstPage} disabled={page === 0}>
-              <KeyboardDoubleArrowLeft />
-            </button>
-            <button onClick={goToPreviousPage} disabled={page === 0}>
-              <KeyboardArrowLeft />
-            </button>
-            <span>
-              {`Page ${page + 1} of ${Math.ceil(rows.length / rowsPerPage)}`}
-            </span>
-            <button
-              onClick={goToNextPage}
-              disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
-            >
-              <KeyboardArrowRight />
-            </button>
-            <button
-              onClick={goToLastPage}
-              disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
-            >
-              <KeyboardDoubleArrowRight />
-            </button>
-          </Pagination>
-        </Paper>
+                </thead>
+                <tbody>
+                  {rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((item: any, rIndex: number) => (
+                      <tr key={rIndex}>
+                        {cols.map((column: any, cIndex: number) => (
+                          <td
+                            key={cIndex}
+                            style={column.style}
+                            onClick={() => {
+                              if (column?.button) {
+                                return;
+                              }
+                              handleRowClicked(item);
+                            }}
+                          >
+                            {typeof column.selector === "function"
+                              ? column.selector(item)
+                              : item[column.selector]}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                </tbody>
+              </StyledTable>
+              <Pagination>
+                <span>Rows per page</span>
+                <select value={rowsPerPage} onChange={handleChangeRowsPerPage}>
+                  {rowsPerPageOptions.map((option: number) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <button onClick={goToFirstPage} disabled={page === 0}>
+                  <KeyboardDoubleArrowLeft />
+                </button>
+                <button onClick={goToPreviousPage} disabled={page === 0}>
+                  <KeyboardArrowLeft />
+                </button>
+                <span>
+                  {`Page ${page + 1} of ${Math.ceil(
+                    rows.length / rowsPerPage
+                  )}`}
+                </span>
+                <button
+                  onClick={goToNextPage}
+                  disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
+                >
+                  <KeyboardArrowRight />
+                </button>
+                <button
+                  onClick={goToLastPage}
+                  disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
+                >
+                  <KeyboardDoubleArrowRight />
+                </button>
+              </Pagination>
+            </Paper>
+          )}
+        </>
       )}
     </>
   );
