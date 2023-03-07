@@ -142,11 +142,10 @@ export default function Table({
       ) : (
         <>
           {rows.length === 0 ? (
-            <Paper sx={paperStyle} elevation={0}>
+            <Paper sx={{...paperStyle, py:3}} elevation={0}>
               <Typography
                 variant="h6"
                 textAlign="center"
-                sx={{ py: 3 }}
                 color="grey"
               >
                 No data found
