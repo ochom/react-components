@@ -31,6 +31,7 @@ export type TableProps<T> = {
   error?: Error;
   columns: TableColumn[];
   data: any[];
+  emptyMessage?: string;
   showSearch?: boolean;
   onSearch?: (value: string, setRows: any) => void;
   buttons?: TableButton[];
@@ -45,6 +46,7 @@ export default function Table({
   error,
   columns,
   data,
+  emptyMessage,
   showSearch,
   onSearch,
   buttons = [],
@@ -165,7 +167,7 @@ export default function Table({
                 No data found
               </Typography>
               <Typography variant="body2" textAlign="center" color="grey">
-                We couldn't find any data at the moment.
+                {emptyMessage || "We couldn't find any data matching your search"}
               </Typography>
             </Paper>
           ) : (
