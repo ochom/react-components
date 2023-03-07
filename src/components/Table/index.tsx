@@ -33,7 +33,7 @@ export type TableProps<T> = {
   data: any[];
   emptyMessage?: string;
   showSearch?: boolean;
-  onSearch?: (value: string, setRows: any) => void;
+  onSearch?: (value: string) => void;
   buttons?: TableButton[];
   onRowClicked?: (row: T) => void;
   rowsPerPageOptions?: number[];
@@ -93,9 +93,9 @@ export default function Table({
     setPage(0);
   };
 
-  const handleSearch = ({ value, name }: any) => {
+  const handleSearch = (value:string) => {
     if (onSearch) {
-      onSearch(value, setRows);
+      onSearch(value);
       return;
     }
 
@@ -146,7 +146,7 @@ export default function Table({
         <StyledSearch
           type="text"
           placeholder="Search"
-          onChange={handleSearch}
+          onChange={(e:any)=>handleSearch(e.target.value)}
           style={{ display: showSearch ? "block" : "none" }}
         />
       </Box>
