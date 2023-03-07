@@ -9,17 +9,31 @@ import { Pagination, StyledSearch, StyledTable } from "./styles";
 import React, { ReactNode, useEffect, useState } from "react";
 
 import { BarLoader } from "../Monitors";
+import { CButton } from "../Buttons";
 import { ErrorPage } from "../Alerts";
+
+export type TableButton = {
+  onClick: () => void;
+  children: any;
+  sx?: any;
+};
+
+export type TableColumn = {
+  name: string;
+  selector: string | ((item: any) => ReactNode); 
+  button?: boolean;
+  style?: any;
+};
 
 export type TableProps<T> = {
   title?: string;
   loading?: boolean;
   error?: Error;
-  columns: any[];
+  columns: TableColumn[];
   data: any[];
   showSearch?: boolean;
   onSearch?: (value: string, setRows: any) => void;
-  buttons?: ReactNode[];
+  buttons?: TableButton[];
   onRowClicked?: (row: T) => void;
   rowsPerPageOptions?: number[];
   sx?: any;
@@ -124,7 +138,7 @@ export default function Table({
       >
         <Box>
           {buttons.map((button, index) => (
-            <React.Fragment key={index}>{button}</React.Fragment>
+            <CButton key={index} {...button} />
           ))}
         </Box>
         <StyledSearch
@@ -160,7 +174,7 @@ export default function Table({
               <StyledTable>
                 <thead>
                   <tr>
-                    {cols.map((column: any, cIndex: number) => (
+                    {cols.map((column: TableColumn, cIndex: number) => (
                       <th key={cIndex}>{column.name}</th>
                     ))}
                   </tr>
@@ -170,10 +184,10 @@ export default function Table({
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item: any, rIndex: number) => (
                       <tr key={rIndex}>
-                        {cols.map((column: any, cIndex: number) => (
+                        {cols.map((column: TableColumn, cIndex: number) => (
                           <td
                             key={cIndex}
-                            style={column.style}
+                            style={column?.style || {}}
                             onClick={() => {
                               if (column?.button) {
                                 return;
