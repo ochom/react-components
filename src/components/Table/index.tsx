@@ -140,7 +140,7 @@ export default function Table({
       >
         <Box>
           {buttons.map((button, index) => (
-            <CButton key={index} {...button} />
+            <CButton key={index} size="small" {...button} />
           ))}
         </Box>
         <StyledSearch
