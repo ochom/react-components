@@ -111,9 +111,6 @@ export default function Table({
     }
   };
 
-  if (loading) return <BarLoader />;
-  if (error) return <ErrorPage error={error} title="Oops!" />;
-
   const paperStyle = {
     p: 1,
     pb: 2,
