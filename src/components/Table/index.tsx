@@ -165,7 +165,7 @@ export default function Table({
                 No data found
               </Typography>
               <Typography variant="body2" textAlign="center" color="grey">
-                We couldn't find any data at the moment.
+                We couldn't find any data matching your search
               </Typography>
             </Paper>
           ) : (
