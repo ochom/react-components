@@ -94,10 +94,7 @@ export default function Table({
   };
 
   const handleSearch = (value:string) => {
-    if (onSearch) {
-      onSearch(value);
-      return;
-    }
+    if (onSearch)  return onSearch(value);
 
     const filteredRows: any[] = (data || []).filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
