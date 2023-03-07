@@ -33,7 +33,7 @@ export type TableProps<T> = {
   data: any[];
   emptyMessage?: string;
   showSearch?: boolean;
-  onSearch?: (value: string, setRows: any) => void;
+  onSearch?: (value: string) => void;
   buttons?: TableButton[];
   onRowClicked?: (row: T) => void;
   rowsPerPageOptions?: number[];
@@ -93,11 +93,8 @@ export default function Table({
     setPage(0);
   };
 
-  const handleSearch = ({ value, name }: any) => {
-    if (onSearch) {
-      onSearch(value, setRows);
-      return;
-    }
+  const handleSearch = (value:string) => {
+    if (onSearch)  return onSearch(value);
 
     const filteredRows: any[] = (data || []).filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
@@ -146,7 +143,7 @@ export default function Table({
         <StyledSearch
           type="text"
           placeholder="Search"
-          onChange={handleSearch}
+          onChange={(e:any)=>handleSearch(e.target.value)}
           style={{ display: showSearch ? "block" : "none" }}
         />
       </Box>
