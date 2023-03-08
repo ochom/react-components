@@ -96,10 +96,7 @@ export const StyledSearch = styled.input`
   border-radius: 5px;
   border: none;
   padding: 5px 10px;
-  :focus {
+  &:focus {
     outline: none;
-    border-color: inherit;
-    -webkit-box-shadow: none;
-    box-shadow: none;
   }
 `;
