@@ -35,9 +35,7 @@ export const StyledTable = styled.table`
     }
     tr:hover {
       cursor: pointer;
-      background-color: #4e0c8b16;
-      outline: 1px solid #FFFFFF;
-      border-bottom: 1px solid #FFFFFF; 
+      background-color: #4e0c8b16; 
     }
     tr:last-of-type {
       border-bottom: 1px solid #FFFFFF;
