@@ -98,5 +98,8 @@ export const StyledSearch = styled.input`
   padding: 5px 10px;
   :focus {
     outline: none;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
   }
 `;
