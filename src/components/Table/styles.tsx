@@ -36,8 +36,8 @@ export const StyledTable = styled.table`
     tr:hover {
       cursor: pointer;
       background-color: #4e0c8b16;
-      outline: "1px solid #FFFFFF",
-      border-bottom: "1px solid #FFFFFF", 
+      outline: 1px solid #FFFFFF;
+      border-bottom: 1px solid #FFFFFF; 
     }
     tr:last-of-type {
       border-bottom: 1px solid #FFFFFF;
@@ -96,4 +96,7 @@ export const StyledSearch = styled.input`
   border-radius: 5px;
   border: none;
   padding: 5px 10px;
+  :focus {
+    outline: none;
+  }
 `;
