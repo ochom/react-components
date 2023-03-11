@@ -14,6 +14,7 @@ export interface MenuOption {
   title: string;
   icon?: React.ReactNode;
   action: (row: any) => void;
+  hidden?: (row: any) => boolean;
 }
 
 export interface MenuProps {
@@ -49,7 +50,7 @@ export default function TableDropdownMenu({ row, options }: MenuProps) {
           "aria-labelledby": "basic-button",
         }}
       >
-        {(options || []).map((option) => (
+        {(options || []).filter((option) => !option.hidden || !option.hidden(row)).map((option) => (
           <MenuItem
             key={option.title}
             onClick={() => {
