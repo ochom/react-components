@@ -13,6 +13,7 @@ export const StyledTable = styled.table`
         font-weight: 500;
         font-size: 14px;
         color: #202124;
+        text-align: left;
       }
     }
   }
