@@ -42,6 +42,7 @@ export interface FormField {
 
 export interface FormProps {
   fields: FormField[];
+  fieldSpacing: number;
   onSubmit: () => void;
   onCancel?: () => void;
   submitText?: string;

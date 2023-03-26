@@ -123,6 +123,7 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
 
 export default function Form({
   fields = [],
+  fieldSpacing = 4,
   onSubmit = () => {},
   onCancel = () => {},
   showButtons = true,
@@ -134,7 +135,7 @@ export default function Form({
 }: FormProps) {
   return (
     <form onSubmit={onSubmit}>
-      <Grid container spacing={4}>
+      <Grid container spacing={fieldSpacing}>
         {fields.map((field, index) => {
           if (field.hidden) return null;
           return <FormFieldComponent key={index} field={field} />;
