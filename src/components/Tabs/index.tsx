@@ -41,8 +41,8 @@ export default function CustomTabs({ tabs }: TabsProps) {
       <Tabs
         value={index}
         onChange={(e: any, newValue: number) => setIndex(newValue)}
-        indicatorColor="secondary"
-        textColor="secondary"
+        indicatorColor="primary"
+        textColor="primary"
       >
         {tabs.map((tab, idx) => (
           <Tab
