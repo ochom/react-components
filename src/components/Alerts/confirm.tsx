@@ -100,7 +100,7 @@ export const ConfirmDialogProvider = ({ children }: any) => {
   );
 };
 
-export default function useConfirm() {
+export const useConfirm = ()=> {
   const { confirm } = useContext(ConfirmDialogContext);
   return confirm;
 }
