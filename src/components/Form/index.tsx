@@ -4,6 +4,7 @@ import {
   DateTimePicker,
   LocalizationProvider,
 } from "@mui/x-date-pickers";
+import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import {
   FormControl,
   Grid,
@@ -14,8 +15,9 @@ import {
   TextField,
 } from "@mui/material";
 import { FormField, FormProps } from "./types";
+import moment from "moment";
+ 
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React from "react";
 
 export const SelectField = ({ ...field }: FormField) => {
@@ -38,18 +40,17 @@ export const SelectField = ({ ...field }: FormField) => {
   );
 };
 
-export const DateField = ({ ...field }: FormField) => {
+export const DateField =  ({ name, label, value, onChange }: FormField) => {
   return (
     <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={Adapter}>
         <DatePicker
-          renderInput={(props) => <TextField {...props} />}
-          {...field}
-          onChange={(val: any) => {
-            field.onChange &&
-              field.onChange({
-                target: { value: val["$d"], name: field.name },
-              });
+          label={label}
+          value={moment(value)}
+          format="DD/MM/Y"
+          onChange={(date) => {
+            const target = { name, value: date };
+            onChange({ target });
           }}
         />
       </LocalizationProvider>
@@ -57,18 +58,17 @@ export const DateField = ({ ...field }: FormField) => {
   );
 };
 
-export const DateTimeField = ({ ...field }: FormField) => {
+export const DateTimeField = ({ name, label, value, onChange }: FormField) => {
   return (
     <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={Adapter}>
         <DateTimePicker
-          renderInput={(props) => <TextField {...props} />}
-          {...field}
-          onChange={(val: any) => {
-            field.onChange &&
-              field.onChange({
-                target: { value: val["$d"], name: field.name },
-              });
+          label={label}
+          value={moment(value)}
+          format="DD/MM/Y HH:mm"
+          onChange={(date) => {
+            const target = { name, value: date };
+            onChange({ target });
           }}
         />
       </LocalizationProvider>

@@ -1,35 +1,148 @@
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-
-import { CircularLoader } from "../Monitors";
+import styled from "styled-components";
 import React from "react";
-import { Typography } from "@mui/material";
+
+const Area = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  &.closed {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+`;
+
+const Box = styled.div`
+  background-color: white;
+  border-radius: 0.5rem;
+  min-width: 300px;
+  min-height: 50px;
+  overflow: auto;
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+  margin-top: 10vh;
+  transition: all 0.5s ease-in-out;
+  &.small {
+    width: 300px;
+  }
+  &.medium {
+    width: 500px;
+  }
+  &.large {
+    width: 700px;
+  }
+  &.full {
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+  }
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 50px;
+  }
+  &.closed {
+    opacity: 0;
+    visibility: hidden;
+    margin-top: 0;
+  }
+`;
+
+const Title = styled.div`
+  height: 50px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid #eee;
+`;
+
+const ModalClose = styled.button.attrs({
+  type: "button",
+})`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: #000;
+  }
+  &:hover {
+    background-color: #eee;
+    svg {
+      fill: #666;
+    }
+  }
+`;
+
+const ModalContent = styled.div`
+  padding: 1.5rem;
+`;
 
 export interface ModalProps {
   isOpen: boolean;
+  showClose?: boolean;
   handleClose: () => void;
   title: string;
   children: React.ReactNode;
   loading?: boolean;
   error?: Error;
+  size?: "small" | "medium" | "large" | "full";
 }
 
-export default function CustomModal({
+export const Modal = ({
   isOpen,
   handleClose,
   title,
+  showClose = true,
   children,
-  loading,
-  error,
-}: ModalProps) {
-  if (loading) return <CircularLoader />;
-  if (error) return <Typography>{error.message}</Typography>;
-
+  size = "medium",
+}:ModalProps) => {
   return (
-    <Modal isOpen={isOpen}>
-      <ModalHeader toggle={handleClose}>{title}</ModalHeader>
-      <ModalBody style={{ padding: "20px 20px 30px 20px" }}>
-        {children}
-      </ModalBody>
-    </Modal>
+    <Area className={isOpen ? "open" : "closed"}>
+      <Box className={`${size} ${isOpen ? "open" : "closed"}`}>
+        <Title>
+          <span>{title}</span>
+          {showClose && (
+            <ModalClose
+              onClick={handleClose}
+              children={
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              }
+            />
+          )}
+        </Title>
+        <ModalContent>{children}</ModalContent>
+      </Box>
+    </Area>
   );
-}
+};
+
+export default Modal;
+
+

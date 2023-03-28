@@ -5,47 +5,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import { CircularLoader } from "../Monitors";
 import ConstructionSVG from "./construction-svg";
 import NetworkErrorSVG from "./network-svg";
-import React from "react";
-import Swal from "sweetalert2";
-
-export interface AlertProps {
-  title: string;
-  text: string;
-  icon?: "warning" | "error" | "success" | "info" | "question";
-  showCancelButton?: boolean;
-  confirmButtonColor?: string;
-  cancelButtonColor?: string;
-  confirmButtonText?: string;
-  cancelButtonText?: string;
-  onConfirm?: () => void;
-}
-
-export const ConfirmDialog = ({
-  title,
-  text,
-  icon = "warning",
-  showCancelButton = true,
-  confirmButtonColor = "#db1212",
-  cancelButtonColor = "#bababa",
-  confirmButtonText = "Yes, Delete",
-  cancelButtonText = "No, Cancel",
-  onConfirm = () => {},
-}: AlertProps) => {
-  return Swal.fire({
-    title,
-    text,
-    icon,
-    showCancelButton,
-    confirmButtonColor,
-    cancelButtonColor,
-    confirmButtonText,
-    cancelButtonText,
-  }).then((res: any) => {
-    if (res.isConfirmed) {
-      onConfirm();
-    }
-  });
-};
+import React from "react"; 
+import { CButton, Modal } from "..";
 
 export interface ErrorPageProps {
   title: string;
