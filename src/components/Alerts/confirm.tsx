@@ -100,7 +100,7 @@ export const ConfirmDialogProvider = ({ children }: any) => {
   );
 };
 
-export const useConfirm = ()=> {
+export const useConfirmDialog = ()=> {
   const { confirm } = useContext(ConfirmDialogContext);
   return confirm;
 }
