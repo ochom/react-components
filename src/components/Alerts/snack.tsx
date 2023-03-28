@@ -1,14 +1,14 @@
 import { Alert, Slide, Snackbar, SnackbarOrigin } from "@mui/material";
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const TransitionUp = (props: any) => {
   return <Slide {...props} direction="up" />;
 };
 
 export const SnackContext = createContext({
-  alertSuccess: (message: string) => {},
-  alertError: (message: string) => {},
-  alertWarning: (message: string) => {},
+  snackSuccess: (message: string) => {},
+  snackError: (message: string) => {},
+  snackWarning: (message: string) => {},
   closeSnack: () => {},
 });
 
@@ -40,22 +40,22 @@ export const SnackProvider = ({
     setOpen(false);
   };
 
-  const alertSuccess = (message: string) => {
+  const snackSuccess = (message: string) => {
     createSnack(message, "success");
   };
 
-  const alertError = (message: string) => {
+  const snackError = (message: string) => {
     createSnack(message, "error");
   };
 
-  const alertWarning = (message: string) => {
+  const snackWarning = (message: string) => {
     createSnack(message, "warning");
   };
 
   const providerProps = {
-    alertSuccess,
-    alertError,
-    alertWarning,
+    snackSuccess,
+    snackError,
+    snackWarning,
     closeSnack,
   };
 
@@ -76,3 +76,4 @@ export const SnackProvider = ({
     </SnackContext.Provider>
   );
 };
+

@@ -28,7 +28,7 @@ const initState: ConfirmProps = {
   onCancel: () => {},
 };
 
-const ConfirmDialogContext = createContext({
+export const ConfirmDialogContext = createContext({
   confirm: (options:ConfirmProps) => {},
 });
 
@@ -99,8 +99,3 @@ export const ConfirmDialogProvider = ({ children }: any) => {
     </ConfirmDialogContext.Provider>
   );
 };
-
-export const useConfirmDialog = ()=> {
-  const { confirm } = useContext(ConfirmDialogContext);
-  return confirm;
-}
