@@ -4,7 +4,7 @@ import React from "react";
 
 export function CircularLoader(props:CircularProgressProps) {
   return (
-    <Box sx={{py:3, display: "flex", justifyContent: "center" }} >
+    <Box sx={{width: "100%", py:3, display: "flex", justifyContent: "center" }} >
       <CircularProgress  {...props} />
     </Box>
   );
