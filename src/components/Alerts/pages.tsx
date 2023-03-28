@@ -3,11 +3,9 @@ import "./styles.css";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { CircularLoader } from "../Monitors";
-import ConstructionSVG from "./construction-svg";
-import NetworkErrorSVG from "./network-svg";
-import React, { useContext } from "react";
-import { SnackContext } from "./snack";
-import { ConfirmDialogContext } from "./confirm";
+import ConstructionSVG from "../../assets/construction-svg";
+import NetworkErrorSVG from "../../assets/network-svg";
+import React from "react";
 
 export interface ErrorPageProps {
   title: string;
