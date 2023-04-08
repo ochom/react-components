@@ -112,8 +112,4 @@ export const AlertProvider = ({ children }: any) => {
   );
 };
 
-export const useAlerts = () => {
-  const { alertSuccess, alertError, alertWarning, confirm } =
-    useContext(AlertContext);
-  return { alertSuccess, alertError, alertWarning, confirm };
-};
+export const useAlerts = () => useContext(AlertContext);
