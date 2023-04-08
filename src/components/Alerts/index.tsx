@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import ConfirmModal from "./confirm";
-import { ConfirmProps, SnackProps } from "./props";
+import { ConfirmProps, SnackProps, SupportedColors } from "./props";
 import SnackAlert from "./snack";
 
 const initConfirmState: ConfirmProps = {
@@ -26,7 +26,7 @@ const initSnackState: SnackProps = {
 };
 
 const AlertContext = createContext({
-  setConfirmState: (options: ConfirmProps) => {},
+  createConfirm: (options: ConfirmProps) => {},
   alertSuccess: (message: string) => {},
   alertError: (message: string) => {},
   alertWarning: (message: string) => {},
@@ -65,10 +65,11 @@ export const AlertProvider = ({ children }: any) => {
     },
   ];
 
-  const createSnack = (
-    message: string,
-    type: "success" | "error" | "warning"
-  ) => {
+  const createConfirm = (options: ConfirmProps) => {
+    setConfirmState({ ...confirmState, ...options, open: true });
+  };
+
+  const createSnack = (message: string, type: SupportedColors) => {
     setSnackState({
       ...snackState,
       message,
@@ -92,7 +93,7 @@ export const AlertProvider = ({ children }: any) => {
   };
 
   const providerProps = {
-    setConfirmState,
+    createConfirm,
     alertSuccess,
     alertError,
     alertWarning,
@@ -112,7 +113,11 @@ export const AlertProvider = ({ children }: any) => {
 };
 
 export const useAlerts = () => {
-  const { alertSuccess, alertError, alertWarning, setConfirmState: confirm } =
-    useContext(AlertContext);
+  const {
+    alertSuccess,
+    alertError,
+    alertWarning,
+    createConfirm: confirm,
+  } = useContext(AlertContext);
   return { alertSuccess, alertError, alertWarning, confirm };
 };
