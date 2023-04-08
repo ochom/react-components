@@ -1,7 +1,8 @@
-import { Box, Stack, Typography } from "@mui/material"; 
-import React, { createContext, useContext } from "react"; 
-import { CButton, Modal } from "..";
-import { ConfirmModalProps, ConfirmProps } from "./props";
+import { Box, Stack, Typography } from "@mui/material";
+import React from "react";
+import { ConfirmModalProps } from "./props";
+import Modal from "../Modal";
+import { CButton } from "../Buttons";
 
 
 function ConfirmModal(props:ConfirmModalProps) {

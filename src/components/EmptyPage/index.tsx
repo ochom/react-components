@@ -1,5 +1,3 @@
-import "./styles.css";
-
 import { Box, Stack, Typography } from "@mui/material";
 
 import { CircularLoader } from "../Monitors";

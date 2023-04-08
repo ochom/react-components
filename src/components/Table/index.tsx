@@ -9,8 +9,8 @@ import { Pagination, StyledSearch, StyledTable } from "./styles";
 import React, { ReactNode, useEffect, useState } from "react";
 
 import { BarLoader } from "../Monitors";
-import { CButton } from "../Buttons";
-import { ErrorPage } from "../Alerts";
+import { CButton } from "../Buttons"; 
+import { ErrorPage } from "../EmptyPage";
 
 export type TableButton = {
   onClick: () => void;

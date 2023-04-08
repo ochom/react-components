@@ -1,13 +1,22 @@
-//@ts-ignore
-import { Box } from "@mui/material";
 import React from "react";
+import styled from "styled-components";
+
+export const BoxSVG = styled.div`
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  & svg {
+    width: 100%;
+    height: 100%;
+  }
+`;
 
 export default function NetworkErrorSVG({
   primaryColor = "#E8E8E8",
   secondaryColor = "#191919",
 }) {
   return (
-    <Box className="my-svg">
+    <BoxSVG>
       <svg
         width="1600px"
         height="1200px"
@@ -1693,6 +1702,6 @@ export default function NetworkErrorSVG({
           />
         </g>
       </svg>
-    </Box>
+    </BoxSVG>
   );
 }
