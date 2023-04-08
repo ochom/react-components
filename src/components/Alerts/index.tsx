@@ -26,7 +26,7 @@ const initSnackState: SnackProps = {
 };
 
 const AlertContext = createContext({
-  createConfirm: (options: ConfirmProps) => {},
+  confirm: (options: ConfirmProps) => {},
   alertSuccess: (message: string) => {},
   alertError: (message: string) => {},
   alertWarning: (message: string) => {},
@@ -65,7 +65,7 @@ export const AlertProvider = ({ children }: any) => {
     },
   ];
 
-  const createConfirm = (options: ConfirmProps) => {
+  const confirm = (options: ConfirmProps) => {
     setConfirmState({ ...confirmState, ...options, open: true });
   };
 
@@ -93,7 +93,7 @@ export const AlertProvider = ({ children }: any) => {
   };
 
   const providerProps = {
-    createConfirm,
+    confirm,
     alertSuccess,
     alertError,
     alertWarning,
@@ -113,11 +113,7 @@ export const AlertProvider = ({ children }: any) => {
 };
 
 export const useAlerts = () => {
-  const {
-    alertSuccess,
-    alertError,
-    alertWarning,
-    createConfirm: confirm,
-  } = useContext(AlertContext);
+  const { alertSuccess, alertError, alertWarning, confirm } =
+    useContext(AlertContext);
   return { alertSuccess, alertError, alertWarning, confirm };
 };
