@@ -1,87 +1,20 @@
 import { Box, Stack, Typography } from "@mui/material"; 
 import React, { createContext, useContext } from "react"; 
 import { CButton, Modal } from "..";
+import { ConfirmModalProps, ConfirmProps } from "./props";
 
 
-export interface ConfirmProps {
-  title: string;
-  message: string; 
-  showCancelButton?: boolean;
-  confirmButtonColor?: "error" | "success" | "warning" | "info" | "primary" | "secondary" | "inherit" |   undefined;
-  cancelButtonColor?:  "error" | "success" | "warning" | "info" | "primary" | "secondary" | "inherit"  | undefined;
-  confirmButtonText?: string;
-  cancelButtonText?: string;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-} 
-
-
-const initState: ConfirmProps = { 
-  title: "",
-  message: "",
-  showCancelButton: true,
-  confirmButtonColor: "error",
-  cancelButtonColor: "success",
-  confirmButtonText: "Yes, Delete",
-  cancelButtonText: "No, Cancel",
-  onConfirm: () => {},
-  onCancel: () => {},
-};
-
-export const ConfirmDialogContext = createContext({
-  confirm: (options:ConfirmProps) => {},
-});
-
-export const ConfirmDialogProvider = ({ children }: any) => {
-    const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState(initState);
-
-  const handleClose = () => {
-    setState(initState);
-    setOpen(false);
-  }
-
-  const handleConfirm = () => {
-    if (state.onConfirm) state.onConfirm();
-    handleClose();
-  };
-
-  const handleCancel = () => {
-    if (state.onCancel) state.onCancel();
-    handleClose();
-  };
-
-  const confirm = (options: ConfirmProps) => {
-    setState({ ...initState, ...options  });
-    setOpen(true);
-  };
-
-  const buttons = [
-    {
-      text: state.confirmButtonText,
-      color: state.confirmButtonColor,
-      onClick: handleConfirm,
-      hidden: false,
-    },
-    {
-      text: state.cancelButtonText,
-      color: state.cancelButtonColor,
-      onClick: handleCancel,
-      hidden: !state.showCancelButton,
-    },
-  ];
-
+function ConfirmModal(props:ConfirmModalProps) {
+  const {data:{open, title, message}, buttons,handleClose } = props;
   return (
-    <ConfirmDialogContext.Provider value={{ confirm }}>
-      {children}
-      <Modal
+    <Modal
         isOpen={open}
         handleClose={handleClose}
-        title={state.title}
+        title={title}
         showClose={false}
       >
         <Box sx={{ width: "100%" }}>
-          <Typography variant="body2">{state.message}</Typography>
+          <Typography variant="body2">{ message}</Typography>
           <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
             {buttons.map((button, index) => (
               <CButton
@@ -96,6 +29,7 @@ export const ConfirmDialogProvider = ({ children }: any) => {
           </Stack>
         </Box>
       </Modal>
-    </ConfirmDialogContext.Provider>
-  );
-};
+  )
+}
+
+export default ConfirmModal

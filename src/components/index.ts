@@ -10,3 +10,4 @@ export * from "./Alerts";
 export * from "./Monitors";
 export * from "./Buttons";
 export * from "./Form";
+export * from "./EmptyPage"
