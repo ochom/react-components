@@ -1,8 +1,6 @@
-import "./styles.css";
+import React, { createContext, useContext, useState } from "react";
 import ConfirmModal from "./confirm";
 import { ConfirmProps, SnackProps } from "./props";
-import { Alert, Slide, Snackbar, SnackbarOrigin } from "@mui/material";
-import React, { createContext, useContext, useState } from "react";
 import SnackAlert from "./snack";
 
 const initConfirmState: ConfirmProps = {

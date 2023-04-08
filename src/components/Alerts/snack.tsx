@@ -1,5 +1,5 @@
-import { Alert, Slide, Snackbar, SnackbarOrigin } from "@mui/material";
-import React, { createContext, useContext, useState } from "react";
+import { Alert, Slide, Snackbar } from "@mui/material";
+import React from "react";
 import { SnackAlertProps } from "./props";
 
 const TransitionUp = (props: any) => {
