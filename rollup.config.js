@@ -22,13 +22,13 @@ export default [
       },
     ],
     plugins: [
+      typescript({ tsconfig: "./tsconfig.json" }),
       babel({
         exclude: "node_modules/**",
         presets: ["@babel/preset-react"],
         babelHelpers: "runtime",
       }),
       resolve(),
-      typescript({ tsconfig: "./tsconfig.json" }),
       peerDepsExternal(),
       terser(),
       postcss(),

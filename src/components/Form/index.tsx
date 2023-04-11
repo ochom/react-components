@@ -14,11 +14,66 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { FormField, FormProps } from "./types";
 import moment from "moment";
 
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+
+import { ButtonProps } from "@mui/material";
+import { LoadingButtonProps } from "@mui/lab";
+
+type FieldType =
+  | "text"
+  | "email"
+  | "password"
+  | "number"
+  | "date"
+  | "datetime"
+  | "select"
+  | "select-search"
+  | "custom";
+
+interface SelectOption {
+  label: string;
+  value: string;
+}
+
+interface Grow {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+}
+
+interface FormField {
+  name: string;
+  label: string;
+  type: FieldType;
+  value: string;
+  onChange: (val: any) => void;
+  options?: SelectOption[]; // for select
+  component?: React.ReactNode; // for custom
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  multiline?: boolean;
+  rows?: number;
+  hidden?: boolean;
+  grow?: Grow;
+}
+
+interface FormProps {
+  fields: FormField[];
+  fieldSpacing: number;
+  onSubmit: () => void;
+  onCancel?: () => void;
+  submitText?: string;
+  cancelText?: string;
+  showButtons?: boolean;
+  showCancelButton?: boolean;
+  submitButtonProps?: LoadingButtonProps;
+  cancelButtonProps?: ButtonProps;
+}
 
 const SearchContainer = styled.div`
   position: relative;
