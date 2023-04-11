@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "1.0.126",
+    "version": "1.0.127",
     "description": "custom react components",
     "repository": {
         "type": "git",
@@ -17,6 +17,7 @@
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.21.3",
+        "@emotion/core": "^11.0.0",
         "@emotion/styled": "^11.10.5",
         "@mui/icons-material": "^5.11.11",
         "@mui/lab": "^5.0.0-alpha.124",
@@ -29,6 +30,7 @@
         "@types/styled-components": "^5.1.26",
         "auto-version-js": "^0.3.10",
         "moment": "^2.29.4",
+        "postcss": "^8.4.21",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "rollup": "^2.0.0",
@@ -38,8 +40,7 @@
         "rollup-plugin-terser": "^7.0.2",
         "styled-components": "^5.3.6",
         "tslib": "^2.4.1",
-        "typescript": "^4.9.3",
-        "postcss": "^8.4.21"
+        "typescript": "^4.9.3"
     },
     "peerDependencies": {
         "@mui/icons-material": "^5.11.11",
