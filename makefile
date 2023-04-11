@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
 roll:
-	npm run rollup
+	yarn; npm run rollup
 
 deploy:
 	npx auto-version --patch && npm run deploy
