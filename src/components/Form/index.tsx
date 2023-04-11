@@ -52,7 +52,7 @@ const SearchBoxItem = styled.div`
   }
 `;
 
-const SelectSearchField = ({
+export const SelectSearchField = ({
   name,
   label,
   value,
