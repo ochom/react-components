@@ -1,3 +1,4 @@
+import { MoreVert } from "@mui/icons-material";
 import {
   IconButton,
   ListItemIcon,
@@ -6,7 +7,6 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React from "react";
 import { useState } from "react";
 
@@ -39,7 +39,7 @@ export default function TableDropdownMenu({ row, options }: MenuProps) {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <MoreVertIcon />
+        <MoreVert />
       </IconButton>
       <Menu
         id="basic-menu"
@@ -50,18 +50,20 @@ export default function TableDropdownMenu({ row, options }: MenuProps) {
           "aria-labelledby": "basic-button",
         }}
       >
-        {(options || []).filter((option) => !option.hidden || !option.hidden(row)).map((option) => (
-          <MenuItem
-            key={option.title}
-            onClick={() => {
-              handleClose();
-              option.action(row);
-            }}
-          >
-            <ListItemIcon>{option.icon}</ListItemIcon>
-            <ListItemText>{option.title}</ListItemText>
-          </MenuItem>
-        ))}
+        {(options || [])
+          .filter((option) => !option.hidden || !option.hidden(row))
+          .map((option) => (
+            <MenuItem
+              key={option.title}
+              onClick={() => {
+                handleClose();
+                option.action(row);
+              }}
+            >
+              <ListItemIcon>{option.icon}</ListItemIcon>
+              <ListItemText>{option.title}</ListItemText>
+            </MenuItem>
+          ))}
       </Menu>
     </>
   );
