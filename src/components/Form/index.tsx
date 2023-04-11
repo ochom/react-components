@@ -52,7 +52,7 @@ const SearchBoxItem = styled.div`
   }
 `;
 
-const SelectSearchField = ({
+export const SelectSearchField = ({
   name,
   label,
   value,
@@ -232,6 +232,8 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
     case "select":
       myField = <SelectField {...field} />;
       break;
+    case "select-search":
+      myField = <SelectSearchField {...field} />;
     case "date":
       myField = <DateField {...field} />;
       break;

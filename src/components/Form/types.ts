@@ -9,6 +9,7 @@ export type FieldType =
   | "date"
   | "datetime"
   | "select"
+  | "select-search"
   | "custom";
 
 export interface SelectOption {
