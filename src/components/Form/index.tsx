@@ -16,9 +16,147 @@ import {
 } from "@mui/material";
 import { FormField, FormProps } from "./types";
 import moment from "moment";
- 
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+
+const SearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const SearchBox = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  max-height: 150px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 5px 5px 0px #888888;
+  border-radius: 5px;
+  overflow-y: hidden;
+  display: none;
+  &.show {
+    display: block;
+  }
+`;
+
+const SearchBoxItem = styled.div`
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #eee;
+  }
+`;
+
+const SelectSearchField = ({
+  name,
+  label,
+  value,
+  onChange = () => {},
+  options = [],
+  required = true,
+  placeholder = "Search",
+}: FormField) => {
+  const selectSearchRef = useRef<any>(null);
+  const searchBoxRef = useRef<any>(null);
+  const currentValue = useRef(value);
+
+  const [showSearchBox, setShowSearchBox] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filteredOptions, setFilteredOptions] = useState(options);
+
+  useEffect(() => {
+    if (search) {
+      const filtered = options.filter((o) =>
+        o.label.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredOptions(filtered);
+    } else {
+      setFilteredOptions(options);
+    }
+  }, [search, options]);
+
+  // on focusing the select search field, show the search box
+  useEffect(() => {
+    const input = selectSearchRef.current?.querySelector("input");
+
+    const handleFocus = () => {
+      setSearch("");
+      currentValue.current = "";
+      handleChange("");
+      setShowSearchBox(true);
+    };
+
+    const handleClick = (e: any) => {
+      // if the clicked element is the select search field, do nothing
+      if (e.target === input) return;
+
+      // if the clicked item is the SearchBox items, use the values
+      if (searchBoxRef.current && searchBoxRef.current.contains(e.target)) {
+        const { value: newValue, label } = e.target.dataset;
+        setSearch(label);
+        currentValue.current = newValue;
+        handleChange(newValue);
+        setShowSearchBox(false);
+        return;
+      }
+
+      // when we click outside and the value is empty, reset search
+      if (!currentValue.current) {
+        setSearch("");
+      }
+      setShowSearchBox(false);
+    };
+
+    input.addEventListener("focus", handleFocus);
+    document.addEventListener("click", handleClick);
+    return () => {
+      input.removeEventListener("focus", handleFocus);
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  const handleChange = (newValue: string) => {
+    onChange({ target: { name, value: newValue } });
+  };
+
+  return (
+    <SearchContainer>
+      <TextField
+        ref={selectSearchRef}
+        fullWidth
+        name={name}
+        label={label}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder={placeholder}
+        required={required}
+        autoComplete="off"
+      />
+
+      <SearchBox ref={searchBoxRef} className={showSearchBox ? "show" : ""}>
+        {filteredOptions.map((o) => (
+          <SearchBoxItem
+            key={o.value}
+            data-value={o.value}
+            data-label={o.label}
+          >
+            {o.label}
+          </SearchBoxItem>
+        ))}
+        {filteredOptions.length === 0 && (
+          <SearchBoxItem data-value="" data-label="">
+            {`No '${search}' found`}
+          </SearchBoxItem>
+        )}
+      </SearchBox>
+    </SearchContainer>
+  );
+};
 
 export const SelectField = ({ ...field }: FormField) => {
   return (
@@ -40,7 +178,7 @@ export const SelectField = ({ ...field }: FormField) => {
   );
 };
 
-export const DateField =  ({ name, label, value, onChange }: FormField) => {
+export const DateField = ({ name, label, value, onChange }: FormField) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>

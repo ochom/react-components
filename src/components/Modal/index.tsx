@@ -70,9 +70,7 @@ const Title = styled.div`
   border-bottom: 1px solid #eee;
 `;
 
-const ModalClose = styled.button.attrs({
-  type: "button",
-})`
+const ModalClose = styled.button`
   cursor: pointer;
   border: none;
   background-color: transparent;
@@ -115,7 +113,7 @@ export const Modal = ({
   showClose = true,
   children,
   size = "medium",
-}:ModalProps) => {
+}: ModalProps) => {
   return (
     <Area className={isOpen ? "open" : "closed"}>
       <Box className={`${size} ${isOpen ? "open" : "closed"}`}>
@@ -123,6 +121,7 @@ export const Modal = ({
           <span>{title}</span>
           {showClose && (
             <ModalClose
+              type="button"
               onClick={handleClose}
               children={
                 <svg
@@ -144,5 +143,3 @@ export const Modal = ({
 };
 
 export default Modal;
-
-
