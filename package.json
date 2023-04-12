@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "1.0.131",
+    "version": "1.0.132",
     "description": "custom react components",
     "repository": {
         "type": "git",
@@ -18,7 +18,6 @@
     "devDependencies": {
         "@babel/core": "^7.21.3",
         "@mui/material": "^5.12.0",
-        "@mui/styled-engine-sc": "^5.12.0",
         "@mui/icons-material": "^5.11.16",
         "@mui/lab": "^5.0.0-alpha.126",
         "@mui/x-date-pickers": "^6.1.0",
@@ -44,7 +43,6 @@
     },
     "peerDependencies": {
         "@mui/material": "^5.12.0",
-        "@mui/styled-engine-sc": "^5.12.0",
         "@mui/icons-material": "^5.11.16",
         "@mui/lab": "^5.0.0-alpha.126",
         "@mui/x-date-pickers": "^6.1.0",
