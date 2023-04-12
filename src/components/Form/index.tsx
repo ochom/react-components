@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { ButtonProps } from "@mui/material";
 import { LoadingButtonProps } from "@mui/lab";
@@ -83,18 +83,25 @@ interface FormProps {
 }
 
 export const SearchField = (field: FormField) => {
+  const [value, setValue] = useState<SelectOption | null>(null);
+
+  useEffect(() => {
+    if (value) {
+      field.onChange({ target: { name: field.name, value: value.value } });
+    } else {
+      field.onChange({ target: { name: field.name, value: "" } });
+    }
+  }, [value]);
+
   return (
     <FormControl fullWidth>
       <Autocomplete
         id={`${field.name}-label`}
+        autoHighlight
         options={field.options || []}
-        getOptionLabel={(option) => option.label}
-        onChange={(event, newValue) => {
-          field.onChange({
-            target: { name: field.name, value: newValue?.value },
-          });
-        }}
         renderInput={(params) => <TextField {...params} label={field.label} />}
+        onChange={(event, newValue) => setValue(newValue)}
+        isOptionEqualToValue={(option, value) => option.value === value.value}
       />
     </FormControl>
   );
