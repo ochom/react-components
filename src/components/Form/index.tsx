@@ -17,8 +17,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 
-import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import React from "react";
 
 import { ButtonProps } from "@mui/material";
 import { LoadingButtonProps } from "@mui/lab";
@@ -46,7 +45,12 @@ interface Grow {
   lg: number;
 }
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+interface ChangeEvent {
+  target: {
+    name: string;
+    value: any;
+  };
+}
 
 interface FormField {
   name: string;
@@ -86,13 +90,9 @@ export const SearchField = (field: FormField) => {
         options={field.options || []}
         getOptionLabel={(option) => option.label}
         onChange={(event, newValue) => {
-          const option = newValue as SelectOption;
-          let e: ChangeEvent = {} as ChangeEvent;
-          e.target = {
-            name: field.name,
-            value: option.value,
-          } as HTMLInputElement;
-          field.onChange(e);
+          field.onChange({
+            target: { name: field.name, value: newValue?.value },
+          });
         }}
         renderInput={(params) => <TextField {...params} label={field.label} />}
       />
@@ -111,12 +111,9 @@ export const SelectField = (field: FormField) => {
         name={field.name}
         value={field.value}
         onChange={(event) => {
-          let e: ChangeEvent = {} as ChangeEvent;
-          e.target = {
-            name: field.name,
-            value: event.target.value,
-          } as HTMLInputElement;
-          field.onChange(e);
+          field.onChange({
+            target: { name: field.name, value: event.target.value },
+          });
         }}
       >
         {(field.options || []).map((opt, i) => (
@@ -138,12 +135,7 @@ export const DateField = ({ name, label, value, onChange }: FormField) => {
           value={moment(value)}
           format="DD/MM/Y"
           onChange={(newValue) => {
-            let e: ChangeEvent = {} as ChangeEvent;
-            e.target = {
-              name,
-              value: newValue?.toString() || "",
-            } as HTMLInputElement;
-            onChange(e);
+            onChange({ target: { name, value: newValue } });
           }}
         />
       </LocalizationProvider>
@@ -160,12 +152,7 @@ export const DateTimeField = ({ name, label, value, onChange }: FormField) => {
           value={moment(value)}
           format="DD/MM/Y HH:mm"
           onChange={(newValue) => {
-            let e: ChangeEvent = {} as ChangeEvent;
-            e.target = {
-              name,
-              value: newValue?.toString() || "",
-            } as HTMLInputElement;
-            onChange(e);
+            onChange({ target: { name, value: newValue } });
           }}
         />
       </LocalizationProvider>
