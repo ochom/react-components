@@ -193,6 +193,7 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       break;
     case "search":
       myField = <SearchField {...field} />;
+      break;
     case "date":
       myField = <DateField {...field} />;
       break;
