@@ -83,7 +83,10 @@ interface FormProps {
 }
 
 export const SearchField = (field: FormField) => {
-  const [value, setValue] = useState<SelectOption | null>(null);
+  const selectedValue =
+    field.options?.find((opt) => opt.value === field.value) || null;
+  const [value, setValue] = useState<SelectOption | null>(selectedValue);
+  const [inputValue, setInputValue] = useState(selectedValue?.label || "");
 
   useEffect(() => {
     if (value) {
@@ -98,9 +101,12 @@ export const SearchField = (field: FormField) => {
       <Autocomplete
         id={`${field.name}-label`}
         autoHighlight
+        value={value}
+        inputValue={inputValue}
         options={field.options || []}
-        renderInput={(params) => <TextField {...params} label={field.label} />}
         onChange={(event, newValue) => setValue(newValue)}
+        onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
+        renderInput={(params) => <TextField {...params} label={field.label} />}
         isOptionEqualToValue={(option, value) => option.value === value.value}
       />
     </FormControl>
