@@ -78,6 +78,9 @@ const ModalClose = styled.button`
   border-radius: 0.3rem;
   margin: 0;
   transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   svg {
     width: 24px;
     height: 24px;
@@ -110,7 +113,7 @@ export const Modal = ({
   isOpen,
   handleClose,
   title,
-  showClose = true,
+  showClose = false,
   children,
   size = "medium",
 }: ModalProps) => {
