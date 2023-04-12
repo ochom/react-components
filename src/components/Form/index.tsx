@@ -104,8 +104,8 @@ export const SearchField = (field: FormField) => {
         value={value}
         inputValue={inputValue}
         options={field.options || []}
-        onChange={(event, newValue) => setValue(newValue)}
-        onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
+        onChange={(e, newValue) => setValue(newValue)}
+        onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
         renderInput={(params) => <TextField {...params} label={field.label} />}
         isOptionEqualToValue={(option, value) => option.value === value.value}
       />
@@ -123,9 +123,9 @@ export const SelectField = (field: FormField) => {
         id={field.name}
         name={field.name}
         value={field.value}
-        onChange={(event) => {
+        onChange={(e) => {
           field.onChange({
-            target: { name: field.name, value: event.target.value },
+            target: { name: field.name, value: e.target.value },
           });
         }}
       >
@@ -193,6 +193,7 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       break;
     case "search":
       myField = <SearchField {...field} />;
+      break;
     case "date":
       myField = <DateField {...field} />;
       break;
