@@ -83,11 +83,26 @@ interface FormProps {
 }
 
 export const SearchField = (field: FormField) => {
-  const selectedValue =
-    field.options?.find((opt) => opt.value === field.value) || null;
-  const [selected, setSelected] = useState<SelectOption | null>(selectedValue);
-  const [inputValue, setInputValue] = useState(selectedValue?.label || "");
+  const [selected, setSelected] = useState<SelectOption | null>(null);
+  const [inputValue, setInputValue] = useState("");
 
+  // whenever the field value changes, update the inputValue
+  useEffect(() => {
+    if (field.value) {
+      const selectedOption = field.options?.find(
+        (opt) => opt.value === field.value
+      );
+      if (selectedOption) {
+        setInputValue(selectedOption.label);
+      } else {
+        setInputValue("");
+      }
+    } else {
+      setInputValue("");
+    }
+  }, [field.value]);
+
+  // whenever the selected value changes, update the field value
   useEffect(() => {
     if (selected) {
       field.onChange({ target: { name: field.name, value: selected.value } });
@@ -99,6 +114,7 @@ export const SearchField = (field: FormField) => {
   return (
     <FormControl fullWidth>
       <Autocomplete
+        key={field.value}
         id={`${field.name}-label`}
         autoHighlight
         value={selected}
