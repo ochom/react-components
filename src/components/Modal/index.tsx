@@ -134,14 +134,10 @@ export const Modal = ({
   const modalRef: any = createRef();
 
   useEffect(() => {
-    if (!modalRef.current) {
-      return;
-    }
-
     if (isOpen) {
-      modalRef.current.showModal();
+      modalRef.current?.showModal();
     } else {
-      modalRef.current.close();
+      modalRef.current?.close();
     }
   }, [isOpen, modalRef.current]);
 
