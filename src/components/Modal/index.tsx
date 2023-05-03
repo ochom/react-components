@@ -1,28 +1,28 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
-const Area = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 50;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease-in-out;
-  &.closed {
-    opacity: 0;
-    visibility: hidden;
-  }
-  &.open {
-    opacity: 1;
-    visibility: visible;
-  }
-`;
+// const Area = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 100vh;
+//   z-index: 50;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   display: flex;
+//   flex-direction: column;
+//   transition: all 0.3s ease-in-out;
+//   &.closed {
+//     opacity: 0;
+//     visibility: hidden;
+//   }
+//   &.open {
+//     opacity: 1;
+//     visibility: visible;
+//   }
+// `;
 
-const Box = styled.div`
+const Box = styled.dialog`
   background-color: white;
   border-radius: 0.5rem;
   min-width: 300px;
@@ -33,6 +33,9 @@ const Box = styled.div`
   margin-top: 50px;
   margin-top: 10vh;
   transition: all 0.5s ease-in-out;
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
   &.small {
     width: 300px;
   }
@@ -98,14 +101,25 @@ const ModalContent = styled.div`
   padding: 1.5rem;
 `;
 
+const CloseButton = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+    </svg>
+  );
+};
+
 export interface ModalProps {
   isOpen: boolean;
   showClose?: boolean;
   handleClose: () => void;
   title: string;
   children: React.ReactNode;
-  loading?: boolean;
-  error?: Error;
   size?: "small" | "medium" | "large" | "full";
 }
 
@@ -117,31 +131,49 @@ export const Modal = ({
   children,
   size = "medium",
 }: ModalProps) => {
+  const modalRef: any = useRef(null);
+
+  useEffect(() => {
+    if (!modalRef.current) {
+      return;
+    }
+
+    if (isOpen) {
+      modalRef.current.showModal();
+    } else {
+      modalRef.current.showModal();
+    }
+  }, [isOpen, modalRef.current]);
+
   return (
-    <Area className={isOpen ? "open" : "closed"}>
-      <Box className={`${size} ${isOpen ? "open" : "closed"}`}>
-        <Title>
-          <span>{title}</span>
-          {showClose && (
-            <ModalClose
-              type="button"
-              onClick={handleClose}
-              children={
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-              }
-            />
-          )}
-        </Title>
-        <ModalContent>{children}</ModalContent>
-      </Box>
-    </Area>
+    // <Area className={isOpen ? "open" : "closed"}>
+    // <Box className={`${size} ${isOpen ? "open" : "closed"}`}>
+    //   <Title>
+    //     <span>{title}</span>
+    //     {showClose && (
+    //       <ModalClose
+    //         type="button"
+    //         onClick={handleClose}
+    //         children={<CloseButton />}
+    //       />
+    //     )}
+    //   </Title>
+    //   <ModalContent>{children}</ModalContent>
+    // </Area>
+
+    <Box className={`${size}`} ref={modalRef}>
+      <Title>
+        <span>{title}</span>
+        {showClose && (
+          <ModalClose
+            type="button"
+            onClick={handleClose}
+            children={<CloseButton />}
+          />
+        )}
+      </Title>
+      <ModalContent>{children}</ModalContent>
+    </Box>
   );
 };
 
