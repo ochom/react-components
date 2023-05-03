@@ -141,7 +141,7 @@ export const Modal = ({
     if (isOpen) {
       modalRef.current.showModal();
     } else {
-      modalRef.current.showModal();
+      modalRef.current.close();
     }
   }, [isOpen, modalRef.current]);
 
