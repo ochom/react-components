@@ -1,40 +1,18 @@
 import styled from "@emotion/styled";
 import React, { createRef, useEffect, useRef } from "react";
 
-// const Area = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100vw;
-//   height: 100vh;
-//   z-index: 50;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   display: flex;
-//   flex-direction: column;
-//   transition: all 0.3s ease-in-out;
-//   &.closed {
-//     opacity: 0;
-//     visibility: hidden;
-//   }
-//   &.open {
-//     opacity: 1;
-//     visibility: visible;
-//   }
-// `;
-
 const Box = styled.dialog`
   background-color: white;
   border-radius: 0.5rem;
   min-width: 300px;
   min-height: 50px;
   overflow: auto;
-  display: block;
   margin: auto;
   margin-top: 50px;
   margin-top: 10vh;
   transition: all 0.5s ease-in-out;
   &::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #0000007f;
   }
   &.small {
     width: 300px;
@@ -49,16 +27,6 @@ const Box = styled.dialog`
     width: 90%;
     height: 90%;
     margin: 5%;
-  }
-  &.open {
-    opacity: 1;
-    visibility: visible;
-    margin-top: 50px;
-  }
-  &.closed {
-    opacity: 0;
-    visibility: hidden;
-    margin-top: 0;
   }
 `;
 
@@ -142,21 +110,6 @@ export const Modal = ({
   }, [isOpen, modalRef.current]);
 
   return (
-    // <Area className={isOpen ? "open" : "closed"}>
-    // <Box className={`${size} ${isOpen ? "open" : "closed"}`}>
-    //   <Title>
-    //     <span>{title}</span>
-    //     {showClose && (
-    //       <ModalClose
-    //         type="button"
-    //         onClick={handleClose}
-    //         children={<CloseButton />}
-    //       />
-    //     )}
-    //   </Title>
-    //   <ModalContent>{children}</ModalContent>
-    // </Area>
-
     <Box className={`${size}`} ref={modalRef}>
       <Title>
         <span>{title}</span>
