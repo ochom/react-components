@@ -131,7 +131,7 @@ export const Modal = ({
   children,
   size = "medium",
 }: ModalProps) => {
-  const modalRef: any = createRef();
+  const modalRef: any = useRef(null);
 
   useEffect(() => {
     if (isOpen) {
