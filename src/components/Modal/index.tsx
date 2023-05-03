@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useEffect, useRef } from "react";
+import React, { createRef, useEffect, useRef } from "react";
 
 // const Area = styled.div`
 //   position: fixed;
@@ -131,17 +131,13 @@ export const Modal = ({
   children,
   size = "medium",
 }: ModalProps) => {
-  const modalRef: any = useRef(null);
+  const modalRef: any = createRef();
 
   useEffect(() => {
-    if (!modalRef.current) {
-      return;
-    }
-
     if (isOpen) {
-      modalRef.current.showModal();
+      modalRef.current?.showModal();
     } else {
-      modalRef.current.close();
+      modalRef.current?.close();
     }
   }, [isOpen, modalRef.current]);
 
