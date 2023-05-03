@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { NoLuggageOutlined } from "@mui/icons-material";
 import React, { useEffect, useRef } from "react";
 
 // const Area = styled.div`
