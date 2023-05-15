@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { createRef, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Dialog = styled.dialog`
   background-color: white;
@@ -140,7 +140,7 @@ export const Modal = ({
   useEffect(() => {
     const handleEscape = (event: any) => {
       if (event.key === "Escape" && isOpen) {
-        handleClose();
+        event.preventDefault();
       }
     };
     window.addEventListener("keydown", handleEscape);
