@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React, { createRef, useEffect, useRef } from "react";
 
-const Box = styled.dialog`
+const Dialog = styled.dialog`
   background-color: white;
   border-radius: 0.5rem;
   border: none;
@@ -137,8 +137,20 @@ export const Modal = ({
     }
   }, [isOpen, modalRef.current]);
 
+  useEffect(() => {
+    const handleEscape = (event: any) => {
+      if (event.key === "Escape" && isOpen) {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   return (
-    <Box className={`${size}`} ref={modalRef}>
+    <Dialog className={`${size}`} ref={modalRef}>
       <Title>
         <span>{title}</span>
         {showClose && (
@@ -150,7 +162,7 @@ export const Modal = ({
         )}
       </Title>
       <ModalContent>{children}</ModalContent>
-    </Box>
+    </Dialog>
   );
 };
 
