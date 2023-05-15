@@ -10,12 +10,39 @@ const Box = styled.dialog`
   margin: auto;
   margin-top: 50px;
   margin-top: 10vh;
-  transition: all 0.5s ease-in-out;
+  animation: fadeInOut 0.3s ease-in-out;
+  opacity: 0;
+  &[open] {
+    opacity: 1;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   &::backdrop {
     background-color: #0000007f;
   }
   &.small {
-    width: 300px;
+    width: 400px;
   }
   &.medium {
     width: 500px;
