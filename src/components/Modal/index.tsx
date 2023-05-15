@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { createRef, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Dialog = styled.dialog`
   background-color: white;
