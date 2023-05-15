@@ -4,6 +4,7 @@ import React, { createRef, useEffect, useRef } from "react";
 const Box = styled.dialog`
   background-color: white;
   border-radius: 0.5rem;
+  border: none;
   min-width: 300px;
   min-height: 50px;
   overflow: auto;
