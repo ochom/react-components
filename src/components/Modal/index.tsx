@@ -140,7 +140,7 @@ export const Modal = ({
   useEffect(() => {
     const handleEscape = (event: any) => {
       if (event.key === "Escape" && isOpen) {
-        handleClose();
+        event.preventDefault();
       }
     };
     window.addEventListener("keydown", handleEscape);
