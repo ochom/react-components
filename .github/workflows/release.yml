@@ -16,7 +16,7 @@ jobs:
       - run: npm i
       - run: npm run test
 
-  publish-gpr:
+  publish:
     needs: test
     runs-on: ubuntu-latest
     permissions:
@@ -33,6 +33,7 @@ jobs:
 
       - name: Update package.json
         run: |
+          git add . && git commit -m "Update package.json [skip ci]"
           npm version patch -m "Bump version to %s [skip ci]"
           git push --follow-tags
 
