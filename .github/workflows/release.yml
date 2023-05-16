@@ -28,20 +28,19 @@ jobs:
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
+
       - name: Install dependencies
         run: npm i
 
-      - name: Update package.json
+      - name: Bump version
         run: |
-          git config user.name github-actions
-          git config user.email ochomrichard752@gmail.com
-          git add . && git commit -m "Update package.json [skip ci]"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           npm version patch -m "Bump version to %s [skip ci]"
           git push --follow-tags
 
-      - name: Publish to GitHub Packages
-        run: npm publish --access public
-
-      - run: npm run deploy
+      - name: Publish the package
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
+        run: |
+          npm publish --access public
