@@ -131,6 +131,7 @@ export const SelectField = (field: FormField) => {
             target: { name: field.name, value: e.target.value },
           });
         }}
+        required={field.required}
       >
         {(field.options || []).map((opt, i) => (
           <MenuItem key={i} value={opt.value}>
