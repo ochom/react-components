@@ -6,11 +6,8 @@ on:
       - main
 
 jobs:
-  build-test:
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -23,8 +20,8 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  release:
-    needs: build-test
+  publish:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       packages: write
