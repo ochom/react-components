@@ -177,12 +177,8 @@ export const DateTimeField = ({ name, label, value, onChange }: FormField) => {
   );
 };
 
-export const TextFieldComponent = ({ ...field }: FormField) => {
-  return (
-    <FormControl fullWidth>
-      <TextField {...field} />
-    </FormControl>
-  );
+export const DefaultField = ({ ...field }: FormField) => {
+  return <FormControl fullWidth children={<TextField {...field} />} />;
 };
 
 const CustomField = ({ ...field }: FormField) => {
@@ -190,27 +186,21 @@ const CustomField = ({ ...field }: FormField) => {
 };
 
 const FormFieldComponent = ({ field }: { field: FormField }) => {
-  let myField = null;
-  switch (field.type) {
-    case "select":
-      myField = <SelectField {...field} />;
-      break;
-    case "search":
-      myField = <SearchField {...field} />;
-      break;
-    case "date":
-      myField = <DateField {...field} />;
-      break;
-    case "datetime":
-      myField = <DateTimeField {...field} />;
-      break;
-    case "custom":
-      myField = <CustomField {...field} />;
-      break;
-    default:
-      myField = <TextFieldComponent {...field} />;
-      break;
-  }
+  const fields: { [key in FieldType]: React.FC<FormField> } = {
+    search: SearchField,
+    select: SelectField,
+    date: DateField,
+    datetime: DateTimeField,
+    custom: CustomField,
+    text: DefaultField,
+    email: DefaultField,
+    password: DefaultField,
+    number: DefaultField,
+  };
+
+  const FieldComponent = fields[field.type || "text"];
+
+  const myField = <FieldComponent {...field} />;
 
   // define grow dimensions
   const xs = field.grow?.xs || 12;
