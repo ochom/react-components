@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,7 +17,7 @@ jobs:
       - run: npm run test
 
   publish-gpr:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -28,7 +28,17 @@ jobs:
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
-      - run: npm i
+      - name: Install dependencies
+        run: npm i
+
+      - name: Update package.json
+        run: |
+          npm version patch -m "Bump version to %s [skip ci]"
+          git push --follow-tags
+
+      - name: Publish to GitHub Packages
+        run: npm publish --access public
+
       - run: npm run deploy
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
