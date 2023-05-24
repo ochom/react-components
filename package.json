@@ -2,6 +2,10 @@
   "name": "@ochom/react-components",
   "version": "1.0.0",
   "description": "custom react components",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ochom/react-components.git"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/ochom"
   },
