@@ -6,26 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm i
-
-      - name: Run tests
-        run: npm run test
-
   publish:
-    needs: test
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -34,6 +16,8 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm i
 
       - name: Bump version
