@@ -1,13 +1,10 @@
 {
   "name": "@ochom/react-components",
-  "version": "1.0.24",
+  "version": "1.0.0",
   "description": "custom react components",
   "repository": {
     "type": "git",
     "url": "https://github.com/ochom/react-components.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/ochom"
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
