@@ -1,7 +1,11 @@
 {
   "name": "@ochom/react-components",
   "version": "1.0.0",
-  "description": "A Custom React Components Library Built with MUI",
+  "description": "A collection of react components built with material ui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ochom/react-components.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "scripts": {
