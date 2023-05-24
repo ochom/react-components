@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm i
+        run: npm ci
 
       - name: Bump version
         env:
