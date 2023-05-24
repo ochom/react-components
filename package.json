@@ -4,14 +4,23 @@
   "description": "A collection of react components built with material ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ochom/react-components.git"
+    "url": "git+https://github.com/ochom/react-components.git"
   },
+  "bugs": {
+    "url": "https://github.com/ochom/react-components/issues"
+  },
+  "homepage": "https://github.com/ochom/react-components#readme",
+  "keywords": [
+    "components",
+    "ui",
+    "material"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "scripts": {
     "rollup": "rollup -c",
     "test": "echo \"no test specified\"",
-    "deploy": "npm run rollup && npm publish"
+    "deploy": "npm run rollup && npm publish --access public"
   },
   "author": "Richard Ochom",
   "license": "ISC",
