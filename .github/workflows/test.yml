@@ -18,9 +18,9 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm i
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm i
 
       - name: Run tests
         run: npm run test
