@@ -33,4 +33,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
         run: |
-          npm publish --access public
+          npm run deploy
