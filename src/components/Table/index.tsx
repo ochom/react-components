@@ -79,6 +79,7 @@ export default function Table({
 
   return (
     <Box sx={sx}>
+      {title ? <Typography variant="h6">{title}</Typography> : null}
       <Box
         sx={{
           mb: 1,
@@ -110,8 +111,6 @@ export default function Table({
         rows={rows}
         message={emptyMessage}
       >
-        {title ? <Typography variant="h6">{title}</Typography> : null}
-
         <TableBody
           cols={cols}
           rows={rows}
