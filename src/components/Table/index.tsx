@@ -79,7 +79,11 @@ export default function Table({
 
   return (
     <Box sx={sx}>
-      {title ? <Typography variant="h6">{title}</Typography> : null}
+      {title && (
+        <Typography variant="h6" sx={{ my: 2 }}>
+          {title}
+        </Typography>
+      )}
       <Box
         sx={{
           mb: 1,
