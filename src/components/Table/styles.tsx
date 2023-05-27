@@ -20,6 +20,7 @@ export const StyledTable = styled.table`
   tbody {
     tr {
       border-bottom: 1px solid #f0f0f0;
+      margin: 0 5px;
       transition: 0.3s;
       td {
         padding: 12px 8px;
