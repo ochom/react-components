@@ -108,7 +108,13 @@ export const SearchField = (field: FormField) => {
         options={field.options || []}
         onChange={(e, newValue) => setSelected(newValue)}
         onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
-        renderInput={(params) => <TextField {...params} label={field.label} />}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={field.label}
+            required={field.required}
+          />
+        )}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
       />
     </FormControl>
