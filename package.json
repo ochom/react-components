@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "description": "A collection of react components built with material ui",
     "repository": {
         "type": "git",
