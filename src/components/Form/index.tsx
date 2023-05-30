@@ -237,6 +237,8 @@ export default function Form({
     <form onSubmit={onSubmit}>
       <Grid container spacing={fieldSpacing}>
         {fields.map((field, index) => {
+          // check if the field's required prop is defined, if not set it to true
+          if (field.required === undefined) field.required = true;
           if (field.hidden) return null;
           return <FormFieldComponent key={index} field={field} />;
         })}
