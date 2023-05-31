@@ -139,7 +139,7 @@ export const Modal = ({
             />
           )}
         </Title>
-        <ModalContent>{children}</ModalContent>
+        <ModalContent>{isOpen ? children : null}</ModalContent>
       </Dialog>
     </BackDrop>
   );
