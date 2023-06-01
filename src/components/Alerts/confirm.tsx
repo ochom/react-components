@@ -11,12 +11,7 @@ function ConfirmModal(props: ConfirmModalProps) {
     handleClose,
   } = props;
   return (
-    <Modal
-      isOpen={open}
-      handleClose={handleClose}
-      title={title}
-      showClose={false}
-    >
+    <Modal open={open} onClose={handleClose} title={title} showClose={false}>
       <Box sx={{ width: "100%" }}>
         <Typography variant="body2">{message}</Typography>
         <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
