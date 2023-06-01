@@ -99,10 +99,10 @@ const ModalContent = styled.div`
 `;
 
 export interface ModalProps {
-  isOpen: boolean;
+  open: boolean;
   showClose?: boolean;
-  handleClose: () => void;
-  title: string;
+  onClose: () => void;
+  title?: string;
   children: React.ReactNode;
   size?: "small" | "medium" | "large" | "full";
 }
@@ -119,27 +119,33 @@ const Close = () => (
 );
 
 export const Modal = ({
-  isOpen,
-  handleClose,
+  open,
+  onClose,
   title,
   showClose = false,
   children,
   size = "medium",
 }: ModalProps) => {
   return (
-    <BackDrop className={isOpen ? "open" : "closed"}>
-      <Dialog className={`${size} ${isOpen ? "open" : "closed"}`}>
-        <Title>
-          <span>{title}</span>
-          {showClose && (
-            <ModalClose
-              type="button"
-              onClick={handleClose}
-              children={<Close />}
-            />
-          )}
-        </Title>
-        <ModalContent>{isOpen ? children : null}</ModalContent>
+    <BackDrop className={open ? "open" : "closed"}>
+      <Dialog className={`${size} ${open ? "open" : "closed"}`}>
+        {title && (
+          <Title
+            children={
+              <>
+                <span>{title}</span>
+                {showClose && (
+                  <ModalClose
+                    type="button"
+                    onClick={onClose}
+                    children={<Close />}
+                  />
+                )}
+              </>
+            }
+          />
+        )}
+        <ModalContent>{open ? children : null}</ModalContent>
       </Dialog>
     </BackDrop>
   );
