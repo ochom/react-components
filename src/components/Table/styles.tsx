@@ -103,19 +103,20 @@ const SearchBox = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: white;
   border-radius: 15px;
-  box-shadow: 0 0 15px 0 #cccccc;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
+  box-shadow: 0 0 3px 0 #dfdfdf;
+  padding: 0.3rem;
+  overflow: hidden;
   input {
     border: none;
     outline: none;
     font-size: 1rem;
     font-weight: 400;
     color: #333333;
+    background-color: transparent;
     flex: 1;
-    margin-left: 0.8rem;
+    margin-left: 0.2rem;
+    margin-right: 0.5rem;
   }
 `;
 
