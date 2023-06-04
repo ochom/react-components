@@ -34,7 +34,7 @@ export const StyledTable = styled.table`
       transition: 0.3s;
       :nth-child(even) {
         td {
-          background-color: #f0f0f0;
+          background-color: #f9f9f9;
         }
       }
       td {
