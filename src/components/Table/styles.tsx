@@ -17,6 +17,13 @@ export const StyledTable = styled.table`
         font-size: 14px;
         color: #202124;
         text-align: left;
+        background-color: #f0f0f0;
+        :first-of-type {
+          border-top-left-radius: 15px;
+        }
+        :last-of-type {
+          border-top-right-radius: 15px;
+        }
       }
     }
   }
