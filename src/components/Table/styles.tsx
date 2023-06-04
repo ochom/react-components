@@ -31,7 +31,7 @@ export const StyledTable = styled.table`
     tr {
       margin: 0 5px;
       transition: 0.3s;
-      :nth-child(even) {
+      :nth-of-type(even) {
         background-color: #f9f9f9;
       }
       td {
