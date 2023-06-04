@@ -77,7 +77,7 @@ export default function Table({
     }
   };
 
-  const flexSX = useMemo(() => {
+  const flexSX: any = useMemo(() => {
     return buttons.length === 0 ? { flex: "1" } : {};
   }, [buttons]);
 
