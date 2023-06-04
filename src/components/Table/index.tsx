@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { StyledSearch } from "./styles";
-import React, { useEffect, useState } from "react";
+import { ButtonsContainer, StyledSearch } from "./styles";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { CircularLoader } from "../Monitors";
 import { CButton } from "../Buttons";
@@ -77,6 +77,16 @@ export default function Table({
     }
   };
 
+  const justifyContent = useMemo(() => {
+    if (showSearch && buttons.length > 0) {
+      return "space-between";
+    }
+    if (showSearch && buttons.length === 0) {
+      return "end";
+    }
+    return "start";
+  }, [showSearch, buttons]);
+
   return (
     <Box sx={sx}>
       {title && (
@@ -84,25 +94,15 @@ export default function Table({
           {title}
         </Typography>
       )}
-      <Box
-        sx={{
-          mb: 1,
-          display: "flex",
-          justifyContent:
-            showSearch && buttons.length > 0
-              ? "space-between"
-              : showSearch && buttons.length === 0
-              ? "end"
-              : "start",
-        }}
-      >
+
+      <ButtonsContainer justifyContent={justifyContent}>
         <Box>
           {buttons.map((button, index) => (
             <CButton key={index} size="small" {...button} />
           ))}
         </Box>
         {showSearch && <StyledSearch onSearch={handleSearch} />}
-      </Box>
+      </ButtonsContainer>
 
       <TableContainer
         loading={loading}
