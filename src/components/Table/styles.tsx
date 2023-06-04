@@ -1,4 +1,7 @@
 import styled from "@emotion/styled";
+import { Search as SearchIcon } from "@mui/icons-material";
+import { Box } from "@mui/material";
+import React from "react";
 
 export const StyledTable = styled.table`
   width: 100%;
@@ -92,11 +95,43 @@ export const Pagination = styled.div`
   }
 `;
 
-export const StyledSearch = styled.input`
-  border-radius: 5px;
-  border: none;
-  padding: 5px 10px;
-  &:focus {
+const Icon = styled(SearchIcon)`
+  color: #949494;
+`;
+
+const SearchBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 15px 0 #cccccc;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  input {
+    border: none;
     outline: none;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333333;
+    flex: 1;
+    margin-left: 0.8rem;
   }
 `;
+
+export const StyledSearch = ({
+  onSearch,
+}: {
+  onSearch: (value: string) => void;
+}) => {
+  return (
+    <SearchBox>
+      <Icon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+      <input
+        type="text"
+        placeholder="Search..."
+        onChange={(e) => onSearch(e.target.value)}
+      />
+    </SearchBox>
+  );
+};
