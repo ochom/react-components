@@ -96,12 +96,12 @@ export default function Table({
       )}
 
       <ButtonsContainer justifyContent={justifyContent}>
+        {showSearch && <StyledSearch onSearch={handleSearch} />}
         <Box>
           {buttons.map((button, index) => (
             <CButton key={index} size="small" {...button} />
           ))}
         </Box>
-        {showSearch && <StyledSearch onSearch={handleSearch} />}
       </ButtonsContainer>
 
       <TableContainer
