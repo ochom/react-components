@@ -139,10 +139,10 @@ export const StyledSearch = ({
   );
 };
 
-export const ButtonsContainer = styled.div(({ justifyContent }: any) => ({
-  display: "flex",
-  alignItems: "center",
-  alignContent: "center",
-  marginBottom: "1rem",
-  justifyContent: justifyContent,
-}));
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  align-items: center;
+`;
