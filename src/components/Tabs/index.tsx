@@ -1,14 +1,10 @@
 import { Box, Tab, Tabs } from "@mui/material";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 export interface TabProps {
   title: string;
   panel: React.ReactNode;
-}
-
-export interface TabsProps {
-  tabs: TabProps[];
 }
 
 interface TabPanelProps {
@@ -17,7 +13,7 @@ interface TabPanelProps {
   value: number;
 }
 
-function TabPanel(props: TabPanelProps) {
+function Panel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -33,8 +29,18 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export default function CustomTabs({ tabs }: TabsProps) {
+export default function CustomTabs({
+  currentIndex = 0,
+  tabs,
+}: {
+  currentIndex: number;
+  tabs: TabProps[];
+}) {
   const [index, setIndex] = React.useState<number>(0);
+
+  useEffect(() => {
+    setIndex(currentIndex);
+  }, [currentIndex]);
 
   return (
     <Box>
@@ -56,7 +62,7 @@ export default function CustomTabs({ tabs }: TabsProps) {
       </Tabs>
 
       {tabs.map((tab, idx) => (
-        <TabPanel key={idx} value={index} index={idx} children={tab.panel} />
+        <Panel key={idx} value={index} index={idx} children={tab.panel} />
       ))}
     </Box>
   );
