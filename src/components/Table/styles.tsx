@@ -25,6 +25,11 @@ export const StyledTable = styled.table`
       border-bottom: 1px solid #f0f0f0;
       margin: 0 5px;
       transition: 0.3s;
+      :nth-child(even) {
+        td {
+          background-color: #f0f0f0;
+        }
+      }
       td {
         padding: 12px 8px;
         font-size: 0.8rem;
