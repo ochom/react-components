@@ -87,13 +87,18 @@ export default function Table({
 
       <ButtonsContainer>
         {buttons.length > 0 && (
-          <Stack spacing={2}>
+          <Stack spacing={2} direction="row">
             {buttons.map((button, index) => (
               <CButton key={index} size="small" {...button} />
             ))}
           </Stack>
         )}
-        {showSearch && <StyledSearch onSearch={handleSearch} />}
+        {showSearch && (
+          <StyledSearch
+            onSearch={handleSearch}
+            sx={{ flex: buttons.length > 0 ? 1 : 0 }}
+          />
+        )}
       </ButtonsContainer>
 
       <TableContainer

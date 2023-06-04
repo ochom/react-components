@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Search as SearchIcon } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 import React from "react";
 
 export const StyledTable = styled.table`
@@ -124,11 +124,13 @@ const SearchBox = styled(Box)`
 
 export const StyledSearch = ({
   onSearch,
+  sx,
 }: {
   onSearch: (value: string) => void;
+  sx: SxProps;
 }) => {
   return (
-    <SearchBox>
+    <SearchBox sx={sx}>
       <Icon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
       <input
         type="text"
