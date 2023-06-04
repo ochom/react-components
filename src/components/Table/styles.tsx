@@ -142,5 +142,7 @@ export const StyledSearch = ({
 export const ButtonsContainer = styled.div(({ justifyContent }: any) => ({
   display: "flex",
   alignItems: "center",
+  alignContent: "center",
+  marginBottom: "1rem",
   justifyContent: justifyContent,
 }));
