@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { ButtonsContainer, StyledSearch } from "./styles";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -77,16 +77,6 @@ export default function Table({
     }
   };
 
-  const justifyContent = useMemo(() => {
-    if (showSearch && buttons.length > 0) {
-      return "space-between";
-    }
-    if (showSearch && buttons.length === 0) {
-      return "end";
-    }
-    return "start";
-  }, [showSearch, buttons]);
-
   return (
     <Box sx={sx}>
       {title && (
@@ -95,13 +85,15 @@ export default function Table({
         </Typography>
       )}
 
-      <ButtonsContainer justifyContent={justifyContent}>
+      <ButtonsContainer>
+        {buttons.length > 0 && (
+          <Stack spacing={2}>
+            {buttons.map((button, index) => (
+              <CButton key={index} size="small" {...button} />
+            ))}
+          </Stack>
+        )}
         {showSearch && <StyledSearch onSearch={handleSearch} />}
-        <Box>
-          {buttons.map((button, index) => (
-            <CButton key={index} size="small" {...button} />
-          ))}
-        </Box>
       </ButtonsContainer>
 
       <TableContainer
