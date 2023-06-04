@@ -101,12 +101,7 @@ export default function Table({
             <CButton key={index} size="small" {...button} />
           ))}
         </Box>
-        <StyledSearch
-          type="text"
-          placeholder="Search"
-          onChange={(e: any) => handleSearch(e.target.value)}
-          style={{ display: showSearch ? "block" : "none" }}
-        />
+        {showSearch && <StyledSearch onSearch={handleSearch} />}
       </Box>
 
       <TableContainer
