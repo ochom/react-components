@@ -97,7 +97,8 @@ export const Pagination = styled.div`
 
 const Icon = styled(SearchIcon)`
   color: #949494;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 400;
 `;
 
 const SearchBox = styled(Box)`
@@ -106,7 +107,7 @@ const SearchBox = styled(Box)`
   justify-content: space-between;
   border-radius: 15px;
   box-shadow: 0 0 3px 0 #dfdfdf;
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem;
   overflow: hidden;
   input {
     border: none;
