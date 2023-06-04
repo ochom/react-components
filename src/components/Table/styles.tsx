@@ -29,7 +29,6 @@ export const StyledTable = styled.table`
   }
   tbody {
     tr {
-      border-bottom: 1px solid #f0f0f0;
       margin: 0 5px;
       transition: 0.3s;
       :nth-child(even) {
@@ -40,14 +39,6 @@ export const StyledTable = styled.table`
       td {
         padding: 12px 8px;
         font-size: 0.8rem;
-        :first-of-type {
-          border-top-left-radius: 15px;
-          border-bottom-left-radius: 15px;
-        }
-        :last-of-type {
-          border-top-right-radius: 15px;
-          border-bottom-right-radius: 15px;
-        }
       }
     }
     tr:hover {
@@ -55,7 +46,14 @@ export const StyledTable = styled.table`
       background-color: #4e0c8b16;
     }
     tr:last-of-type {
-      border-bottom: 1px solid #ffffff;
+      td {
+        :first-of-type {
+          border-bottom-left-radius: 15px;
+        }
+        :last-of-type {
+          border-bottom-right-radius: 15px;
+        }
+      }
     }
   }
 `;
