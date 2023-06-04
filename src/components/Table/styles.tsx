@@ -41,7 +41,7 @@ export const StyledTable = styled.table`
     }
     tr:hover {
       cursor: pointer;
-      background-color: #d400ff10;
+      background-color: #eeeeee;
     }
     tr:last-of-type {
       td {
