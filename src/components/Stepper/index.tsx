@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  Paper,
-  Step,
-  StepLabel,
-  Stepper,
-  SxProps,
-} from "@mui/material";
+import { Box, Container, Step, StepLabel, Stepper } from "@mui/material";
 
 import React from "react";
 
