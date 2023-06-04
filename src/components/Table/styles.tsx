@@ -32,9 +32,7 @@ export const StyledTable = styled.table`
       margin: 0 5px;
       transition: 0.3s;
       :nth-child(even) {
-        td {
-          background-color: #f9f9f9;
-        }
+        background-color: #f9f9f9;
       }
       td {
         padding: 12px 8px;
@@ -43,7 +41,7 @@ export const StyledTable = styled.table`
     }
     tr:hover {
       cursor: pointer;
-      background-color: #4e0c8b16;
+      background-color: #d400ff10;
     }
     tr:last-of-type {
       td {
