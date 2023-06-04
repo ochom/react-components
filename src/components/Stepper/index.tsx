@@ -1,22 +1,30 @@
-import { Container, Paper, Step, StepLabel, Stepper } from "@mui/material";
+import {
+  Box,
+  Container,
+  Paper,
+  Step,
+  StepLabel,
+  Stepper,
+  SxProps,
+} from "@mui/material";
 
 import React from "react";
 
-export interface StepperProps {
-  steps: string[];
-  activeStep: number;
-  pages: React.ReactNode[];
+interface Step {
+  title: string;
+  content: React.ReactNode;
 }
 
-export default function CustomStepper({
-  steps,
-  activeStep,
-  pages,
-}: StepperProps) {
+export interface StepperProps {
+  steps: Step[];
+  activeStep: number;
+}
+
+export default function CustomStepper({ steps, activeStep }: StepperProps) {
   return (
     <Container>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps.map(({ title }, index) => {
           return (
             <Step
               key={index}
@@ -40,14 +48,14 @@ export default function CustomStepper({
                 },
               }}
             >
-              <StepLabel>{label}</StepLabel>
+              <StepLabel>{title}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
-      <Paper sx={{ mt: 5, px: 3, pt: 2, pb: 5 }}>
-        <React.Fragment>{pages[activeStep]}</React.Fragment>
-      </Paper>
+      <Box>
+        <React.Fragment>{steps[activeStep].content}</React.Fragment>
+      </Box>
     </Container>
   );
 }
