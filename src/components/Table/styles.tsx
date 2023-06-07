@@ -83,15 +83,13 @@ export const Pagination = styled.div`
   }
 
   button {
-    margin: 0px 8px;
+    height: 20px;
+    line-height: 0;
     padding: 0px;
     cursor: pointer;
     border: none;
     font-size: 18px;
     background-color: #fff;
-    justify-content: center;
-    align-items: center;
-    display: flex;
   }
 
   button:disabled {
