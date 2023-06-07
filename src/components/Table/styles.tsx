@@ -57,7 +57,8 @@ export const StyledTable = styled.table`
 `;
 
 export const Pagination = styled.div`
-  margin: 25px 0;
+  margin: 0;
+  margin-top: 30px;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -66,9 +67,8 @@ export const Pagination = styled.div`
   font-size: 14px;
 
   select {
-    margin: 0px 4px;
-    padding: 0px 14px;
-    border-radius: 4px;
+    height: 20px;
+    line-height: 0;
     border: none;
     color: inherit;
     font-weight: inherit;
@@ -99,7 +99,8 @@ export const Pagination = styled.div`
   }
 
   span {
-    margin: 0 8px;
+    height: 20px;
+    line-height: 0;
     font-size: inherit;
   }
 `;
