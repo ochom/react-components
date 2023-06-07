@@ -89,6 +89,9 @@ export const Pagination = styled.div`
     border: none;
     font-size: 18px;
     background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    display: flex;
   }
 
   button:disabled {
