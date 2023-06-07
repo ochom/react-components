@@ -57,9 +57,9 @@ export const StyledTable = styled.table`
 `;
 
 export const Pagination = styled.div`
-  margin: 10px 25px;
+  margin: 25px 0;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
   color: #555;
   font-weight: 300;
