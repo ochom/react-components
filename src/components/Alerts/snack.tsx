@@ -15,8 +15,9 @@ function SnackAlert({ data, closeSnack }: SnackAlertProps) {
       autoHideDuration={duration}
       onClose={() => closeSnack()}
       TransitionComponent={TransitionUp}
+      sx={{ top: "65px" }}
     >
-      <Alert variant="filled" severity={type} sx={{ width: "100%" }}>
+      <Alert severity={type} sx={{ width: "100%" }}>
         {message}
       </Alert>
     </Snackbar>
