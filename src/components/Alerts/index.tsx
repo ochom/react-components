@@ -21,7 +21,7 @@ const initSnackState: SnackProps = {
   open: false,
   message: "",
   duration: 3000,
-  origin: { vertical: "bottom", horizontal: "center" },
+  origin: { vertical: "top", horizontal: "right" },
   children: null,
 };
 
