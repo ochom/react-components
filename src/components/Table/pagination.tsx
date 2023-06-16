@@ -103,18 +103,16 @@ const TablePagination = ({
   }
 
   return (
-    <PaginationContainer direction="row" spacing={1}>
-      <Pagination
-        component="div"
-        page={page}
-        count={count}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={rowsPerPageOptions}
-        onRowsPerPageChange={onRowsPerPageChange}
-        onPageChange={onPageChange}
-        ActionsComponent={TablePaginationActions}
-      />
-    </PaginationContainer>
+    <Pagination
+      component="div"
+      page={page}
+      count={count}
+      rowsPerPage={rowsPerPage}
+      rowsPerPageOptions={rowsPerPageOptions}
+      onRowsPerPageChange={onRowsPerPageChange}
+      onPageChange={onPageChange}
+      ActionsComponent={TablePaginationActions}
+    />
   );
 };
 
