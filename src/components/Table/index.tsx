@@ -93,7 +93,13 @@ export default function Table({
         {buttons.length > 0 && (
           <Stack spacing={1} direction="row">
             {buttons.map((button, index) => (
-              <CButton key={index} size="small" {...button} />
+              <CButton
+                key={index}
+                size="small"
+                variant="outlined"
+                sx={{ borderRadius: 5 }}
+                {...button}
+              />
             ))}
           </Stack>
         )}
