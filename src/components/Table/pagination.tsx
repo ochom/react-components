@@ -35,9 +35,9 @@ const TablePagination = ({
     <PaginationContainer direction="row" spacing={1}>
       <span>Rows per page</span>
       <select value={rowsPerPage} onChange={changeRowsPerPage}>
-        {rowsPerPageOptions.map((option: number) => (
-          <option key={option} value={option}>
-            {option}
+        {rowsPerPageOptions.map((n: number, i: number) => (
+          <option key={n} value={i}>
+            {n}
           </option>
         ))}
       </select>
