@@ -103,7 +103,9 @@ export default function Table({
             ))}
           </Stack>
         )}
-        {showSearch && <StyledSearch onSearch={handleSearch} sx={...flexSX} />}
+        {showSearch && rows.length > 0 ? (
+          <StyledSearch onSearch={handleSearch} sx={...flexSX} />
+        ) : null}
       </ButtonsContainer>
 
       <TableContainer
