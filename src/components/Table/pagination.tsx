@@ -4,8 +4,9 @@ import {
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
 } from "@mui/icons-material";
-import { Pagination } from "./styles";
+import { PaginationContainer } from "./styles";
 import React, { useMemo } from "react";
+import { Pagination, Stack } from "@mui/material";
 
 const TablePagination = ({
   rows,
@@ -16,25 +17,13 @@ const TablePagination = ({
   rowsPerPageOptions,
 }: any) => {
   const totalRecords: number = useMemo(() => rows.length, [rows]);
+  const totalPages: number = useMemo(
+    () => Math.ceil(totalRecords / rowsPerPage),
+    [totalRecords, rowsPerPage]
+  );
 
-  const goToFirstPage = () => {
-    setPage(0);
-  };
-
-  const goToLastPage = () => {
-    setPage(Math.ceil(rows.length / rowsPerPage) - 1);
-  };
-
-  const goToNextPage = () => {
-    setPage((prev: number) => prev + 1);
-  };
-
-  const goToPreviousPage = () => {
-    setPage((prev: number) => prev - 1);
-  };
-
-  const handleChangeRowsPerPage = (event: any) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+  const changeRowsPerPage = (e: any) => {
+    setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
 
@@ -43,37 +32,21 @@ const TablePagination = ({
   }
 
   return (
-    <Pagination>
+    <PaginationContainer direction="row" spacing={1}>
       <span>Rows per page</span>
-      <select value={rowsPerPage} onChange={handleChangeRowsPerPage}>
+      <select value={rowsPerPage} onChange={changeRowsPerPage}>
         {rowsPerPageOptions.map((option: number) => (
           <option key={option} value={option}>
             {option}
           </option>
         ))}
       </select>
-      <button onClick={goToFirstPage} disabled={page === 0}>
-        <KeyboardDoubleArrowLeft />
-      </button>
-      <button onClick={goToPreviousPage} disabled={page === 0}>
-        <KeyboardArrowLeft />
-      </button>
-      <span>
-        {`Page ${page + 1} of ${Math.ceil(totalRecords / rowsPerPage)}`}
-      </span>
-      <button
-        onClick={goToNextPage}
-        disabled={page === Math.ceil(totalRecords / rowsPerPage) - 1}
-      >
-        <KeyboardArrowRight />
-      </button>
-      <button
-        onClick={goToLastPage}
-        disabled={page === Math.ceil(totalRecords / rowsPerPage) - 1}
-      >
-        <KeyboardDoubleArrowRight />
-      </button>
-    </Pagination>
+      <Pagination
+        page={page}
+        count={totalPages}
+        onChange={(e, v) => setPage(v)}
+      />
+    </PaginationContainer>
   );
 };
 

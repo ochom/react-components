@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Search as SearchIcon } from "@mui/icons-material";
-import { Box, SxProps } from "@mui/material";
+import { Box, Stack, SxProps } from "@mui/material";
 import React from "react";
 
 export const StyledTable = styled.table`
@@ -56,7 +56,7 @@ export const StyledTable = styled.table`
   }
 `;
 
-export const Pagination = styled.div`
+export const PaginationContainer = styled(Stack)`
   margin: 25px 0;
   display: flex;
   justify-content: start;
@@ -82,25 +82,8 @@ export const Pagination = styled.div`
     }
   }
 
-  button {
-    height: 20px;
-    line-height: 0;
-    padding: 0px;
-    cursor: pointer;
-    border: none;
-    font-size: 18px;
-    background-color: #fff;
-  }
-
-  button:disabled {
-    color: #ccc;
-    background-color: #fff;
-    cursor: not-allowed;
-  }
-
   span {
-    margin: 0 8px;
-    font-size: inherit;
+    margin: 0px 4px;
   }
 `;
 
