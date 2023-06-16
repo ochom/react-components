@@ -1,7 +1,7 @@
 import { typeOf } from "react-is";
 import { TableColumn } from "./props";
 import { StyledTable } from "./styles";
-import React from "react";
+import React, { useMemo } from "react";
 
 const TableBody = ({ cols, rows, rowsPerPage, page, onRowClicked }: any) => {
   const handleRowClicked = (col: TableColumn, item: any) => {
