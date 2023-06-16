@@ -101,7 +101,7 @@ const ModalContent = styled.div`
 export interface ModalProps {
   open: boolean;
   showClose?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   title?: string;
   children: React.ReactNode;
   size?: "small" | "medium" | "large" | "full";
