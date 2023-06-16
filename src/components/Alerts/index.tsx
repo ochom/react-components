@@ -21,15 +21,15 @@ const initSnackState: SnackProps = {
   open: false,
   message: "",
   duration: 3000,
-  origin: { vertical: "bottom", horizontal: "right" },
+  origin: { vertical: "bottom", horizontal: "center" },
   children: null,
 };
 
 const AlertContext = createContext({
-  confirm: (options: ConfirmProps) => {},
-  alertSuccess: (message: string) => {},
-  alertError: (message: string) => {},
-  alertWarning: (message: string) => {},
+  confirm: (_options: ConfirmProps) => {},
+  alertSuccess: (_message: string) => {},
+  alertError: (_message: string) => {},
+  alertWarning: (_message: string) => {},
 });
 
 export const AlertProvider = ({ children }: any) => {
