@@ -103,6 +103,7 @@ const TablePagination = ({
 
   return (
     <Pagination
+      sx={{ mt: 3 }}
       component="div"
       page={page}
       count={count}
