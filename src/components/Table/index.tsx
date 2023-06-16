@@ -47,7 +47,7 @@ export default function Table({
   rowsPerPageOptions = [10, 20, 30, 40, 50],
   sx = {},
 }: TableProps<any>) {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const [cols, setCols] = useState<any>([]);

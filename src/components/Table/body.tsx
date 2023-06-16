@@ -1,9 +1,11 @@
 import { typeOf } from "react-is";
 import { TableColumn } from "./props";
 import { StyledTable } from "./styles";
-import React from "react";
+import React, { useMemo } from "react";
 
 const TableBody = ({ cols, rows, rowsPerPage, page, onRowClicked }: any) => {
+  const currentPage = useMemo(() => page - 1, [page]);
+
   const handleRowClicked = (col: TableColumn, item: any) => {
     if (col.button) {
       return;
@@ -32,7 +34,10 @@ const TableBody = ({ cols, rows, rowsPerPage, page, onRowClicked }: any) => {
       </thead>
       <tbody>
         {rows
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .slice(
+            currentPage * rowsPerPage,
+            currentPage * rowsPerPage + rowsPerPage
+          )
           .map((item: any, rIndex: number) => (
             <tr key={rIndex}>
               {cols.map((column: TableColumn, cIndex: number) => (
