@@ -1,4 +1,3 @@
-import { PaginationContainer } from "./styles";
 import React, { useMemo } from "react";
 import { Box, IconButton, TablePagination as Pagination } from "@mui/material";
 import {
