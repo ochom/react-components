@@ -3,7 +3,7 @@ import React from "react";
 import { SnackAlertProps } from "./props";
 
 const TransitionUp = (props: any) => {
-  return <Slide {...props} direction="up" />;
+  return <Slide {...props} direction="left" />;
 };
 
 function SnackAlert({ data, closeSnack }: SnackAlertProps) {
