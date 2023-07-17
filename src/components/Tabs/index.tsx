@@ -30,18 +30,14 @@ function Panel(props: TabPanelProps) {
 }
 
 export default function CustomTabs({
-  currentIndex = 0,
+  index,
+  setIndex,
   tabs,
 }: {
-  currentIndex: number;
+  index: number;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
   tabs: TabProps[];
 }) {
-  const [index, setIndex] = React.useState<number>(0);
-
-  useEffect(() => {
-    setIndex(currentIndex);
-  }, [currentIndex]);
-
   return (
     <Box>
       <Tabs
