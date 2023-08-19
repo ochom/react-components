@@ -21,6 +21,7 @@ export interface SnackProps {
   message: string;
   duration?: number;
   origin?: SnackbarOrigin;
+  variant?: "filled" | "outlined" | "standard";
   children: any;
 }
 

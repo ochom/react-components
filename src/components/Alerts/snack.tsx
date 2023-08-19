@@ -7,7 +7,7 @@ const TransitionUp = (props: any) => {
 };
 
 function SnackAlert({ data, closeSnack }: SnackAlertProps) {
-  const { type, open, message, duration, origin } = data;
+  const { type, open, message, duration, origin, variant = "filled" } = data;
   return (
     <Snackbar
       open={open}
@@ -17,7 +17,7 @@ function SnackAlert({ data, closeSnack }: SnackAlertProps) {
       TransitionComponent={TransitionUp}
       sx={{ top: "65px" }}
     >
-      <Alert severity={type} sx={{ width: "100%" }}>
+      <Alert severity={type} sx={{ width: "100%" }} variant={variant}>
         {message}
       </Alert>
     </Snackbar>
