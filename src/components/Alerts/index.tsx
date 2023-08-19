@@ -25,6 +25,12 @@ const initSnackState: SnackProps = {
   children: null,
 };
 
+interface AlertProps {
+  confirmProps?: ConfirmProps;
+  snackProps?: SnackProps;
+  children: React.ReactNode;
+}
+
 const AlertContext = createContext({
   confirm: (_options: ConfirmProps) => {},
   alertSuccess: (_message: string) => {},
@@ -32,12 +38,16 @@ const AlertContext = createContext({
   alertWarning: (_message: string) => {},
 });
 
-export const AlertProvider = ({ children }: any) => {
-  const [confirmState, setConfirmState] = useState(initConfirmState);
-  const [snackState, setSnackState] = useState(initSnackState);
+export const AlertProvider = (props: AlertProps) => {
+  const [confirmState, setConfirmState] = useState(
+    props.confirmProps || initConfirmState
+  );
+  const [snackState, setSnackState] = useState(
+    props.snackProps || initSnackState
+  );
 
   const handleCloseConfirm = () => {
-    setConfirmState(initConfirmState);
+    setConfirmState({ ...confirmState, open: false });
   };
 
   const handleConfirm = () => {
@@ -101,7 +111,7 @@ export const AlertProvider = ({ children }: any) => {
 
   return (
     <AlertContext.Provider value={providerProps}>
-      {children}
+      {props.children}
       <ConfirmModal
         data={confirmState}
         handleClose={handleCloseConfirm}
