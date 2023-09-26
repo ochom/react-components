@@ -10,12 +10,17 @@ interface Step {
 export interface StepperProps {
   steps: Step[];
   activeStep: number;
+  orientation: "horizontal" | "vertical";
 }
 
-export default function CustomStepper({ steps, activeStep }: StepperProps) {
+export default function CustomStepper({
+  steps,
+  activeStep,
+  orientation = "horizontal",
+}: StepperProps) {
   return (
     <Container>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} orientation={orientation}>
         {steps.map(({ title }, index) => {
           return (
             <Step
