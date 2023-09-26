@@ -1,9 +1,17 @@
-import { Box, Container, Step, StepLabel, Stepper } from "@mui/material";
+import {
+  Box,
+  Container,
+  Step,
+  StepIcon,
+  StepLabel,
+  Stepper,
+} from "@mui/material";
 
 import React from "react";
 
 interface Step {
   title: string;
+  icon?: React.ReactNode;
   content: React.ReactNode;
 }
 
@@ -21,7 +29,7 @@ export default function CustomStepper({
   return (
     <Container>
       <Stepper activeStep={activeStep} orientation={orientation}>
-        {steps.map(({ title }, index) => {
+        {steps.map(({ title, icon }, index) => {
           return (
             <Step
               key={index}
@@ -45,6 +53,7 @@ export default function CustomStepper({
                 },
               }}
             >
+              {icon && <StepIcon icon={icon} />}
               <StepLabel>{title}</StepLabel>
             </Step>
           );
