@@ -2,16 +2,19 @@ import {
   Box,
   Container,
   Step,
+  StepButton,
   StepContent,
   StepIcon,
   StepLabel,
   Stepper,
+  Typography,
 } from "@mui/material";
 
 import React from "react";
 
 interface Step {
   title: string;
+  subtitle?: string;
   icon?: React.ReactNode;
   content: React.ReactNode;
 }
@@ -29,7 +32,7 @@ export default function CustomStepper({
 }: StepperProps) {
   return (
     <Stepper activeStep={activeStep} orientation={orientation}>
-      {steps.map(({ title, icon, content }, index) => {
+      {steps.map(({ title, subtitle, icon, content }, index) => {
         return (
           <Step
             key={index}
@@ -53,11 +56,11 @@ export default function CustomStepper({
               },
             }}
           >
-            {icon && <StepIcon icon={icon} />}
-            <StepLabel>{title}</StepLabel>
-            <StepContent>
-              <Box>{content}</Box>
-            </StepContent>
+            <StepButton icon={icon}>
+              <Typography variant="h6">{title}</Typography>
+              {subtitle && <Typography variant="body2">{subtitle}</Typography>}
+            </StepButton>
+            <StepContent>{content}</StepContent>
           </Step>
         );
       })}
