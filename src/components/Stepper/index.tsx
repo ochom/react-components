@@ -29,7 +29,7 @@ export default function CustomStepper({
 }: StepperProps) {
   return (
     <Stepper activeStep={activeStep} orientation={orientation}>
-      {steps.map(({ title, icon }, index) => {
+      {steps.map(({ title, icon, content }, index) => {
         return (
           <Step
             key={index}
@@ -56,7 +56,7 @@ export default function CustomStepper({
             {icon && <StepIcon icon={icon} />}
             <StepLabel>{title}</StepLabel>
             <StepContent>
-              <Box>{steps[activeStep].content}</Box>
+              <Box>{content}</Box>
             </StepContent>
           </Step>
         );
