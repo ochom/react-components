@@ -21,12 +21,14 @@ interface Step {
 
 export interface StepperProps {
   steps: Step[];
+  expanded?: boolean;
   activeStep: number;
-  orientation: "horizontal" | "vertical";
+  orientation?: "horizontal" | "vertical";
 }
 
 export default function CustomStepper({
   steps,
+  expanded = false,
   activeStep,
   orientation = "horizontal",
 }: StepperProps) {
@@ -36,6 +38,7 @@ export default function CustomStepper({
         return (
           <Step
             key={index}
+            expanded={expanded}
             sx={{
               "& .MuiStepLabel-root .Mui-completed": {
                 color: "primary.main", // circle color (COMPLETED)
