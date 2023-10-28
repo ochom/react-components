@@ -59,7 +59,6 @@ export default function CustomStepper({
               <Typography variant="h6">{title}</Typography>
               {subtitle && <Typography variant="body2">{subtitle}</Typography>}
             </StepButton>
-           
           </Step>
         );
       })}
