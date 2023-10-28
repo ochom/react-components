@@ -24,9 +24,7 @@ export interface StepperProps {
 
 export default function CustomStepper({
   steps,
-  expanded = false,
   activeStep,
-  orientation = "horizontal",
 }: StepperProps) {
   return (
     <>
