@@ -30,12 +30,11 @@ export default function CustomStepper({
 }: StepperProps) {
   return (
     <>
-    <Stepper activeStep={activeStep} orientation={orientation}>
+    <Stepper activeStep={activeStep}>
       {steps.map(({ title, subtitle, icon, content }, index) => {
         return (
           <Step
             key={index}
-            expanded={expanded}
             sx={{
               "& .MuiStepLabel-root .Mui-completed": {
                 color: "primary.main", // circle color (COMPLETED)
