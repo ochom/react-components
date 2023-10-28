@@ -1,13 +1,9 @@
 import {
-  Box,
-  Container,
   Step,
   StepButton,
   StepContent,
-  StepIcon,
-  StepLabel,
   Stepper,
-  Typography,
+  Typography
 } from "@mui/material";
 
 import React from "react";
