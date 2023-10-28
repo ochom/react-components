@@ -17,8 +17,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: { 
-    steps: []
+    steps: [{
+      title: "Hello",
+      subtitle: "World",
+      content: "This is the first step",
+    },{
+      title: "Hello",
+      subtitle: "World",
+      content: "This is the first step",
+    }]
   },
 };

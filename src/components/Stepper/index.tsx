@@ -1,4 +1,5 @@
 import {
+  Box,
   Step,
   StepButton,
   StepContent,
@@ -24,10 +25,10 @@ export interface StepperProps {
 
 export default function CustomStepper({
   steps,
-  activeStep,
+  activeStep=0,
 }: StepperProps) {
   return (
-    <>
+    <Box sx={{width:'100%'}}>
     <Stepper activeStep={activeStep}>
       {steps.map(({ title, subtitle, icon, content }, index) => {
         return (
@@ -61,7 +62,7 @@ export default function CustomStepper({
         );
       })}
     </Stepper>
-    {steps[activeStep].content}
-    </>
+    {steps[activeStep]?.content || "No content"}
+    </Box>
   );
 }
