@@ -29,6 +29,7 @@ export default function CustomStepper({
   orientation = "horizontal",
 }: StepperProps) {
   return (
+    <>
     <Stepper activeStep={activeStep} orientation={orientation}>
       {steps.map(({ title, subtitle, icon, content }, index) => {
         return (
@@ -59,10 +60,12 @@ export default function CustomStepper({
               <Typography variant="h6">{title}</Typography>
               {subtitle && <Typography variant="body2">{subtitle}</Typography>}
             </StepButton>
-            <StepContent>{content}</StepContent>
+           
           </Step>
         );
       })}
     </Stepper>
+    {steps[activeStep].content}
+    </>
   );
 }
