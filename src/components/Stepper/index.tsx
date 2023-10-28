@@ -29,12 +29,12 @@ export default function CustomStepper({
   orientation = "horizontal",
 }: StepperProps) {
   return (
-    <Stepper activeStep={activeStep} orientation={orientation}>
+    <>
+    <Stepper activeStep={activeStep}>
       {steps.map(({ title, subtitle, icon, content }, index) => {
         return (
           <Step
             key={index}
-            expanded={expanded}
             sx={{
               "& .MuiStepLabel-root .Mui-completed": {
                 color: "primary.main", // circle color (COMPLETED)
@@ -59,10 +59,12 @@ export default function CustomStepper({
               <Typography variant="h6">{title}</Typography>
               {subtitle && <Typography variant="body2">{subtitle}</Typography>}
             </StepButton>
-            <StepContent>{content}</StepContent>
+           
           </Step>
         );
       })}
     </Stepper>
+    {steps[activeStep].content}
+    </>
   );
 }
