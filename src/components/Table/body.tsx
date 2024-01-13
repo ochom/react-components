@@ -32,6 +32,14 @@ const TableBody = ({
     return item[column.selector];
   };
 
+  const Spanned = ({ children, span }: any) => {
+    return (
+      <td colSpan={span} style={{ padding: 0 }}>
+        {children}
+      </td>
+    );
+  };
+
   return (
     <StyledTable>
       <thead>
@@ -42,28 +50,27 @@ const TableBody = ({
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr
+          style={{
+            display:
+              loading || error || rows.length === 0 ? "table-row" : "none",
+            backgroundColor: "transparent",
+          }}
+        >
           {loading && (
-            <td colSpan={cols.length} style={{ padding: 0 }}>
+            <Spanned span={cols.length}>
               <BarLoader />
-            </td>
+            </Spanned>
           )}
 
           {error && rows.length === 0 && (
-            <td colSpan={cols.length} style={{ padding: 0 }}>
+            <Spanned span={cols.length}>
               <ErrorPage error={error} title="Oops!" />
-            </td>
+            </Spanned>
           )}
 
           {!loading && rows.length === 0 && (
-            <td
-              colSpan={cols.length}
-              style={{
-                padding: 0,
-              }}
-            >
-              {message}
-            </td>
+            <Spanned span={cols.length}>{message}</Spanned>
           )}
         </tr>
         {rows
