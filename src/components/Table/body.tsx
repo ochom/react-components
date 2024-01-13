@@ -1,10 +1,17 @@
-import { typeOf } from "react-is";
+import { Box } from "@mui/material";
+import React from "react";
+import { ErrorPage } from "../EmptyPage";
+import { BarLoader } from "../Monitors";
 import { TableColumn } from "./props";
 import { StyledTable } from "./styles";
-import React, { useMemo } from "react";
-import { BarLoader } from "../Monitors";
-import { ErrorPage } from "../EmptyPage";
-import { Box } from "@mui/material";
+
+const Spanned = ({ children, span }: any) => {
+  return (
+    <td colSpan={span} style={{ padding: 0 }}>
+      {children}
+    </td>
+  );
+};
 
 const TableBody = ({
   loading,
@@ -31,14 +38,6 @@ const TableBody = ({
     }
 
     return item[column.selector];
-  };
-
-  const Spanned = ({ children, span }: any) => {
-    return (
-      <td colSpan={span} style={{ padding: 0 }}>
-        {children}
-      </td>
-    );
   };
 
   return (
@@ -70,7 +69,7 @@ const TableBody = ({
             </Spanned>
           )}
 
-          {!loading && rows.length === 0 && (
+          {!loading && rows.length === 0 && !error && (
             <Spanned span={cols.length}>
               <Box sx={{ textAlign: "center", py: 3 }}>{message}</Box>
             </Spanned>
