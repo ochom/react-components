@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
-import { Box, IconButton, TablePagination as Pagination } from "@mui/material";
 import {
   FirstPage,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   LastPage,
 } from "@mui/icons-material";
+import { Box, IconButton, TablePagination as Pagination } from "@mui/material";
+import React from "react";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -79,6 +79,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 const TablePagination = ({
+  total,
   rows,
   page,
   setPage,
@@ -86,8 +87,6 @@ const TablePagination = ({
   setRowsPerPage,
   rowsPerPageOptions,
 }: any) => {
-  const count: number = useMemo(() => rows.length, [rows]);
-
   const onRowsPerPageChange = (e: any) => {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
@@ -97,7 +96,7 @@ const TablePagination = ({
     setPage(page);
   };
 
-  if (count < rowsPerPage) {
+  if (total < rowsPerPage) {
     return null;
   }
 
@@ -106,7 +105,7 @@ const TablePagination = ({
       sx={{ mt: 3 }}
       component="div"
       page={page}
-      count={count}
+      count={total}
       rowsPerPage={rowsPerPage}
       rowsPerPageOptions={rowsPerPageOptions}
       onRowsPerPageChange={onRowsPerPageChange}

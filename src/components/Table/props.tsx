@@ -14,6 +14,7 @@ export type TableProps<T> = {
   error?: Error;
   columns: TableColumn[];
   data: any[];
+  total: number;
   emptyMessage?: string;
   showSearch?: boolean;
   onSearch?: (value: string) => void;
