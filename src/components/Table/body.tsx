@@ -4,6 +4,7 @@ import { StyledTable } from "./styles";
 import React, { useMemo } from "react";
 import { BarLoader } from "../Monitors";
 import { ErrorPage } from "../EmptyPage";
+import { Box } from "@mui/material";
 
 const TableBody = ({
   loading,
@@ -70,7 +71,9 @@ const TableBody = ({
           )}
 
           {!loading && rows.length === 0 && (
-            <Spanned span={cols.length}>{message}</Spanned>
+            <Spanned span={cols.length}>
+              <Box sx={{ textAlign: "center", py: 3 }}>{message}</Box>
+            </Spanned>
           )}
         </tr>
         {rows
