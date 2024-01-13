@@ -2,36 +2,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import { ButtonsContainer, StyledSearch } from "./styles";
 import React, { useEffect, useMemo, useState } from "react";
 
-import { CircularLoader } from "../Monitors";
 import { CButton } from "../Buttons";
-import { ErrorPage } from "../EmptyPage";
 import { TableProps } from "./props";
 import TableBody from "./body";
 import TablePagination from "./pagination";
-
-const NoData = ({ message }: any) => {
-  return (
-    <Box sx={{ py: 3 }}>
-      <Typography variant="h6" textAlign="center" color="grey">
-        No data found
-      </Typography>
-      <Typography variant="body2" textAlign="center" color="grey">
-        {message || "We couldn't find any data matching your search"}
-      </Typography>
-    </Box>
-  );
-};
-
-const TableContainer = ({ loading, error, rows, message, children }: any) => {
-  if (loading) return <CircularLoader />;
-  if (error) return <ErrorPage error={error} title="Oops!" />;
-
-  if (rows.length === 0) {
-    return <NoData message={message} />;
-  }
-
-  return children;
-};
 
 export default function Table({
   title,
@@ -39,12 +13,14 @@ export default function Table({
   error,
   columns,
   data,
-  emptyMessage,
+  emptyMessage = "No data found",
   showSearch,
   onSearch,
   buttons = [],
   onRowClicked,
   rowsPerPageOptions = [10, 20, 30, 40, 50],
+  serverSide = false,
+  onPaginationChange,
   sx = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
@@ -64,6 +40,12 @@ export default function Table({
       setRows(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (serverSide && onPaginationChange) {
+      onPaginationChange(page, rowsPerPage);
+    }
+  }, [page, rowsPerPage]);
 
   const handleSearch = (value: string) => {
     if (onSearch) return onSearch(value);
@@ -104,17 +86,15 @@ export default function Table({
           </Stack>
         )}
         {showSearch && rows.length > 0 ? (
-          <StyledSearch onSearch={handleSearch} sx={...flexSX} />
+          <StyledSearch onSearch={handleSearch} sx={{ ...flexSX }} />
         ) : null}
       </ButtonsContainer>
 
-      <TableContainer
-        loading={loading}
-        error={error}
-        rows={rows}
-        message={emptyMessage}
-      >
+      <>
         <TableBody
+          loading={loading}
+          error={error}
+          message={emptyMessage}
           cols={cols}
           rows={rows}
           rowsPerPage={rowsPerPage}
@@ -130,7 +110,7 @@ export default function Table({
           setRowsPerPage={setRowsPerPage}
           rowsPerPageOptions={rowsPerPageOptions}
         />
-      </TableContainer>
+      </>
     </Box>
   );
 }

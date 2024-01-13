@@ -2,8 +2,19 @@ import { typeOf } from "react-is";
 import { TableColumn } from "./props";
 import { StyledTable } from "./styles";
 import React, { useMemo } from "react";
+import { BarLoader } from "../Monitors";
+import { ErrorPage } from "../EmptyPage";
 
-const TableBody = ({ cols, rows, rowsPerPage, page, onRowClicked }: any) => {
+const TableBody = ({
+  loading,
+  error,
+  message,
+  cols,
+  rows,
+  rowsPerPage,
+  page,
+  onRowClicked,
+}: any) => {
   const handleRowClicked = (col: TableColumn, item: any) => {
     if (col.button) {
       return;
@@ -31,6 +42,30 @@ const TableBody = ({ cols, rows, rowsPerPage, page, onRowClicked }: any) => {
         </tr>
       </thead>
       <tbody>
+        <tr>
+          {loading && (
+            <td colSpan={cols.length} style={{ padding: 0 }}>
+              <BarLoader />
+            </td>
+          )}
+
+          {error && rows.length === 0 && (
+            <td colSpan={cols.length} style={{ padding: 0 }}>
+              <ErrorPage error={error} title="Oops!" />
+            </td>
+          )}
+
+          {!loading && rows.length === 0 && (
+            <td
+              colSpan={cols.length}
+              style={{
+                padding: 0,
+              }}
+            >
+              {message}
+            </td>
+          )}
+        </tr>
         {rows
           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
           .map((item: any, rIndex: number) => (
