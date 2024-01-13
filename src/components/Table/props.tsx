@@ -20,5 +20,7 @@ export type TableProps<T> = {
   buttons?: ButtonProps[];
   onRowClicked?: (row: T) => void;
   rowsPerPageOptions?: number[];
+  serverSide?: boolean;
+  onPaginationChange?: (page: number, rowsPerPage: number) => void;
   sx?: any;
 };
