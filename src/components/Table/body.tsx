@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
 import { TableColumn } from "./props";
@@ -17,6 +17,7 @@ const TableBody = ({
   loading,
   error,
   message,
+  serverSide,
   cols,
   rows,
   rowsPerPage,
@@ -39,6 +40,14 @@ const TableBody = ({
 
     return item[column.selector];
   };
+
+  const sliced = useMemo(() => {
+    if (serverSide) {
+      return rows;
+    }
+
+    return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  }, [rows, page, rowsPerPage]);
 
   return (
     <StyledTable>
@@ -75,21 +84,19 @@ const TableBody = ({
             </Spanned>
           )}
         </tr>
-        {rows
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((item: any, rIndex: number) => (
-            <tr key={rIndex}>
-              {cols.map((column: TableColumn, cIndex: number) => (
-                <td
-                  key={cIndex}
-                  style={column?.style || {}}
-                  onClick={() => handleRowClicked(column, item)}
-                >
-                  {getColumnValue(column, item)}
-                </td>
-              ))}
-            </tr>
-          ))}
+        {sliced.map((item: any, rIndex: number) => (
+          <tr key={rIndex}>
+            {cols.map((column: TableColumn, cIndex: number) => (
+              <td
+                key={cIndex}
+                style={column?.style || {}}
+                onClick={() => handleRowClicked(column, item)}
+              >
+                {getColumnValue(column, item)}
+              </td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </StyledTable>
   );
