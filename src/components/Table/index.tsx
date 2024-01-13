@@ -13,6 +13,7 @@ export default function Table({
   error,
   columns,
   data,
+  total,
   emptyMessage = "No data found",
   showSearch,
   onSearch,
@@ -43,7 +44,7 @@ export default function Table({
 
   useEffect(() => {
     if (serverSide && onPaginationChange) {
-      onPaginationChange(page, rowsPerPage);
+      onPaginationChange(page + 1, rowsPerPage);
     }
   }, [page, rowsPerPage]);
 
@@ -103,6 +104,7 @@ export default function Table({
         />
 
         <TablePagination
+          total={total || rows.length}
           rows={rows}
           page={page}
           setPage={setPage}
