@@ -96,6 +96,7 @@ export default function Table({
           loading={loading}
           error={error}
           message={emptyMessage}
+          serverSide={serverSide}
           cols={cols}
           rows={rows}
           rowsPerPage={rowsPerPage}
