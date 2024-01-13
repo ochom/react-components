@@ -43,7 +43,7 @@ export default function Table({
 
   useEffect(() => {
     if (serverSide && onPaginationChange) {
-      onPaginationChange(page, rowsPerPage);
+      onPaginationChange(page + 1, rowsPerPage);
     }
   }, [page, rowsPerPage]);
 
