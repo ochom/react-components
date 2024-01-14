@@ -12,7 +12,7 @@ function ConfirmModal(props: ConfirmModalProps) {
   } = props;
   return (
     <Modal open={open} onClose={handleClose} title={title}>
-      <Box sx={{ width: "100%", p: 3, ...sx }}>
+      <Box sx={{ width: "100%", p: 3, pt: 0, ...sx }}>
         {message}
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           {buttons.map((button, index) => (
