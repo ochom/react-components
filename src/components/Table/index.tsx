@@ -106,7 +106,6 @@ export default function Table({
 
         <TablePagination
           total={total || rows.length}
-          rows={rows}
           page={page}
           setPage={setPage}
           rowsPerPage={rowsPerPage}
