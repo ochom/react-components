@@ -6,10 +6,9 @@ import { CButton } from "../Buttons";
 
 function ConfirmModal(props: ConfirmModalProps) {
   const {
-    data: { open, title, message },
+    data: { open, title, message, sx },
     buttons,
     handleClose,
-    sx = {},
   } = props;
   return (
     <Modal open={open} onClose={handleClose} title={title}>

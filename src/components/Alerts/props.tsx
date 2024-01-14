@@ -14,6 +14,7 @@ export interface ConfirmProps {
   cancelButtonText?: string;
   onConfirm?: () => void;
   onCancel?: () => void;
+  sx: any;
 }
 
 export interface SnackProps {
@@ -30,7 +31,6 @@ export interface ConfirmModalProps {
   handleClose: () => void;
   buttons: any[];
   data: ConfirmProps;
-  sx: any;
 }
 
 export interface SnackAlertProps {

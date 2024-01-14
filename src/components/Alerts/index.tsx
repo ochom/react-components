@@ -14,6 +14,7 @@ const initConfirmState: ConfirmProps = {
   cancelButtonText: "No, Cancel",
   onConfirm: () => {},
   onCancel: () => {},
+  sx: {},
 };
 
 const initSnackState: SnackProps = {
