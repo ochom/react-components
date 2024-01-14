@@ -80,7 +80,6 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 
 const TablePagination = ({
   total,
-  rows,
   page,
   setPage,
   rowsPerPage,
@@ -100,9 +99,15 @@ const TablePagination = ({
     return null;
   }
 
+  const labelDisplayedRows = ({ from, to, count, page }: any) => {
+    return `Showing page ${page + 1} of ${Math.ceil(
+      count / rowsPerPage
+    )} (${from}-${to} of ${count})`;
+  };
+
   return (
     <Pagination
-      sx={{ mt: 3 }}
+      sx={{ mt: 2 }}
       component="div"
       page={page}
       count={total}
@@ -111,6 +116,7 @@ const TablePagination = ({
       onRowsPerPageChange={onRowsPerPageChange}
       onPageChange={onPageChange}
       ActionsComponent={TablePaginationActions}
+      labelDisplayedRows={labelDisplayedRows}
     />
   );
 };
