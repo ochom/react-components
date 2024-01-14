@@ -30,7 +30,7 @@ export interface ConfirmModalProps {
   handleClose: () => void;
   buttons: any[];
   data: ConfirmProps;
-  style: any;
+  sx: any;
 }
 
 export interface SnackAlertProps {
