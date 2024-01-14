@@ -100,10 +100,10 @@ const TablePagination = ({
     return null;
   }
 
-  const labelDisplayedRows = ({ from, to, count, page }: any) => {
+  const labelDisplayedRows = ({ count, page }: any) => {
     return `Page ${page + 1} of ${Math.ceil(
       count / rowsPerPage
-    )} (${from}-${to} of ${count} rows)`;
+    )} (${count} records)`;
   };
 
   return (
