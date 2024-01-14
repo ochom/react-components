@@ -255,7 +255,7 @@ export default function Form({
         {showButtons && (
           <Grid item>
             <Stack direction="row" spacing={3} justifyContent="left">
-              <LButton {...submitButtonProps} type="submit">
+              <LButton type="submit" {...submitButtonProps}>
                 {submitText}
               </LButton>
               {showCancelButton && (
