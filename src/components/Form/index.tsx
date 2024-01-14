@@ -70,6 +70,7 @@ interface FormField {
 }
 
 interface FormProps {
+  component?: "div" | "form";
   fields: FormField[];
   fieldSpacing: number;
   onSubmit: () => void;
@@ -221,7 +222,15 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
   );
 };
 
+const Container = ({ component, onSubmit, children }: any) => {
+  if (component === "form") {
+    return <form onSubmit={onSubmit}>{children}</form>;
+  }
+  return <div>{children}</div>;
+};
+
 export default function Form({
+  component = "form",
   fields = [],
   fieldSpacing = 4,
   onSubmit = () => {},
@@ -234,7 +243,7 @@ export default function Form({
   cancelButtonProps,
 }: FormProps) {
   return (
-    <form onSubmit={onSubmit}>
+    <Container component={component} onSubmit={onSubmit}>
       <Grid container spacing={fieldSpacing}>
         {fields.map((field, index) => {
           // check if the field's required prop is defined, if not set it to true
@@ -262,6 +271,6 @@ export default function Form({
           </Grid>
         )}
       </Grid>
-    </form>
+    </Container>
   );
 }
