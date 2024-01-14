@@ -79,7 +79,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 const TablePagination = ({
-  alignment = "left",
+  alignment,
   total,
   page,
   setPage,
@@ -112,7 +112,7 @@ const TablePagination = ({
         mt: 2,
         display: "flex",
         alignItems: "flex-end",
-        justifyContent: alignment === "right" ? "flex-end" : "flex-start",
+        justifyContent: `flex-${alignment || "end"}`,
         flexWrap: "wrap",
       }}
       component="div"

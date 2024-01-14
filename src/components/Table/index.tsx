@@ -22,6 +22,7 @@ export default function Table({
   rowsPerPageOptions = [10, 20, 30, 40, 50],
   serverSide = false,
   onPaginationChange,
+  paginationAlign = "end",
   sx = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
@@ -105,6 +106,7 @@ export default function Table({
         />
 
         <TablePagination
+          alignment={paginationAlign}
           total={total || rows.length}
           page={page}
           setPage={setPage}
