@@ -1,11 +1,12 @@
 import { SnackbarOrigin } from "@mui/material";
+import React from "react";
 
 export type SupportedColors = "error" | "success" | "warning" | undefined;
 
 export interface ConfirmProps {
   open: boolean;
   title: string;
-  message: string;
+  message: React.ReactNode;
   showCancelButton?: boolean;
   confirmButtonColor?: SupportedColors;
   cancelButtonColor?: SupportedColors;
