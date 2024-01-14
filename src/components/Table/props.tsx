@@ -22,6 +22,7 @@ export type TableProps<T> = {
   onRowClicked?: (row: T) => void;
   rowsPerPageOptions?: number[];
   serverSide?: boolean;
+  paginationAlign?: "start" | "center" | "end";
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
   sx?: any;
 };
