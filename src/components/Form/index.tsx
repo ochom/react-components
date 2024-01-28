@@ -19,7 +19,7 @@ import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import { CButton, LButton } from "../Buttons";
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { LoadingButtonProps } from "@mui/lab";
@@ -90,7 +90,7 @@ interface FormProps {
   cancelButtonProps?: ButtonProps;
 }
 
-export const SearchField = (field: FormField) => {
+export const SearchField = ({ field }: { field: FormField }) => {
   const selected = useMemo(() => {
     return field.options?.find((opt) => opt.value === field.value) ?? null;
   }, [field.value, field.options]);
@@ -121,18 +121,26 @@ export const SearchField = (field: FormField) => {
   );
 };
 
-const MultiSelectField = (field: FormField) => {
-  const selected = useMemo(() => {
-    return (
-      field.options?.filter((opt) => field.value.includes(opt.value)) ?? []
-    );
-  }, [field.value, field.options]);
+const MultiSelectField = ({ field }: { field: FormField }) => {
+  const [selected, setSelected] = React.useState<SelectOption[]>([]);
 
-  const handleChange = (e: any, newValue: SelectOption[]) => {
+  // initialize selected options
+  useEffect(() => {
+    const selectedOptions = field.options?.filter((opt) =>
+      field.value.includes(opt.value)
+    );
+    setSelected(selectedOptions ?? []);
+  }, []);
+
+  // update field value when selected options change
+  useEffect(() => {
     field.onChange({
-      target: { name: field.name, value: newValue.map((v) => v.value) },
+      target: {
+        name: field.name,
+        value: selected.map((opt) => opt.value),
+      },
     });
-  };
+  }, [selected]);
 
   return (
     <FormControl fullWidth>
@@ -141,8 +149,9 @@ const MultiSelectField = (field: FormField) => {
         id={`${field.name}-label`}
         options={field?.options ?? []}
         disableCloseOnSelect
+        value={selected}
         getOptionLabel={(option) => option.label}
-        onChange={handleChange}
+        onChange={(e, newValue) => setSelected(newValue)}
         renderOption={(props, option) => (
           <li {...props}>
             <Checkbox
@@ -167,7 +176,7 @@ const MultiSelectField = (field: FormField) => {
   );
 };
 
-export const SelectField = (field: FormField) => {
+export const SelectField = ({ field }: { field: FormField }) => {
   return (
     <FormControl fullWidth>
       <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
@@ -195,7 +204,7 @@ export const SelectField = (field: FormField) => {
   );
 };
 
-export const DateField = (field: FormField) => {
+export const DateField = ({ field }: { field: FormField }) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
@@ -214,7 +223,7 @@ export const DateField = (field: FormField) => {
   );
 };
 
-export const DateTimeField = (field: FormField) => {
+export const DateTimeField = ({ field }: { field: FormField }) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
@@ -233,7 +242,7 @@ export const DateTimeField = (field: FormField) => {
   );
 };
 
-export const DefaultField = ({ ...field }: FormField) => {
+export const DefaultField = ({ field }: { field: FormField }) => {
   const handleChange = (e: any) => {
     const value = e.target.value;
 
@@ -262,38 +271,31 @@ export const DefaultField = ({ ...field }: FormField) => {
   );
 };
 
-const CustomField = ({ ...field }: FormField) => {
+const CustomField = ({ field }: { field: FormField }) => {
   return <>{field.component}</>;
 };
 
 const FormFieldComponent = ({ field }: { field: FormField }) => {
-  const fields: { [key in FieldType]: React.FC<FormField> } = {
-    search: SearchField,
-    select: SelectField,
-    multiselect: MultiSelectField,
-    date: DateField,
-    datetime: DateTimeField,
-    custom: CustomField,
-    email: DefaultField,
-    number: DefaultField,
-    password: DefaultField,
-    text: DefaultField,
-  };
-
-  const FieldComponent = fields[field.type] ?? DefaultField;
-  const myField = <FieldComponent {...field} />;
-
-  // define grow dimensions
-  const xs = field.grow?.xs ?? 12;
-  const sm = field.grow?.sm ?? xs;
-  const md = field.grow?.md ?? sm;
-  const lg = field.grow?.lg ?? md;
-
-  return (
-    <Grid item xs={xs} sm={sm} md={md} lg={lg}>
-      {myField}
-    </Grid>
-  );
+  switch (field.type) {
+    case "search":
+      return <SearchField field={field} />;
+    case "select":
+      return <SelectField field={field} />;
+    case "multiselect":
+      return <MultiSelectField field={field} />;
+    case "date":
+      return <DateField field={field} />;
+    case "datetime":
+      return <DateTimeField field={field} />;
+    case "custom":
+      return <CustomField field={field} />;
+    case "email":
+    case "number":
+    case "password":
+    case "text":
+    default:
+      return <DefaultField field={field} />;
+  }
 };
 
 const Container = ({ component, onSubmit, children }: any) => {
@@ -323,7 +325,17 @@ export default function Form({
           // check if the field's required prop is defined, if not set it to true
           if (field.required === undefined) field.required = true;
           if (field.hidden) return null;
-          return <FormFieldComponent key={index} field={field} />;
+
+          // define grow dimensions
+          const xs = field.grow?.xs ?? 12;
+          const sm = field.grow?.sm ?? xs;
+          const md = field.grow?.md ?? sm;
+          const lg = field.grow?.lg ?? md;
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} key={index}>
+              <FormFieldComponent field={field} />
+            </Grid>
+          );
         })}
 
         {showButtons && (
