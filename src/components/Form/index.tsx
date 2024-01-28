@@ -86,9 +86,6 @@ interface FormProps {
   cancelButtonProps?: ButtonProps;
 }
 
-const icon = <CheckBoxOutlineBlank fontSize="small" />;
-const checkedIcon = <CheckBox fontSize="small" />;
-
 export const SearchField = (field: FormField) => {
   const currentValue =
     field.options?.find((opt) => opt.value === field.value) ?? null;
@@ -133,27 +130,24 @@ const MultiSelectField = (field: FormField) => {
     <FormControl fullWidth>
       <Autocomplete
         multiple
-        id={`${field.name}-label`}
+        id="checkboxes-tags-demo"
         options={field?.options ?? []}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
-              icon={icon}
-              checkedIcon={checkedIcon}
+              icon={<CheckBoxOutlineBlank fontSize="small" />}
+              checkedIcon={<CheckBox fontSize="small" />}
               style={{ marginRight: 8 }}
               checked={selected}
             />
             {option.label}
           </li>
         )}
+        style={{ width: 500 }}
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label={field.label}
-            required={field.required}
-          />
+          <TextField {...params} label="Checkboxes" placeholder="Favorites" />
         )}
       />
     </FormControl>
