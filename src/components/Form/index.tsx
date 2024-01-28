@@ -58,7 +58,7 @@ interface ChangeEvent {
 interface FormField {
   name: string;
   label: string;
-  type?: FieldType;
+  type: FieldType;
   value: string;
   onChange: (e: ChangeEvent) => void;
   options?: SelectOption[]; // for select
@@ -133,7 +133,7 @@ const MultiSelectField = (field: FormField) => {
     <FormControl fullWidth>
       <Autocomplete
         multiple
-        id="checkboxes-tags-demo"
+        id={`${field.name}-label`}
         options={field?.options ?? []}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
@@ -235,30 +235,20 @@ const CustomField = ({ ...field }: FormField) => {
 };
 
 const FormFieldComponent = ({ field }: { field: FormField }) => {
-  let FieldComponent = null;
-  switch (field?.type) {
-    case "search":
-      FieldComponent = SearchField;
-      break;
-    case "select":
-      FieldComponent = SelectField;
-      break;
-    case "multiselect":
-      FieldComponent = MultiSelectField;
-      break;
-    case "date":
-      FieldComponent = DateField;
-      break;
-    case "datetime":
-      FieldComponent = DateTimeField;
-      break;
-    case "custom":
-      FieldComponent = CustomField;
-      break;
-    default:
-      FieldComponent = DefaultField;
-  }
+  const fields: { [key in FieldType]: React.FC<FormField> } = {
+    search: SearchField,
+    select: SelectField,
+    multiselect: MultiSelectField,
+    date: DateField,
+    datetime: DateTimeField,
+    custom: CustomField,
+    email: DefaultField,
+    number: DefaultField,
+    password: DefaultField,
+    text: DefaultField,
+  };
 
+  const FieldComponent = fields[field.type] ?? DefaultField;
   const myField = <FieldComponent {...field} />;
 
   // define grow dimensions
