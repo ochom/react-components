@@ -126,28 +126,44 @@ export const SearchField = (field: FormField) => {
 };
 
 const MultiSelectField = (field: FormField) => {
+  const currentValue =
+    field.options?.filter((opt) => field.value.includes(opt.value)) ?? [];
+
+  const [selected, setSelected] = useState<SelectOption[]>(currentValue);
+
+  useEffect(() => {
+    field.onChange({
+      target: { name: field.name, value: selected.map((s) => s.value) },
+    });
+  }, [selected]);
+
   return (
     <FormControl fullWidth>
       <Autocomplete
         multiple
-        id="checkboxes-tags-demo"
+        id={`${field.name}-label`}
         options={field?.options ?? []}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
-        renderOption={(props, option, { selected }) => (
+        onChange={(e, newValue) => setSelected(newValue)}
+        renderOption={(props, option) => (
           <li {...props}>
             <Checkbox
               icon={<CheckBoxOutlineBlank fontSize="small" />}
               checkedIcon={<CheckBox fontSize="small" />}
               style={{ marginRight: 8 }}
-              checked={selected}
+              checked={selected.map((s) => s.value).includes(option.value)}
             />
             {option.label}
           </li>
         )}
-        style={{ width: 500 }}
         renderInput={(params) => (
-          <TextField {...params} label="Checkboxes" placeholder="Favorites" />
+          <TextField
+            {...params}
+            label={field.label}
+            required={field.required}
+            placeholder={field?.placeholder ?? ""}
+          />
         )}
       />
     </FormControl>
