@@ -332,6 +332,8 @@ export default function Form({
           const sm = field.grow?.sm ?? xs;
           const md = field.grow?.md ?? sm;
           const lg = field.grow?.lg ?? md;
+
+          delete field.grow;
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} key={index}>
               <FormFieldComponent field={field} />
