@@ -151,6 +151,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         disableCloseOnSelect
         value={selected}
         getOptionLabel={(option) => option.label}
+        isOptionEqualToValue={(prev, next) => prev.value === next.value}
         onChange={(e, newValue) => setSelected(newValue)}
         renderOption={(props, option) => (
           <li {...props}>
