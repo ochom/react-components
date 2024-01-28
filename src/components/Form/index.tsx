@@ -15,6 +15,8 @@ import {
   Stack,
   TextField,
   ButtonProps,
+  Checkbox,
+  Box,
 } from "@mui/material";
 import moment from "moment";
 
@@ -30,7 +32,7 @@ type FieldType =
   | "date"
   | "datetime"
   | "select"
-  | "multiSelect"
+  | "multiselect"
   | "search"
   | "custom";
 
@@ -124,6 +126,12 @@ export const SearchField = (field: FormField) => {
 };
 
 const MultiSelectField = (field: FormField) => {
+  const [selected, setSelected] = useState<string[]>([]);
+
+  useEffect(() => {
+    field.onChange({ target: { name: field.name, value: selected } });
+  }, [selected]);
+
   return (
     <FormControl fullWidth>
       <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
@@ -132,18 +140,24 @@ const MultiSelectField = (field: FormField) => {
         fullWidth
         id={field.name}
         name={field.name}
-        value={field.value}
+        value={selected}
         label={field.label}
-        onChange={(e) => {
-          field.onChange({
-            target: { name: field.name, value: e.target.value },
-          });
-        }}
+        onChange={(e) => setSelected(e.target.value as string[])}
         required={field.required}
         multiple
+        renderValue={(selectedItems) => (
+          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+            {selectedItems.map((value) => (
+              <Box sx={{ m: 0.5 }} key={value}>
+                {field.options?.find((opt) => opt.value === value)?.label}
+              </Box>
+            ))}
+          </Box>
+        )}
       >
         {(field?.options ?? []).map((option) => (
           <MenuItem key={option.value} value={option.value}>
+            <Checkbox checked={field.value.indexOf(option.value) > -1} />
             {option.label}
           </MenuItem>
         ))}
@@ -235,7 +249,7 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
     case "select":
       FieldComponent = SelectField;
       break;
-    case "multiSelect":
+    case "multiselect":
       FieldComponent = MultiSelectField;
       break;
     case "date":
