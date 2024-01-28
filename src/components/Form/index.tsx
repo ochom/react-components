@@ -1,12 +1,7 @@
-import { CButton, LButton } from "../Buttons";
-import {
-  DatePicker,
-  DateTimePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import {
   Autocomplete,
+  ButtonProps,
+  Checkbox,
   FormControl,
   Grid,
   InputLabel,
@@ -14,14 +9,19 @@ import {
   Select,
   Stack,
   TextField,
-  ButtonProps,
-  Checkbox,
-  Box,
 } from "@mui/material";
+import {
+  DatePicker,
+  DateTimePicker,
+  LocalizationProvider,
+} from "@mui/x-date-pickers";
+import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
+import { CButton, LButton } from "../Buttons";
 
 import React, { useEffect, useState } from "react";
 
+import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { LoadingButtonProps } from "@mui/lab";
 
 type FieldType =
@@ -86,6 +86,9 @@ interface FormProps {
   cancelButtonProps?: ButtonProps;
 }
 
+const icon = <CheckBoxOutlineBlank fontSize="small" />;
+const checkedIcon = <CheckBox fontSize="small" />;
+
 export const SearchField = (field: FormField) => {
   const currentValue =
     field.options?.find((opt) => opt.value === field.value) ?? null;
@@ -126,47 +129,31 @@ export const SearchField = (field: FormField) => {
 };
 
 const MultiSelectField = (field: FormField) => {
-  const currentValue =
-    field.options?.filter((opt) => opt.value === field.value) ?? [];
-  const [selected, setSelected] = useState<SelectOption[] | undefined>(
-    currentValue
-  );
-
-  useEffect(() => {
-    field.onChange({ target: { name: field.name, value: selected } });
-  }, [selected]);
-
   return (
     <FormControl fullWidth>
       <Autocomplete
-        id={`${field.name}-label`}
-        autoHighlight
         multiple
-        disableCloseOnSelect
-        value={selected}
+        id="checkboxes-tags-demo"
         options={field?.options ?? []}
-        onChange={(e, newValue) => setSelected(newValue)}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.label}
+          </li>
+        )}
         renderInput={(params) => (
           <TextField
             {...params}
             label={field.label}
             required={field.required}
           />
-        )}
-        renderOption={(props, option, { selected }) => (
-          <Box
-            component="li"
-            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-            {...props}
-          >
-            <Checkbox
-              icon={null}
-              checkedIcon={null}
-              style={{ marginRight: 8 }}
-              checked={selected}
-            />
-            {option.label}
-          </Box>
         )}
       />
     </FormControl>
