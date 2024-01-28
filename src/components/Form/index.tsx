@@ -87,20 +87,20 @@ interface FormProps {
 }
 
 export const SearchField = (field: FormField) => {
-  const currentValue =
-    field.options?.find((opt) => opt.value === field.value) ?? null;
+  const [selected, setSelected] = useState<SelectOption | null>(null);
+  const [inputValue, setInputValue] = useState("");
 
-  const [selected, setSelected] = useState<SelectOption | null>(currentValue);
-  const [inputValue, setInputValue] = useState(currentValue?.label ?? "");
-
-  // whenever the selected value changes, update the field value
   useEffect(() => {
-    if (selected) {
-      field.onChange({ target: { name: field.name, value: selected.value } });
-    } else {
-      field.onChange({ target: { name: field.name, value: "" } });
-    }
-  }, [selected]);
+    const value =
+      field.options?.find((opt) => opt.value === field.value) ?? null;
+    setSelected(value);
+    setInputValue(value?.label ?? "");
+  }, [field.value, field.options]);
+
+  const handleChange = (e: any, newValue: SelectOption | null) =>
+    field.onChange({
+      target: { name: field.name, value: newValue?.value ?? "" },
+    });
 
   return (
     <FormControl fullWidth>
@@ -110,7 +110,7 @@ export const SearchField = (field: FormField) => {
         value={selected}
         inputValue={inputValue}
         options={field?.options ?? []}
-        onChange={(e, newValue) => setSelected(newValue)}
+        onChange={handleChange}
         onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
         renderInput={(params) => (
           <TextField
@@ -126,16 +126,16 @@ export const SearchField = (field: FormField) => {
 };
 
 const MultiSelectField = (field: FormField) => {
-  const currentValue =
-    field.options?.filter((opt) => field.value.includes(opt.value)) ?? [];
-
-  const [selected, setSelected] = useState<SelectOption[]>(currentValue);
+  const [selected, setSelected] = useState<SelectOption[]>([]);
 
   useEffect(() => {
-    field.onChange({
-      target: { name: field.name, value: selected.map((s) => s.value) },
-    });
-  }, [selected]);
+    setSelected(
+      field.options?.filter((opt) => field.value.includes(opt.value)) ?? []
+    );
+  }, [field.value, field.options]);
+
+  const handleChange = (e: any, newValue: SelectOption[]) =>
+    field.onChange({ target: { name: field.name, value: newValue } });
 
   return (
     <FormControl fullWidth>
@@ -145,7 +145,7 @@ const MultiSelectField = (field: FormField) => {
         options={field?.options ?? []}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
-        onChange={(e, newValue) => setSelected(newValue)}
+        onChange={handleChange}
         renderOption={(props, option) => (
           <li {...props}>
             <Checkbox
