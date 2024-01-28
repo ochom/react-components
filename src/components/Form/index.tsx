@@ -135,7 +135,9 @@ const MultiSelectField = (field: FormField) => {
   }, [field.value, field.options]);
 
   const handleChange = (e: any, newValue: SelectOption[]) =>
-    field.onChange({ target: { name: field.name, value: newValue } });
+    field.onChange({
+      target: { name: field.name, value: newValue.map((v) => v.value) },
+    });
 
   return (
     <FormControl fullWidth>
