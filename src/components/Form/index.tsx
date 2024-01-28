@@ -69,6 +69,10 @@ interface FormField {
   multiline?: boolean;
   rows?: number;
   hidden?: boolean;
+  min?: number;
+  max?: number;
+  minDate?: Date;
+  maxDate?: Date;
   grow?: Grow;
 }
 
@@ -200,16 +204,18 @@ export const SelectField = (field: FormField) => {
   );
 };
 
-export const DateField = ({ name, label, value, onChange }: FormField) => {
+export const DateField = (field: FormField) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DatePicker
-          label={label}
-          value={moment(value)}
           format="DD/MM/Y"
+          label={field.label}
+          value={moment(field.value)}
+          minDate={field.minDate ? moment(field.minDate) : undefined}
+          maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
-            onChange({ target: { name, value: newValue } });
+            field.onChange({ target: { name: field.name, value: newValue } });
           }}
         />
       </LocalizationProvider>
@@ -217,16 +223,18 @@ export const DateField = ({ name, label, value, onChange }: FormField) => {
   );
 };
 
-export const DateTimeField = ({ name, label, value, onChange }: FormField) => {
+export const DateTimeField = (field: FormField) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DateTimePicker
-          label={label}
-          value={moment(value)}
           format="DD/MM/Y HH:mm"
+          label={field.label}
+          value={moment(field.value)}
+          minDate={field.minDate ? moment(field.minDate) : undefined}
+          maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
-            onChange({ target: { name, value: newValue } });
+            field.onChange({ target: { name: field.name, value: newValue } });
           }}
         />
       </LocalizationProvider>
@@ -235,9 +243,30 @@ export const DateTimeField = ({ name, label, value, onChange }: FormField) => {
 };
 
 export const DefaultField = ({ ...field }: FormField) => {
+  const handleChange = (e: any) => {
+    const value = e.target.value;
+
+    // check if number field  and min and max are defined
+    if (field.type === "number" && field.min !== undefined) {
+      if (Number(value) < field.min) {
+        e.target.value = field.min;
+        return;
+      }
+    }
+
+    if (field.type === "number" && field.max !== undefined) {
+      if (Number(value) > field.max) {
+        e.target.value = field.max;
+        return;
+      }
+    }
+
+    field.onChange(e);
+  };
+
   return (
     <FormControl fullWidth>
-      <TextField {...field} />
+      <TextField {...field} onChange={handleChange} />
     </FormControl>
   );
 };
