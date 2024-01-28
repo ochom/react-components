@@ -126,7 +126,11 @@ export const SearchField = (field: FormField) => {
 };
 
 const MultiSelectField = (field: FormField) => {
-  const [selected, setSelected] = useState<string[]>([]);
+  const currentValue =
+    field.options?.filter((opt) => opt.value === field.value) ?? [];
+  const [selected, setSelected] = useState<SelectOption[] | undefined>(
+    currentValue
+  );
 
   useEffect(() => {
     field.onChange({ target: { name: field.name, value: selected } });
@@ -134,34 +138,38 @@ const MultiSelectField = (field: FormField) => {
 
   return (
     <FormControl fullWidth>
-      <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
-      <Select
-        labelId={`${field.name}-label`}
-        fullWidth
-        id={field.name}
-        name={field.name}
-        value={selected}
-        label={field.label}
-        onChange={(e) => setSelected(e.target.value as string[])}
-        required={field.required}
+      <Autocomplete
+        id={`${field.name}-label`}
+        autoHighlight
         multiple
-        renderValue={(selectedItems) => (
-          <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-            {selectedItems.map((value) => (
-              <Box sx={{ m: 0.5 }} key={value}>
-                {field.options?.find((opt) => opt.value === value)?.label}
-              </Box>
-            ))}
+        disableCloseOnSelect
+        value={selected}
+        options={field?.options ?? []}
+        onChange={(e, newValue) => setSelected(newValue)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={field.label}
+            required={field.required}
+          />
+        )}
+        isOptionEqualToValue={(prev, next) => prev.value === next.value}
+        renderOption={(props, option, { selected }) => (
+          <Box
+            component="li"
+            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+            {...props}
+          >
+            <Checkbox
+              icon={null}
+              checkedIcon={null}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.label}
           </Box>
         )}
-      >
-        {(field?.options ?? []).map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            <Checkbox checked={field.value.indexOf(option.value) > -1} />
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
+      />
     </FormControl>
   );
 };

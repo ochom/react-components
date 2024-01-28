@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import ConfirmModal from "./confirm";
 import { ConfirmProps, SnackProps, SupportedColors } from "./props";
 import SnackAlert from "./snack";
@@ -42,10 +42,10 @@ const AlertContext = createContext({
 
 export const AlertProvider = (props: AlertProps) => {
   const [confirmState, setConfirmState] = useState(
-    props.confirmProps || initConfirmState
+    props.confirmProps ?? initConfirmState
   );
   const [snackState, setSnackState] = useState(
-    props.snackProps || initSnackState
+    props.snackProps ?? initSnackState
   );
 
   const handleCloseConfirm = () => {
@@ -104,12 +104,10 @@ export const AlertProvider = (props: AlertProps) => {
     createSnack(message, "warning");
   };
 
-  const providerProps = {
-    confirm,
-    alertSuccess,
-    alertError,
-    alertWarning,
-  };
+  const providerProps = useMemo(
+    () => ({ confirm, alertSuccess, alertError, alertWarning }),
+    [confirm, alertSuccess, alertError, alertWarning]
+  );
 
   return (
     <AlertContext.Provider value={providerProps}>
