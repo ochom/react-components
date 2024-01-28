@@ -14,12 +14,12 @@ import {
   Select,
   Stack,
   TextField,
+  ButtonProps,
 } from "@mui/material";
 import moment from "moment";
 
 import React, { useEffect, useState } from "react";
 
-import { ButtonProps } from "@mui/material";
 import { LoadingButtonProps } from "@mui/lab";
 
 type FieldType =
@@ -30,6 +30,7 @@ type FieldType =
   | "date"
   | "datetime"
   | "select"
+  | "multiSelect"
   | "search"
   | "custom";
 
@@ -55,7 +56,7 @@ interface ChangeEvent {
 interface FormField {
   name: string;
   label: string;
-  type: FieldType;
+  type?: FieldType;
   value: string;
   onChange: (e: ChangeEvent) => void;
   options?: SelectOption[]; // for select
@@ -85,10 +86,10 @@ interface FormProps {
 
 export const SearchField = (field: FormField) => {
   const currentValue =
-    field.options?.find((opt) => opt.value === field.value) || null;
+    field.options?.find((opt) => opt.value === field.value) ?? null;
 
   const [selected, setSelected] = useState<SelectOption | null>(currentValue);
-  const [inputValue, setInputValue] = useState(currentValue?.label || "");
+  const [inputValue, setInputValue] = useState(currentValue?.label ?? "");
 
   // whenever the selected value changes, update the field value
   useEffect(() => {
@@ -106,7 +107,7 @@ export const SearchField = (field: FormField) => {
         autoHighlight
         value={selected}
         inputValue={inputValue}
-        options={field.options || []}
+        options={field?.options ?? []}
         onChange={(e, newValue) => setSelected(newValue)}
         onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
         renderInput={(params) => (
@@ -118,6 +119,35 @@ export const SearchField = (field: FormField) => {
         )}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
       />
+    </FormControl>
+  );
+};
+
+const MultiSelectField = (field: FormField) => {
+  return (
+    <FormControl fullWidth>
+      <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+      <Select
+        labelId={`${field.name}-label`}
+        fullWidth
+        id={field.name}
+        name={field.name}
+        value={field.value}
+        label={field.label}
+        onChange={(e) => {
+          field.onChange({
+            target: { name: field.name, value: e.target.value },
+          });
+        }}
+        required={field.required}
+        multiple
+      >
+        {(field?.options ?? []).map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </FormControl>
   );
 };
@@ -140,9 +170,9 @@ export const SelectField = (field: FormField) => {
         }}
         required={field.required}
       >
-        {(field.options || []).map((opt, i) => (
-          <MenuItem key={i} value={opt.value}>
-            {opt.label}
+        {(field?.options ?? []).map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
           </MenuItem>
         ))}
       </Select>
@@ -185,7 +215,11 @@ export const DateTimeField = ({ name, label, value, onChange }: FormField) => {
 };
 
 export const DefaultField = ({ ...field }: FormField) => {
-  return <FormControl fullWidth children={<TextField {...field} />} />;
+  return (
+    <FormControl fullWidth>
+      <TextField {...field} />
+    </FormControl>
+  );
 };
 
 const CustomField = ({ ...field }: FormField) => {
@@ -193,27 +227,37 @@ const CustomField = ({ ...field }: FormField) => {
 };
 
 const FormFieldComponent = ({ field }: { field: FormField }) => {
-  const fields: { [key in FieldType]: React.FC<FormField> } = {
-    search: SearchField,
-    select: SelectField,
-    date: DateField,
-    datetime: DateTimeField,
-    custom: CustomField,
-    text: DefaultField,
-    email: DefaultField,
-    password: DefaultField,
-    number: DefaultField,
-  };
-
-  const FieldComponent = fields[field.type || "text"];
+  let FieldComponent = null;
+  switch (field?.type) {
+    case "search":
+      FieldComponent = SearchField;
+      break;
+    case "select":
+      FieldComponent = SelectField;
+      break;
+    case "multiSelect":
+      FieldComponent = MultiSelectField;
+      break;
+    case "date":
+      FieldComponent = DateField;
+      break;
+    case "datetime":
+      FieldComponent = DateTimeField;
+      break;
+    case "custom":
+      FieldComponent = CustomField;
+      break;
+    default:
+      FieldComponent = DefaultField;
+  }
 
   const myField = <FieldComponent {...field} />;
 
   // define grow dimensions
-  const xs = field.grow?.xs || 12;
-  const sm = field.grow?.sm || xs;
-  const md = field.grow?.md || sm;
-  const lg = field.grow?.lg || md;
+  const xs = field.grow?.xs ?? 12;
+  const sm = field.grow?.sm ?? xs;
+  const md = field.grow?.md ?? sm;
+  const lg = field.grow?.lg ?? md;
 
   return (
     <Grid item xs={xs} sm={sm} md={md} lg={lg}>
