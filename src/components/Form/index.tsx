@@ -116,7 +116,7 @@ export const SearchField = (field: FormField) => {
           <TextField
             {...params}
             label={field.label}
-            required={field.required}
+            required={field.required && !selected}
           />
         )}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
@@ -161,7 +161,7 @@ const MultiSelectField = (field: FormField) => {
           <TextField
             {...params}
             label={field.label}
-            required={field.required}
+            required={field.required && selected.length === 0}
             placeholder={field?.placeholder ?? ""}
           />
         )}
