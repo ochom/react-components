@@ -19,7 +19,7 @@ import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import { CButton, LButton } from "../Buttons";
 
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { LoadingButtonProps } from "@mui/lab";
@@ -91,14 +91,8 @@ interface FormProps {
 }
 
 export const SearchField = (field: FormField) => {
-  const [selected, setSelected] = useState<SelectOption | null>(null);
-  const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    const value =
-      field.options?.find((opt) => opt.value === field.value) ?? null;
-    setSelected(value);
-    setInputValue(value?.label ?? "");
+  const selected = useMemo(() => {
+    return field.options?.find((opt) => opt.value === field.value) ?? null;
   }, [field.value, field.options]);
 
   const handleChange = (e: any, newValue: SelectOption | null) =>
@@ -112,10 +106,8 @@ export const SearchField = (field: FormField) => {
         id={`${field.name}-label`}
         autoHighlight
         value={selected}
-        inputValue={inputValue}
         options={field?.options ?? []}
         onChange={handleChange}
-        onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -130,18 +122,17 @@ export const SearchField = (field: FormField) => {
 };
 
 const MultiSelectField = (field: FormField) => {
-  const [selected, setSelected] = useState<SelectOption[]>([]);
-
-  useEffect(() => {
-    setSelected(
+  const selected = useMemo(() => {
+    return (
       field.options?.filter((opt) => field.value.includes(opt.value)) ?? []
     );
   }, [field.value, field.options]);
 
-  const handleChange = (e: any, newValue: SelectOption[]) =>
+  const handleChange = (e: any, newValue: SelectOption[]) => {
     field.onChange({
       target: { name: field.name, value: newValue.map((v) => v.value) },
     });
+  };
 
   return (
     <FormControl fullWidth>
