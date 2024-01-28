@@ -153,7 +153,6 @@ const MultiSelectField = (field: FormField) => {
             required={field.required}
           />
         )}
-        isOptionEqualToValue={(prev, next) => prev.value === next.value}
         renderOption={(props, option, { selected }) => (
           <Box
             component="li"
