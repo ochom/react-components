@@ -103,6 +103,7 @@ export default function Table({
           rows={rows}
           rowsPerPage={rowsPerPage}
           page={page}
+          cellPadding={cellPadding}
           onRowClicked={onRowClicked}
         />
 
