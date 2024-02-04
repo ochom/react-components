@@ -24,6 +24,5 @@ export type TableProps<T> = {
   serverSide?: boolean;
   paginationAlign?: "start" | "center" | "end";
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
-  cellPadding?: string;
   sx?: any;
 };

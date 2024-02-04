@@ -23,7 +23,6 @@ const TableBody = ({
   rowsPerPage,
   page,
   onRowClicked,
-  cellPadding,
 }: any) => {
   const handleRowClicked = (col: TableColumn, item: any) => {
     if (col.button) {
@@ -86,7 +85,7 @@ const TableBody = ({
           )}
         </tr>
         {sliced.map((item: any, rIndex: number) => (
-          <tr key={rIndex} style={{ padding: cellPadding }}>
+          <tr key={rIndex}>
             {cols.map((column: TableColumn, cIndex: number) => (
               <td
                 key={cIndex}

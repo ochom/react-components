@@ -23,7 +23,6 @@ export default function Table({
   serverSide = false,
   onPaginationChange,
   paginationAlign = "end",
-  cellPadding = "16px",
   sx = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
@@ -103,7 +102,6 @@ export default function Table({
           rows={rows}
           rowsPerPage={rowsPerPage}
           page={page}
-          cellPadding={cellPadding}
           onRowClicked={onRowClicked}
         />
 
