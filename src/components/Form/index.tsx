@@ -3,11 +3,13 @@ import {
   ButtonProps,
   Checkbox,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
   Select,
   Stack,
+  Switch,
   TextField,
 } from "@mui/material";
 import {
@@ -31,6 +33,8 @@ type FieldType =
   | "number"
   | "date"
   | "datetime"
+  | "switch"
+  | "checkbox"
   | "select"
   | "multiselect"
   | "search"
@@ -243,6 +247,46 @@ export const DateTimeField = ({ field }: { field: FormField }) => {
   );
 };
 
+export const SwitchField = ({ field }: { field: FormField }) => {
+  return (
+    <FormControl fullWidth>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={Boolean(field.value)}
+            onChange={(e) => {
+              field.onChange({
+                target: { name: field.name, value: e.target.checked },
+              });
+            }}
+          />
+        }
+        label={field.label}
+      />
+    </FormControl>
+  );
+};
+
+export const CheckBoxField = ({ field }: { field: FormField }) => {
+  return (
+    <FormControl fullWidth>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={Boolean(field.value)}
+            onChange={(e) => {
+              field.onChange({
+                target: { name: field.name, value: e.target.checked },
+              });
+            }}
+          />
+        }
+        label={field.label}
+      />
+    </FormControl>
+  );
+};
+
 export const DefaultField = ({ field }: { field: FormField }) => {
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -288,6 +332,10 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       return <DateField field={field} />;
     case "datetime":
       return <DateTimeField field={field} />;
+    case "switch":
+      return <SwitchField field={field} />;
+    case "checkbox":
+      return <CheckBoxField field={field} />;
     case "custom":
       return <CustomField field={field} />;
     case "email":
