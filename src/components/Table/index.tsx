@@ -23,6 +23,7 @@ export default function Table({
   serverSide = false,
   onPaginationChange,
   paginationAlign = "end",
+  cellPadding = "16px",
   sx = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
