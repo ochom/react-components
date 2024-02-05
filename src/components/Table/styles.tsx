@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Search as SearchIcon } from "@mui/icons-material";
-import { Box, Stack, SxProps } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 import React from "react";
 
 export const StyledTable = styled.table`
@@ -18,12 +18,6 @@ export const StyledTable = styled.table`
         color: #202124;
         text-align: left;
         background-color: #f0f0f0;
-        :first-of-type {
-          border-top-left-radius: 15px;
-        }
-        :last-of-type {
-          border-top-right-radius: 15px;
-        }
       }
     }
   }
