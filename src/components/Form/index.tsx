@@ -4,9 +4,12 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
+  Radio,
+  RadioGroup,
   Select,
   Stack,
   Switch,
@@ -35,6 +38,7 @@ type FieldType =
   | "datetime"
   | "switch"
   | "checkbox"
+  | "radio"
   | "select"
   | "multiselect"
   | "search"
@@ -283,6 +287,33 @@ export const CheckBoxField = ({ field }: { field: FormField }) => {
         }
         label={field.label}
       />
+    </FormControl>
+  );
+};
+
+export const RadioGroupField = ({ field }: { field: FormField }) => {
+  return (
+    <FormControl fullWidth>
+      <FormLabel id={`${field.name}-label`}>{field.label}</FormLabel>
+      <RadioGroup
+        aria-label={field.label}
+        name={field.name}
+        value={field.value}
+        onChange={(e) => {
+          field.onChange({
+            target: { name: field.name, value: e.target.value },
+          });
+        }}
+      >
+        {(field?.options ?? []).map((option) => (
+          <FormControlLabel
+            key={option.value}
+            value={option.value}
+            control={<Radio />}
+            label={option.label}
+          />
+        ))}
+      </RadioGroup>
     </FormControl>
   );
 };
