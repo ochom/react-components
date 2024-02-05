@@ -367,6 +367,8 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       return <SwitchField field={field} />;
     case "checkbox":
       return <CheckBoxField field={field} />;
+    case "radio":
+      return <RadioGroupField field={field} />;
     case "custom":
       return <CustomField field={field} />;
     case "email":
