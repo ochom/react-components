@@ -296,6 +296,7 @@ export const RadioGroupField = ({ field }: { field: FormField }) => {
     <FormControl fullWidth>
       <FormLabel id={`${field.name}-label`}>{field.label}</FormLabel>
       <RadioGroup
+        row
         aria-label={field.label}
         name={field.name}
         value={field.value}
