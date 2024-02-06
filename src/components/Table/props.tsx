@@ -23,6 +23,7 @@ export type TableProps<T> = {
   rowsPerPageOptions?: number[];
   serverSide?: boolean;
   paginationAlign?: "start" | "center" | "end";
+  hidePagination?: boolean;
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
   sx?: any;
 };

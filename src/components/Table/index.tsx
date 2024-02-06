@@ -22,6 +22,7 @@ export default function Table({
   rowsPerPageOptions = [10, 20, 30, 40, 50],
   serverSide = false,
   onPaginationChange,
+  hidePagination = false,
   paginationAlign = "end",
   sx = {},
 }: TableProps<any>) {
@@ -105,15 +106,17 @@ export default function Table({
           onRowClicked={onRowClicked}
         />
 
-        <TablePagination
-          alignment={paginationAlign}
-          total={total || rows.length}
-          page={page}
-          setPage={setPage}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-          rowsPerPageOptions={rowsPerPageOptions}
-        />
+        {!hidePagination && (
+          <TablePagination
+            alignment={paginationAlign}
+            total={total || rows.length}
+            page={page}
+            setPage={setPage}
+            rowsPerPage={rowsPerPage}
+            setRowsPerPage={setRowsPerPage}
+            rowsPerPageOptions={rowsPerPageOptions}
+          />
+        )}
       </>
     </Box>
   );
