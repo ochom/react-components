@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  Box,
   ButtonProps,
   Checkbox,
   FormControl,
@@ -14,6 +15,7 @@ import {
   Stack,
   Switch,
   TextField,
+  Typography,
 } from "@mui/material";
 import {
   DatePicker,
@@ -42,6 +44,7 @@ type FieldType =
   | "select"
   | "multiselect"
   | "search"
+  | "file"
   | "custom";
 
 interface SelectOption {
@@ -68,6 +71,7 @@ interface FormField {
   label: string;
   type: FieldType;
   value: string;
+  accept?: string;
   onChange: (e: ChangeEvent) => void;
   options?: SelectOption[]; // for select
   component?: React.ReactNode; // for custom
@@ -348,6 +352,50 @@ export const DefaultField = ({ field }: { field: FormField }) => {
   );
 };
 
+export const FileField = ({ field }: { field: FormField }) => {
+  return (
+    <FormControl fullWidth>
+      <Box
+        sx={{
+          position: "relative",
+          py: 1.5,
+          px: 2,
+          border: "1px solid #ccc",
+          borderRadius: 1,
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            top: "-10px",
+            left: "10px",
+            pb: 1,
+            position: "absolute",
+            backgroundColor: "white",
+            padding: "0 5px",
+          }}
+        >
+          {field.label}
+        </Typography>
+        <input
+          type="file"
+          id={field.name}
+          name={field.name}
+          accept={field?.accept ?? "*"}
+          onChange={(e) => {
+            field.onChange({
+              target: {
+                name: field.name,
+                value: e.target.files?.length ? e.target.files[0] : null,
+              },
+            });
+          }}
+        />
+      </Box>
+    </FormControl>
+  );
+};
+
 const CustomField = ({ field }: { field: FormField }) => {
   return <>{field.component}</>;
 };
@@ -370,6 +418,8 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       return <CheckBoxField field={field} />;
     case "radio":
       return <RadioGroupField field={field} />;
+    case "file":
+      return <FileField field={field} />;
     case "custom":
       return <CustomField field={field} />;
     case "email":
