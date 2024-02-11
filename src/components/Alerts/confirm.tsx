@@ -1,8 +1,8 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React from "react";
-import { ConfirmModalProps } from "./props";
-import Modal from "../Modal";
 import { CButton } from "../Buttons";
+import Modal from "../Modal";
+import { ConfirmModalProps } from "./props";
 
 function ConfirmModal(props: ConfirmModalProps) {
   const {

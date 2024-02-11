@@ -1,11 +1,4 @@
-import {
-  Box,
-  Step,
-  StepButton,
-  StepContent,
-  Stepper,
-  Typography,
-} from "@mui/material";
+import { Box, Step, StepButton, Stepper, Typography } from "@mui/material";
 
 import React from "react";
 
@@ -61,7 +54,7 @@ export default function CustomStepper({ steps, activeStep = 0 }: StepperProps) {
           );
         })}
       </Stepper>
-      {steps[activeStep]?.content || "No content"}
+      {steps[activeStep]?.content ?? "No content"}
     </Box>
   );
 }
