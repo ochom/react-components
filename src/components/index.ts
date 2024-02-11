@@ -5,9 +5,10 @@ export { default as Stepper } from "./Stepper";
 export { default as Table } from "./Table";
 export { default as Tabs } from "./Tabs";
 
-
 export * from "./Alerts";
 export * from "./Monitors";
 export * from "./Buttons";
 export * from "./Form";
 export * from "./EmptyPage"
+export * from "./Modal/useModal"
+export * from "./Form/useForm"

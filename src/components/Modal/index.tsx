@@ -135,18 +135,16 @@ export const Modal = ({
       <Dialog
         className={`${size} ${open ? "open" : "closed"}`}
         style={{
-          width: width ? width : undefined,
+          width: width ?? undefined,
         }}
       >
         {title && (
           <Title>
             <div>{title}</div>
             {showClose && (
-              <ModalClose
-                type="button"
-                onClick={onClose}
-                children={<Close />}
-              />
+              <ModalClose type="button" onClick={onClose}>
+                <Close />
+              </ModalClose>
             )}
           </Title>
         )}

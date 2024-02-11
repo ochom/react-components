@@ -1,6 +1,6 @@
 import { Box, Tab, Tabs } from "@mui/material";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 export interface TabProps {
   title: string;
@@ -58,7 +58,9 @@ export default function CustomTabs({
       </Tabs>
 
       {tabs.map((tab, idx) => (
-        <Panel key={idx} value={index} index={idx} children={tab.panel} />
+        <Panel key={idx} value={index} index={idx}>
+          {tab.panel}
+        </Panel>
       ))}
     </Box>
   );
