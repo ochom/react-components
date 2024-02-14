@@ -85,6 +85,7 @@ interface FormField {
   max?: number;
   minDate?: Date;
   maxDate?: Date;
+  format?: string;
   grow?: Grow;
 }
 
@@ -222,7 +223,7 @@ export const DateField = ({ field }: { field: FormField }) => {
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DatePicker
-          format="DD/MM/Y"
+          format={field?.format ?? "DD/MM/Y"} 
           label={field.label}
           value={moment(field.value)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
@@ -235,6 +236,7 @@ export const DateField = ({ field }: { field: FormField }) => {
     </FormControl>
   );
 };
+
 
 export const DateTimeField = ({ field }: { field: FormField }) => {
   return (
