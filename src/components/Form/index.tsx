@@ -217,12 +217,12 @@ export const SelectField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DateField = ({ field }: { field: FormField }) => {
+export const DateField = ({ field, format }: { field: FormField, format?: string }) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DatePicker
-          format="DD/MM/Y"
+          format={format || "DD/MM/Y"} // Use provided format or fallback to default
           label={field.label}
           value={moment(field.value)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
@@ -235,6 +235,7 @@ export const DateField = ({ field }: { field: FormField }) => {
     </FormControl>
   );
 };
+
 
 export const DateTimeField = ({ field }: { field: FormField }) => {
   return (
