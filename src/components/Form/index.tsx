@@ -25,10 +25,9 @@ import {
 import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import { CButton, LButton } from "../Buttons";
-
+import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo } from "react";
 
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { LoadingButtonProps } from "@mui/lab";
 
 type FieldType =
@@ -169,8 +168,8 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         renderOption={(props, option) => (
           <li {...props}>
             <Checkbox
-              icon={<CheckBoxOutlineBlank fontSize="small" />}
-              checkedIcon={<CheckBox fontSize="small" />}
+              icon={<Icon icon="mdi:checkbox-blank-outline" />}
+              checkedIcon={<Icon icon="mdi:checkbox-marked" />}
               style={{ marginRight: 8 }}
               checked={selected.map((s) => s.value).includes(option.value)}
             />
@@ -223,7 +222,7 @@ export const DateField = ({ field }: { field: FormField }) => {
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DatePicker
-          format={field?.format ?? "DD/MM/Y"} 
+          format={field?.format ?? "DD/MM/Y"}
           label={field.label}
           value={moment(field.value)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
@@ -236,7 +235,6 @@ export const DateField = ({ field }: { field: FormField }) => {
     </FormControl>
   );
 };
-
 
 export const DateTimeField = ({ field }: { field: FormField }) => {
   return (

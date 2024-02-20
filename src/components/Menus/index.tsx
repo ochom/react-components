@@ -1,4 +1,4 @@
-import { MoreVert } from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 import {
   IconButton,
   ListItemIcon,
@@ -7,8 +7,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export interface MenuOption {
   title: string;
@@ -39,7 +38,7 @@ export default function TableDropdownMenu({ row, options }: MenuProps) {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <MoreVert />
+        <Icon icon="bi:three-dots-vertical" />
       </IconButton>
       <Menu
         id="basic-menu"
