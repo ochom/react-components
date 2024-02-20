@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Search as SearchIcon } from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 import { Box, SxProps } from "@mui/material";
 import React from "react";
 
@@ -50,7 +50,7 @@ export const StyledTable = styled.table`
   }
 `;
 
-const Icon = styled(SearchIcon)`
+const Search = styled(Icon)`
   color: #949494;
   font-size: 0.9rem;
   font-weight: 400;
@@ -86,7 +86,10 @@ export const StyledSearch = ({
 }) => {
   return (
     <SearchBox sx={sx}>
-      <Icon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+      <Icon
+        style={{ color: "action.active", margin: "0.5rem 1" }}
+        icon="bi:search"
+      />
       <input
         type="text"
         placeholder="Search..."

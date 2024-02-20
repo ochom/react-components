@@ -1,9 +1,4 @@
-import {
-  FirstPage,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-  LastPage,
-} from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 import { Box, IconButton, TablePagination as Pagination } from "@mui/material";
 import React from "react";
 
@@ -51,28 +46,28 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
         disabled={page === 0}
         aria-label="first page"
       >
-        <FirstPage />
+        <Icon icon="bi:chevron-double-left" />
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
       >
-        <KeyboardArrowLeft />
+        <Icon icon="bi:chevron-left" />
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        <KeyboardArrowRight />
+        <Icon icon="bi:chevron-right" />
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        <LastPage />
+        <Icon icon="bi:chevron-double-right" />
       </IconButton>
     </Box>
   );

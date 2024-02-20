@@ -135,9 +135,7 @@ export const Modal = ({
     <BackDrop className={open ? "open" : "closed"}>
       <Dialog
         className={`${size} ${open ? "open" : "closed"}`}
-        style={{
-          width: width ?? undefined,
-        }}
+        style={{ width: width ?? undefined }}
       >
         {title && (
           <Title>
