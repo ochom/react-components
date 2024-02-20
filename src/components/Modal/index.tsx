@@ -26,6 +26,7 @@ const Dialog = styled.div`
   background-color: white;
   border-radius: 0.5rem;
   min-width: 300px;
+  max-width: 90%;
   min-height: 50px;
   overflow: auto;
   display: block;
