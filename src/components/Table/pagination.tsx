@@ -46,28 +46,28 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
         disabled={page === 0}
         aria-label="first page"
       >
-        <Icon icon="mdi:page-first" fontSize="1rem" />
+        <Icon icon="mdi:page-first" fontSize="1.5rem" />
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
       >
-        <Icon icon="mdi:navigate-before" fontSize="1rem" />
+        <Icon icon="mdi:navigate-before" fontSize="1.5rem" />
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        <Icon icon="mdi:navigate-next" fontSize="1rem" />
+        <Icon icon="mdi:navigate-next" fontSize="1.5rem" />
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        <Icon icon="mdi:page-last" fontSize="1rem" />
+        <Icon icon="mdi:page-last" fontSize="1.5rem" />
       </IconButton>
     </Box>
   );
