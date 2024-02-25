@@ -54,7 +54,6 @@ export const CDrawer = ({
         <Title
           sx={{
             px: isMobile ? 1 : 5,
-            py: isMobile ? 1 : 2,
           }}
         >
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
