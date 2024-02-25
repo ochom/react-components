@@ -11,15 +11,14 @@ const Content = styled(Box)(({ theme, ...props }) => ({
   padding: 0,
 }));
 
-const Title = styled(Box)(({ theme }) => ({
+const Title = styled(Box)`
   height: "50px",
   width: "100%",
   display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "5px 10px",
-  borderBottom: "1px solid #ccc",
-}));
+  justify-content: "space-between",
+  align-items: "center",
+  border-bottom: "1px solid #ccc",
+`;
 
 const Body = styled(Box)`
   width: '100%',
@@ -52,7 +51,12 @@ export const CDrawer = ({
   return (
     <Drawer anchor="right" open={open}>
       <Content width={isMobile ? 100 : width}>
-        <Title>
+        <Title
+          sx={{
+            px: isMobile ? 1 : 5,
+            py: isMobile ? 1 : 2,
+          }}
+        >
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
             {drawerTitle}
           </Typography>
