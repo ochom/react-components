@@ -18,6 +18,7 @@ const Title = styled(Box)`
   justify-content: "space-between",
   align-items: "center",
   border-bottom: "1px solid #ccc",
+  flex-direction: "row",
 `;
 
 const Body = styled(Box)`
