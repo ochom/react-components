@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import { IconButton, Typography, useMediaQuery } from "@mui/material";
+import { IconButton, Paper, Typography, useMediaQuery } from "@mui/material";
 import { Icon } from "@iconify/react";
 import styled from "@emotion/styled";
 
@@ -12,7 +12,7 @@ const Content = styled(Box)`
   position: relative;
 `;
 
-const Title = styled(Box)`
+const Title = styled(Paper)`
   height: 50px;
   position: sticky;
   top: 0;
@@ -57,7 +57,7 @@ export const CDrawer = ({
   return (
     <Drawer anchor="right" open={open}>
       <Content width={isMobile ? 100 : width}>
-        <Title sx={{ px: isMobile ? 1 : 5 }}>
+        <Title elevation={0} sx={{ px: isMobile ? 1 : 5 }}>
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
             {drawerTitle}
           </Typography>
