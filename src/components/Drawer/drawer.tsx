@@ -52,11 +52,7 @@ export const CDrawer = ({
   return (
     <Drawer anchor="right" open={open}>
       <Content width={isMobile ? 100 : width}>
-        <Title
-          sx={{
-            px: isMobile ? 1 : 5,
-          }}
-        >
+        <Title>
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
             {drawerTitle}
           </Typography>
