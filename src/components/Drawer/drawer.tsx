@@ -11,15 +11,15 @@ const Content = styled(Box)(({ theme, ...props }) => ({
   padding: 0,
 }));
 
-const Title = styled(Box)`
+const Title = styled(Box)(({ theme }: any) => ({
   height: "50px",
   width: "100%",
   display: "flex",
-  justify-content: "space-between",
-  align-items: "center",
-  border-bottom: "1px solid #ccc",
-  flex-direction: "row",
-`;
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: theme.spacing(2, 5),
+  borderBottom: "1px solid #ccc",
+}));
 
 const Body = styled(Box)`
   width: '100%',
