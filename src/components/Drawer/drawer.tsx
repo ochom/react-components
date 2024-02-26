@@ -22,12 +22,14 @@ const Title = styled(Box)`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ccc;
+  z-index: 1;
 `;
 
 const Body = styled(Box)`
   position: relative;
   overflow-y: auto;
   height: calc(100% - 50px);
+  z-index: 0;
 `;
 
 export type CDrawerProps = {
