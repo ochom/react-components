@@ -63,13 +63,12 @@ const Dialog = styled.div`
 `;
 
 const Title = styled.div`
-  height: 50px;
   font-size: 1.2rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1.5rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid #eee;
 `;
 
@@ -120,7 +119,7 @@ export const Modal = ({
             )}
           </Title>
         )}
-        <div style={contentStyle}>{open ? children : null}</div>
+        <div style={contentStyle}>{open && children}</div>
       </Dialog>
     </BackDrop>
   );
