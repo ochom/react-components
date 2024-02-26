@@ -5,25 +5,25 @@ import { IconButton, Typography, useMediaQuery } from "@mui/material";
 import { Icon } from "@iconify/react";
 import styled from "@emotion/styled";
 
-const Content = styled(Box)(({ theme, ...props }) => ({
-  width: `${props?.width}vw`,
-  height: "100vh",
-  padding: 0,
-  position: "relative",
-}));
+const Content = styled(Box)`
+  width: ${(props) => `${props.width}vw`};
+  height: 100vh;
+  padding: 0;
+  position: relative;
+`;
 
-const Title = styled(Box)(({ theme }: any) => ({
-  height: "50px",
-  position: "sticky",
-  top: 0,
-  left: 0,
-  right: 0,
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "0 10px",
-  borderBottom: "1px solid #ccc",
-}));
+const Title = styled(Box)`
+  height: 50px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+`;
 
 const Body = styled(Box)`
   position: relative;
