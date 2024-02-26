@@ -21,7 +21,6 @@ const Title = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
   border-bottom: 1px solid #ccc;
 `;
 
@@ -56,7 +55,7 @@ export const CDrawer = ({
   return (
     <Drawer anchor="right" open={open}>
       <Content width={isMobile ? 100 : width}>
-        <Title>
+        <Title sx={{ px: isMobile ? 1 : 5 }}>
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
             {drawerTitle}
           </Typography>
