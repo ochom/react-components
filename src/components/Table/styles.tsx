@@ -15,9 +15,8 @@ export const StyledTable = styled.table`
         padding: 8px;
         font-weight: 500;
         font-size: 14px;
-        color: #202124;
         text-align: left;
-        background-color: #f0f0f0;
+        background-color: ${({ theme }: any) => theme.palette.background.paper};
       }
     }
   }
@@ -26,7 +25,8 @@ export const StyledTable = styled.table`
       margin: 0 5px;
       transition: 0.3s;
       :nth-of-type(even) {
-        background-color: #f9f9f9;
+        background-color: ${({ theme }: any) =>
+          theme.palette.background.default};
       }
       td {
         padding: 12px 8px;
@@ -35,7 +35,7 @@ export const StyledTable = styled.table`
     }
     tr:hover {
       cursor: pointer;
-      background-color: #eeeeee;
+      background-color: ${({ theme }: any) => theme.palette.action.hover};
     }
     tr:last-of-type {
       td {
@@ -50,18 +50,12 @@ export const StyledTable = styled.table`
   }
 `;
 
-const Search = styled(Icon)`
-  color: #949494;
-  font-size: 0.9rem;
-  font-weight: 400;
-`;
-
 const SearchBox = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 15px;
-  box-shadow: 0 0 3px 0 #dfdfdf;
+  box-shadow: 0 0 3px 0 ${({ theme }: any) => theme.palette.action.hover};
   padding: 0.3rem 0.5rem;
   overflow: hidden;
   input {
@@ -69,7 +63,6 @@ const SearchBox = styled(Box)`
     outline: none;
     font-size: 0.8rem;
     font-weight: 400;
-    color: #333333;
     background-color: transparent;
     flex: 1;
     margin-left: 0.2rem;
