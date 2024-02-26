@@ -9,28 +9,32 @@ const Content = styled(Box)(({ theme, ...props }) => ({
   width: `${props?.width}vw`,
   height: "100vh",
   padding: 0,
+  position: "relative",
 }));
 
 const Title = styled(Box)(({ theme }: any) => ({
   height: "50px",
-  width: "100%",
+  position: "sticky",
+  top: 0,
+  left: 0,
+  right: 0,
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: theme.spacing(2, 5),
+  padding: "0 10px",
   borderBottom: "1px solid #ccc",
 }));
 
 const Body = styled(Box)`
-  width: '100%',
-  height: 'calc(100vh - 50px)', 
-  overflow-y: 'auto'
+  position: relative;
+  overflow-y: auto;
+  height: calc(100% - 50px);
 `;
 
 export type CDrawerProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  title: string;
+  title: string | React.ReactNode;
   children: React.ReactNode;
   width?: number;
 };
