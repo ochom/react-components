@@ -16,6 +16,7 @@ import {
   Switch,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import {
   DatePicker,
@@ -353,6 +354,7 @@ export const DefaultField = ({ field }: { field: FormField }) => {
 };
 
 export const FileField = ({ field }: { field: FormField }) => {
+  const theme = useTheme();
   return (
     <FormControl fullWidth>
       <Box
@@ -371,7 +373,7 @@ export const FileField = ({ field }: { field: FormField }) => {
             left: "10px",
             pb: 1,
             position: "absolute",
-            backgroundColor: "white",
+            backgroundColor: theme.palette.background.paper,
             padding: "0 5px",
           }}
         >

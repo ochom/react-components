@@ -63,7 +63,6 @@ const TableBody = ({
           style={{
             display:
               loading || error || rows.length === 0 ? "table-row" : "none",
-            backgroundColor: "transparent",
           }}
         >
           {loading && (
