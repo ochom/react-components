@@ -25,7 +25,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
-import { CButton, LButton } from "../Buttons";
+import { CButton } from "../Buttons";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo } from "react";
 
@@ -140,7 +140,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
   // initialize selected options
   useEffect(() => {
     const selectedOptions = field.options?.filter((opt) =>
-      field.value.includes(opt.value)
+      field.value.includes(opt.value),
     );
     setSelected(selectedOptions ?? []);
   }, []);
@@ -478,9 +478,9 @@ export default function Form({
         {showButtons && (
           <Grid item>
             <Stack direction="row" spacing={3} justifyContent="left">
-              <LButton type="submit" {...submitButtonProps}>
+              <CButton type="submit" {...submitButtonProps}>
                 {submitText}
-              </LButton>
+              </CButton>
               {showCancelButton && (
                 <CButton
                   onClick={onCancel}
