@@ -26,7 +26,7 @@ export const StyledTable = styled.table`
       transition: 0.3s;
       :nth-of-type(odd) {
         background-color: ${({ theme }: any) =>
-          theme.palette.grey[100]} !important;
+          theme.palette.grey[50]} !important;
       }
       td {
         padding: 12px 8px;
@@ -35,7 +35,7 @@ export const StyledTable = styled.table`
     }
     tr:hover {
       cursor: pointer;
-      background-color: ${({ theme }: any) => theme.palette.action.hover};
+      background-color: ${({ theme }: any) => theme.palette.grey[100]}};
     }
     tr:last-of-type {
       td {
