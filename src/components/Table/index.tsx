@@ -8,7 +8,6 @@ import TableBody from "./body";
 import TablePagination from "./pagination";
 
 export default function Table({
-  title,
   loading = false,
   error,
   columns,
@@ -54,7 +53,7 @@ export default function Table({
     if (onSearch) return onSearch(value);
 
     const filteredRows: any[] = (data || []).filter((row: any) =>
-      JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
+      JSON.stringify(row).toLowerCase().includes(value.toLowerCase()),
     );
 
     if (filteredRows.length > 0) {
@@ -62,35 +61,37 @@ export default function Table({
     }
   };
 
-  const flexSX: any = useMemo(() => {
-    return buttons.length === 0 ? { flex: "1" } : {};
-  }, [buttons]);
-
   return (
     <Box sx={sx}>
-      {title && (
-        <Typography variant="h6" sx={{ my: 2 }}>
-          {title}
-        </Typography>
-      )}
-
-      <ButtonsContainer>
-        {buttons.length > 0 && (
-          <Stack spacing={1} direction="row">
-            {buttons.map((button, index) => (
-              <CButton
-                key={index}
-                size="small"
-                variant="outlined"
-                sx={{ borderRadius: 5 }}
-                {...button}
-              />
-            ))}
-          </Stack>
-        )}
-        {showSearch && rows.length > 0 ? (
-          <StyledSearch onSearch={handleSearch} sx={{ ...flexSX }} />
-        ) : null}
+      <ButtonsContainer
+        style={{
+          display: buttons.length == 0 || !showSearch ? "none" : "flex",
+        }}
+      >
+        <Stack
+          spacing={1}
+          direction="row"
+          sx={{
+            display: buttons.length == 0 ? "none" : "flex",
+          }}
+        >
+          {buttons.map((button, index) => (
+            <CButton
+              key={index}
+              size="small"
+              variant="outlined"
+              sx={{ borderRadius: 5 }}
+              {...button}
+            />
+          ))}
+        </Stack>
+        <StyledSearch
+          onSearch={handleSearch}
+          sx={{
+            display: showSearch ? "flex" : "none",
+            flex: buttons.length == 0 ? "1" : "0",
+          }}
+        />
       </ButtonsContainer>
 
       <>
