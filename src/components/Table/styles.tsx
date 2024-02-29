@@ -16,7 +16,7 @@ export const StyledTable = styled.table`
         font-weight: 500;
         font-size: 14px;
         text-align: left;
-        background-color: #f5f5f5;
+        background-color: ${({ theme }: any) => theme.palette.grey[200]};
       }
     }
   }
@@ -25,7 +25,8 @@ export const StyledTable = styled.table`
       margin: 0 5px;
       transition: 0.3s;
       :nth-of-type(even) {
-        background-color: #fafafa;
+        background-color: ${({ theme }: any) =>
+          theme.palette.grey[100]} !important;
       }
       td {
         padding: 12px 8px;
