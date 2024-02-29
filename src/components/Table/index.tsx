@@ -78,7 +78,6 @@ export default function Table({
           {buttons.map((button, index) => (
             <CButton
               key={index}
-              size="small"
               variant="outlined"
               sx={{ borderRadius: 5 }}
               {...button}
