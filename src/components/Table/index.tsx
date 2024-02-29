@@ -65,7 +65,7 @@ export default function Table({
     <Box sx={sx}>
       <ButtonsContainer
         style={{
-          display: buttons.length == 0 || !showSearch ? "none" : "flex",
+          display: buttons.length == 0 && !showSearch ? "none" : "flex",
         }}
       >
         <Stack
