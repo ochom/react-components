@@ -89,7 +89,7 @@ export default function Table({
           onSearch={handleSearch}
           sx={{
             display: showSearch ? "flex" : "none",
-            flex: buttons.length == 0 ? "1" : "0",
+            flex: buttons.length == 0 ? "1" : undefined,
           }}
         />
       </ButtonsContainer>
