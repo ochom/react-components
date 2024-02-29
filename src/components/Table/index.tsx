@@ -79,7 +79,7 @@ export default function Table({
             <CButton
               key={index}
               variant="outlined"
-              sx={{ borderRadius: 5 }}
+              sx={{ borderRadius: 2 }}
               {...button}
             />
           ))}
