@@ -24,7 +24,7 @@ export const StyledTable = styled.table`
     tr {
       margin: 0 5px;
       transition: 0.3s;
-      :nth-of-type(even) {
+      :nth-of-type(odd) {
         background-color: ${({ theme }: any) =>
           theme.palette.grey[100]} !important;
       }
