@@ -9,7 +9,6 @@ export type TableColumn = {
 };
 
 export type TableProps<T> = {
-  title?: string;
   loading?: boolean;
   error?: Error;
   columns: TableColumn[];
