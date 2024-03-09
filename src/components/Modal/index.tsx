@@ -72,16 +72,6 @@ const Title = styled.div`
   border-bottom: 1px solid #eee;
 `;
 
-const ModalClose = styled(IconButton)`
-  padding: 0.3rem;
-  border-radius: 0.3rem;
-  margin: 0;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export interface ModalProps {
   open: boolean;
   showClose?: boolean;
@@ -113,9 +103,9 @@ export const Modal = ({
           <Title>
             <div>{title}</div>
             {showClose && (
-              <ModalClose type="button" onClick={onClose}>
-                <Icon icon="bi:close" />
-              </ModalClose>
+              <IconButton type="button" onClick={onClose}>
+                <Icon icon="material-symbols:close" />
+              </IconButton>
             )}
           </Title>
         )}
