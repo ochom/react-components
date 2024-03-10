@@ -5,6 +5,7 @@ import React from "react";
 export interface TabProps {
   title: string;
   panel: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 interface TabPanelProps {
@@ -17,27 +18,25 @@ function Panel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box>{children}</Box>}
-    </div>
+      {value === index && <Box sx={{ py: 1 }}>{children}</Box>}
+    </Box>
   );
 }
 
-export default function CustomTabs({
-  index,
-  setIndex,
-  tabs,
-}: {
+interface TabsProps {
   index: number;
   setIndex: React.Dispatch<React.SetStateAction<number>>;
   tabs: TabProps[];
-}) {
+}
+
+export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
   return (
     <Box>
       <Tabs
@@ -49,7 +48,18 @@ export default function CustomTabs({
         {tabs.map((tab, idx) => (
           <Tab
             key={idx}
-            label={tab.title}
+            label={
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                }}
+              >
+                {tab.icon}
+                {tab.title}
+              </Box>
+            }
             sx={{ fontWeight: 400, textTransform: "none" }}
             id={`simple-tab-${idx}`}
             aria-controls={`simple-tabpanel-${idx}`}
