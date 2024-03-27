@@ -32,7 +32,7 @@ function Panel(props: TabPanelProps) {
 
 interface TabsProps {
   index: number;
-  setIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIndex: (index: number) => void;
   tabs: TabProps[];
 }
 
