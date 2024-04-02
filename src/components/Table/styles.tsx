@@ -25,11 +25,8 @@ export const StyledTable = styled.table`
     tr {
       margin: 0 5px;
       transition: 0.3s;
-      border-top: 1px solid transparent;
-      :nth-of-type(odd) {
-        border-top: 1px solid
-          ${({ theme }: { theme: Theme }) => theme.palette.divider};
-      }
+      border-top: 1px solid
+        ${({ theme }: { theme: Theme }) => theme.palette.divider};
       td {
         padding: 12px 8px;
         font-size: 0.8rem;
