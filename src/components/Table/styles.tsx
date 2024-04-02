@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Icon } from "@iconify/react";
-import { Box, SxProps } from "@mui/material";
+import { Box, SxProps, Theme, useTheme } from "@mui/material";
 import React from "react";
 
 export const StyledTable = styled.table`
@@ -16,7 +16,8 @@ export const StyledTable = styled.table`
         font-weight: 500;
         font-size: 14px;
         text-align: left;
-        background-color: ${({ theme }: any) => theme.palette.grey[200]};
+        background-color: ${({ theme }: { theme: Theme }) =>
+          theme.palette.background.paper};
       }
     }
   }
@@ -25,8 +26,8 @@ export const StyledTable = styled.table`
       margin: 0 5px;
       transition: 0.3s;
       :nth-of-type(odd) {
-        background-color: ${({ theme }: any) =>
-          theme.palette.grey[50]} !important;
+        background-color: ${({ theme }: { theme: Theme }) =>
+          theme.palette.action.hover};
       }
       td {
         padding: 12px 8px;
@@ -35,7 +36,8 @@ export const StyledTable = styled.table`
     }
     tr:hover {
       cursor: pointer;
-      background-color: ${({ theme }: any) => theme.palette.grey[100]}};
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.palette.action.hover};
     }
     tr:last-of-type {
       td {
@@ -55,7 +57,8 @@ const SearchBox = styled(Box)`
   align-items: center;
   justify-content: space-between;
   border-radius: 15px;
-  box-shadow: 0 0 3px 0 ${({ theme }: any) => theme.palette.action.hover};
+  box-shadow: 0 0 3px 0
+    ${({ theme }: { theme: Theme }) => theme.palette.action.hover};
   padding: 0.3rem 0.5rem;
   overflow: hidden;
   input {
@@ -77,8 +80,9 @@ export const StyledSearch = ({
   onSearch: (value: string) => void;
   sx: SxProps;
 }) => {
+  const theme = useTheme();
   return (
-    <SearchBox sx={sx}>
+    <SearchBox sx={sx} theme={theme}>
       <Icon
         style={{ color: "action.active", margin: "0.5rem 1" }}
         icon="bi:search"

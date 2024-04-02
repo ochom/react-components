@@ -1,11 +1,11 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { ButtonsContainer, StyledSearch } from "./styles";
-import React, { useEffect, useMemo, useState } from "react";
 
 import { CButton } from "../Buttons";
-import { TableProps } from "./props";
 import TableBody from "./body";
 import TablePagination from "./pagination";
+import { TableProps } from "./props";
 
 export default function Table({
   loading = false,
@@ -53,7 +53,7 @@ export default function Table({
     if (onSearch) return onSearch(value);
 
     const filteredRows: any[] = (data || []).filter((row: any) =>
-      JSON.stringify(row).toLowerCase().includes(value.toLowerCase()),
+      JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
     );
 
     if (filteredRows.length > 0) {

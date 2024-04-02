@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
@@ -24,6 +24,7 @@ const TableBody = ({
   page,
   onRowClicked,
 }: any) => {
+  const theme = useTheme();
   const handleRowClicked = (col: TableColumn, item: any) => {
     if (col.button) {
       return;
@@ -50,7 +51,7 @@ const TableBody = ({
   }, [rows, page, rowsPerPage]);
 
   return (
-    <StyledTable>
+    <StyledTable theme={theme}>
       <thead>
         <tr>
           {cols.map((column: TableColumn, cIndex: number) => (
