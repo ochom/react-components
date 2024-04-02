@@ -28,7 +28,7 @@ export const StyledTable = styled.table`
       border-top: 1px solid transparent;
       :nth-of-type(odd) {
         border-top: 1px solid
-          ${({ theme }: { theme: Theme }) => theme.palette.action.hover};
+          ${({ theme }: { theme: Theme }) => theme.palette.divider};
       }
       td {
         padding: 12px 8px;
