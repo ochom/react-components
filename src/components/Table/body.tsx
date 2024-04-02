@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
@@ -55,7 +55,9 @@ const TableBody = ({
       <thead>
         <tr>
           {cols.map((column: TableColumn, cIndex: number) => (
-            <th key={cIndex}>{column.name}</th>
+            <th key={cIndex}>
+              <Typography>{column.name}</Typography>
+            </th>
           ))}
         </tr>
       </thead>
