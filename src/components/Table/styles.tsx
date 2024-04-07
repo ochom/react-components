@@ -6,7 +6,6 @@ import React from "react";
 export const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  border: none;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   thead {
     tr {
@@ -36,16 +35,6 @@ export const StyledTable = styled.table`
       cursor: pointer;
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.palette.action.hover};
-    }
-    tr:last-of-type {
-      td {
-        :first-of-type {
-          border-bottom-left-radius: 15px;
-        }
-        :last-of-type {
-          border-bottom-right-radius: 15px;
-        }
-      }
     }
   }
 `;
@@ -98,6 +87,6 @@ export const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin: 0 1rem 1rem;
   align-items: center;
 `;

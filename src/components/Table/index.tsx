@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ButtonsContainer, StyledSearch } from "./styles";
 
@@ -23,7 +23,8 @@ export default function Table({
   onPaginationChange,
   hidePagination = false,
   paginationAlign = "end",
-  sx = {},
+  containerProps = {},
+  tableAreaProps = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -62,7 +63,7 @@ export default function Table({
   };
 
   return (
-    <Box sx={sx}>
+    <Box {...containerProps}>
       <ButtonsContainer
         style={{
           display: buttons.length == 0 && !showSearch ? "none" : "flex",
@@ -93,7 +94,7 @@ export default function Table({
         />
       </ButtonsContainer>
 
-      <>
+      <Paper {...tableAreaProps}>
         <TableBody
           loading={loading}
           error={error}
@@ -117,7 +118,7 @@ export default function Table({
             rowsPerPageOptions={rowsPerPageOptions}
           />
         )}
-      </>
+      </Paper>
     </Box>
   );
 }
