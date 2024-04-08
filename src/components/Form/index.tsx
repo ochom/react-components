@@ -33,6 +33,7 @@ import { LoadingButtonProps } from "@mui/lab";
 
 type FieldType =
   | "text"
+  | "textarea"
   | "email"
   | "password"
   | "number"
@@ -66,7 +67,16 @@ interface ChangeEvent {
   };
 }
 
-interface FormField {
+export interface CreateFieldProps {
+  type?: FieldType;
+  multiline?: boolean;
+  rows?: number;
+  options?: SelectOption[];
+  value: string;
+  onChange: (e: any) => void;
+}
+
+export interface FormField {
   name: string;
   label: string;
   type: FieldType;
@@ -140,7 +150,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
   // initialize selected options
   useEffect(() => {
     const selectedOptions = field.options?.filter((opt) =>
-      field.value.includes(opt.value),
+      field.value.includes(opt.value)
     );
     setSelected(selectedOptions ?? []);
   }, []);
