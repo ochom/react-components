@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { CreateFieldProps, FormField } from ".";
 
-type createFieldProps = {
-  name: string;
-  label: string;
-  more?: CreateFieldProps;
-};
-
 export const useForm = (initialState: { [key: string]: any } = {}) => {
   const [formData, setFormData] = useState(initialState);
 
@@ -14,8 +8,15 @@ export const useForm = (initialState: { [key: string]: any } = {}) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const createField = (props: createFieldProps): FormField => {
-    const { name, label, more = {} as CreateFieldProps } = props;
+  const createField = (
+    name: string,
+    label: string,
+    more?: CreateFieldProps
+  ): FormField => {
+    if (!more) {
+      more = {};
+    }
+
     // if type is not specified, default to text
     if (!more?.type) {
       more.type = "text";
