@@ -7,6 +7,7 @@ export const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  background-color: transparent;
   thead {
     tr {
       border: none;
