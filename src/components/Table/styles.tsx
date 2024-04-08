@@ -27,7 +27,7 @@ export const StyledTable = styled.table`
       border-top: 1px solid
         ${({ theme }: { theme: Theme }) => theme.palette.divider};
       td {
-        padding: 12px 8px;
+        padding: 8px 8px;
         font-size: 0.8rem;
       }
     }
