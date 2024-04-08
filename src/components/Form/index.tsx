@@ -72,8 +72,8 @@ export interface CreateFieldProps {
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
-  value: string;
-  onChange: (e: any) => void;
+  value?: string;
+  onChange?: (e: any) => void;
 }
 
 export interface FormField {
