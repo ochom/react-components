@@ -104,7 +104,6 @@ const TablePagination = ({
   return (
     <Pagination
       sx={{
-        mt: 0.5,
         display: "flex",
         alignItems: "flex-end",
         justifyContent: `flex-${alignment || "end"}`,
