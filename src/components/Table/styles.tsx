@@ -83,10 +83,9 @@ export const StyledSearch = ({
   );
 };
 
-export const ButtonsContainer = styled.div`
+export const ButtonsContainer = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 1rem 1rem;
   align-items: center;
 `;
