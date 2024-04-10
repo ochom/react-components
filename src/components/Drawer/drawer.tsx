@@ -35,6 +35,7 @@ const Body = styled(Box)`
 export type CDrawerProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  autoClose?: boolean;
   title: string | React.ReactNode;
   children: React.ReactNode;
   width?: number;
@@ -43,6 +44,7 @@ export type CDrawerProps = {
 export const CDrawer = ({
   open,
   setOpen,
+  autoClose = true,
   title,
   children,
   width = 60,
@@ -55,7 +57,15 @@ export const CDrawer = ({
   }
 
   return (
-    <Drawer anchor="right" open={open}>
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={(_, reason) => {
+        if (autoClose && reason === "backdropClick") {
+          setOpen(false);
+        }
+      }}
+    >
       <Content width={isMobile ? 100 : width}>
         <Title elevation={0} sx={{ px: isMobile ? 1 : 5 }}>
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
