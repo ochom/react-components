@@ -15,6 +15,7 @@ const Content = styled(Box)`
 const Title = styled(Paper)`
   height: 50px;
   position: sticky;
+  border-radius: 0;
   top: 0;
   left: 0;
   right: 0;
