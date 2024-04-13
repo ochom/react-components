@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ButtonsContainer, StyledSearch } from "./styles";
 
@@ -95,7 +95,7 @@ export default function Table({
         />
       </ButtonsContainer>
 
-      <Box {...tableAreaProps}>
+      <Paper elevation={0} {...tableAreaProps}>
         <TableBody
           loading={loading}
           error={error}
@@ -119,7 +119,7 @@ export default function Table({
             rowsPerPageOptions={rowsPerPageOptions}
           />
         )}
-      </Box>
+      </Paper>
     </Box>
   );
 }
