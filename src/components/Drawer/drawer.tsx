@@ -1,9 +1,9 @@
-import React from "react";
+import styled from "@emotion/styled";
+import { Icon } from "@iconify/react";
+import { IconButton, Typography, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import { IconButton, Paper, Typography, useMediaQuery } from "@mui/material";
-import { Icon } from "@iconify/react";
-import styled from "@emotion/styled";
+import React from "react";
 
 const Content = styled(Box)`
   width: ${(props) => `${props.width}vw`};
@@ -12,7 +12,7 @@ const Content = styled(Box)`
   position: relative;
 `;
 
-const Title = styled(Paper)`
+const Title = styled(Box)`
   height: 50px;
   position: sticky;
   border-radius: 0;
@@ -68,7 +68,7 @@ export const CDrawer = ({
       }}
     >
       <Content width={isMobile ? 100 : width}>
-        <Title elevation={0} sx={{ px: isMobile ? 1 : 5 }}>
+        <Title sx={{ px: isMobile ? 1 : 5 }}>
           <Typography variant="body1" component="div" sx={{ flex: 1 }}>
             {drawerTitle}
           </Typography>
