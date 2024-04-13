@@ -1,4 +1,4 @@
-import { Box, Card, Paper, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ButtonsContainer, StyledSearch } from "./styles";
 
@@ -95,7 +95,7 @@ export default function Table({
         />
       </ButtonsContainer>
 
-      <Card {...tableAreaProps}>
+      <Box {...tableAreaProps}>
         <TableBody
           loading={loading}
           error={error}
@@ -111,7 +111,7 @@ export default function Table({
         {!hidePagination && (
           <TablePagination
             alignment={paginationAlign}
-            total={total || rows.length}
+            total={total ?? rows.length}
             page={page}
             setPage={setPage}
             rowsPerPage={rowsPerPage}
@@ -119,7 +119,7 @@ export default function Table({
             rowsPerPageOptions={rowsPerPageOptions}
           />
         )}
-      </Card>
+      </Box>
     </Box>
   );
 }

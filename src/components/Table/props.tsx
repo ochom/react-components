@@ -1,4 +1,4 @@
-import { ButtonProps, BoxProps, PaperProps } from "@mui/material";
+import { BoxProps, ButtonProps } from "@mui/material";
 import { ReactNode } from "react";
 
 export type TableColumn = {
@@ -25,5 +25,5 @@ export type TableProps<T> = {
   hidePagination?: boolean;
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
   containerProps?: BoxProps;
-  tableAreaProps?: PaperProps;
+  tableAreaProps?: BoxProps;
 };
