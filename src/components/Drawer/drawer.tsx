@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Icon } from "@iconify/react";
-import { IconButton, Typography, useMediaQuery } from "@mui/material";
+import { IconButton, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import React from "react";
@@ -69,9 +69,7 @@ export const CDrawer = ({
     >
       <Content width={isMobile ? 100 : width}>
         <Title sx={{ px: isMobile ? 1 : 5 }}>
-          <Typography variant="body1" component="div" sx={{ flex: 1 }}>
-            {drawerTitle}
-          </Typography>
+          <Box sx={{ flex: 1 }}>{drawerTitle}</Box>
           <IconButton onClick={() => setOpen(false)} color="error">
             <Icon icon="tabler:x" />
           </IconButton>
