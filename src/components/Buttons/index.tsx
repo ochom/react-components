@@ -7,7 +7,7 @@ const CButton = ({ children, ...rest }: LoadingButtonProps) => {
   rest = { disableElevation: true, ...rest };
   return (
     <LoadingButton variant="contained" color="primary" {...rest}>
-      {rest?.title || children}
+      {rest?.title ?? children}
     </LoadingButton>
   );
 };
