@@ -3,6 +3,7 @@ import {
   Box,
   ButtonProps,
   Checkbox,
+  Chip,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -176,17 +177,28 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         getOptionLabel={(option) => option.label}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
         onChange={(e, newValue) => setSelected(newValue)}
-        renderOption={(props, option) => (
-          <li {...props}>
-            <Checkbox
-              icon={<Icon icon="mdi:checkbox-blank-outline" />}
-              checkedIcon={<Icon icon="mdi:checkbox-marked" />}
-              style={{ marginRight: 8 }}
-              checked={selected.map((s) => s.value).includes(option.value)}
+        renderOption={(props, option) => {
+          return (
+            <li key={option.value} {...props}>
+              <Checkbox
+                icon={<Icon icon="mdi:checkbox-blank-outline" />}
+                checkedIcon={<Icon icon="mdi:checkbox-marked" />}
+                style={{ marginRight: 8 }}
+                checked={selected.map((s) => s.value).includes(option.value)}
+              />
+              {option.label}
+            </li>
+          );
+        }}
+        renderTags={(value, getTagProps) => {
+          return value.map((option, index) => (
+            <Chip
+              {...getTagProps({ index })}
+              key={option.value}
+              label={option.label}
             />
-            {option.label}
-          </li>
-        )}
+          ));
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
