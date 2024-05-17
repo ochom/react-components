@@ -1,15 +1,5 @@
 import { useState } from "react";
-
-export interface CreateFieldProps {
-  name: string;
-  label: string;
-  type?: string;
-  multiline?: boolean;
-  rows?: number;
-  options?: { label: string; value: string }[];
-  value: string;
-  onChange: (e: any) => void;
-}
+import { CreateFieldProps, FormField } from ".";
 
 export const useForm = (initialState: { [key: string]: any } = {}) => {
   const [formData, setFormData] = useState(initialState);
@@ -21,10 +11,14 @@ export const useForm = (initialState: { [key: string]: any } = {}) => {
   const createField = (
     name: string,
     label: string,
-    more: any = {}
-  ): CreateFieldProps => {
+    more?: CreateFieldProps
+  ): FormField => {
+    if (!more) {
+      more = {};
+    }
+
     // if type is not specified, default to text
-    if (!more.type) {
+    if (!more?.type) {
       more.type = "text";
     }
 
@@ -41,11 +35,12 @@ export const useForm = (initialState: { [key: string]: any } = {}) => {
     }
 
     return {
+      type: more?.type,
       name,
       label,
-      value: formData[name],
-      onChange,
       ...more,
+      value: more?.value ?? formData[name],
+      onChange: more?.onChange ?? onChange,
     };
   };
 

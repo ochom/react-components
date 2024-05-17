@@ -3,6 +3,7 @@ import {
   Box,
   ButtonProps,
   Checkbox,
+  Chip,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -16,6 +17,7 @@ import {
   Switch,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import {
   DatePicker,
@@ -24,8 +26,8 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
-import { CButton, LButton } from "../Buttons";
-
+import { CButton } from "../Buttons";
+import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo } from "react";
 
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
@@ -33,6 +35,7 @@ import { DateRangePicker, LoadingButtonProps } from "@mui/lab";
 
 type FieldType =
   | "text"
+  | "textarea"
   | "email"
   | "password"
   | "number"
@@ -67,7 +70,16 @@ interface ChangeEvent {
   };
 }
 
-interface FormField {
+export interface CreateFieldProps {
+  type?: FieldType;
+  multiline?: boolean;
+  rows?: number;
+  options?: SelectOption[];
+  value?: string;
+  onChange?: (e: any) => void;
+}
+
+export interface FormField {
   name: string;
   label: string;
   type: FieldType;
@@ -167,17 +179,28 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         getOptionLabel={(option) => option.label}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
         onChange={(e, newValue) => setSelected(newValue)}
-        renderOption={(props, option) => (
-          <li {...props}>
-            <Checkbox
-              icon={<CheckBoxOutlineBlank fontSize="small" />}
-              checkedIcon={<CheckBox fontSize="small" />}
-              style={{ marginRight: 8 }}
-              checked={selected.map((s) => s.value).includes(option.value)}
+        renderOption={(props, option) => {
+          return (
+            <li key={option.value} {...props}>
+              <Checkbox
+                icon={<Icon icon="mdi:checkbox-blank-outline" />}
+                checkedIcon={<Icon icon="mdi:checkbox-marked" />}
+                style={{ marginRight: 8 }}
+                checked={selected.map((s) => s.value).includes(option.value)}
+              />
+              {option.label}
+            </li>
+          );
+        }}
+        renderTags={(value, getTagProps) => {
+          return value.map((option, index) => (
+            <Chip
+              {...getTagProps({ index })}
+              key={option.value}
+              label={option.label}
             />
-            {option.label}
-          </li>
-        )}
+          ));
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -224,7 +247,7 @@ export const DateField = ({ field }: { field: FormField }) => {
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DatePicker
-          format={field?.format ?? "DD/MM/Y"} 
+          format={field?.format ?? "DD/MM/Y"}
           label={field.label}
           value={moment(field.value)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
@@ -237,7 +260,6 @@ export const DateField = ({ field }: { field: FormField }) => {
     </FormControl>
   );
 };
-
 
 export const DateTimeField = ({ field }: { field: FormField }) => {
   return (
@@ -375,6 +397,7 @@ export const DefaultField = ({ field }: { field: FormField }) => {
 };
 
 export const FileField = ({ field }: { field: FormField }) => {
+  const theme = useTheme();
   return (
     <FormControl fullWidth>
       <Box
@@ -393,7 +416,7 @@ export const FileField = ({ field }: { field: FormField }) => {
             left: "10px",
             pb: 1,
             position: "absolute",
-            backgroundColor: "white",
+            backgroundColor: theme.palette.background.paper,
             padding: "0 5px",
           }}
         >
@@ -500,9 +523,9 @@ export default function Form({
         {showButtons && (
           <Grid item>
             <Stack direction="row" spacing={3} justifyContent="left">
-              <LButton type="submit" {...submitButtonProps}>
+              <CButton type="submit" {...submitButtonProps}>
                 {submitText}
-              </LButton>
+              </CButton>
               {showCancelButton && (
                 <CButton
                   onClick={onCancel}

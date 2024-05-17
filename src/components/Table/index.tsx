@@ -1,14 +1,13 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { ButtonsContainer, StyledSearch } from "./styles";
-import React, { useEffect, useMemo, useState } from "react";
 
 import { CButton } from "../Buttons";
-import { TableProps } from "./props";
 import TableBody from "./body";
 import TablePagination from "./pagination";
+import { TableProps } from "./props";
 
 export default function Table({
-  title,
   loading = false,
   error,
   columns,
@@ -24,7 +23,8 @@ export default function Table({
   onPaginationChange,
   hidePagination = false,
   paginationAlign = "end",
-  sx = {},
+  containerProps = {},
+  tableAreaProps = {},
 }: TableProps<any>) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
@@ -62,38 +62,40 @@ export default function Table({
     }
   };
 
-  const flexSX: any = useMemo(() => {
-    return buttons.length === 0 ? { flex: "1" } : {};
-  }, [buttons]);
-
   return (
-    <Box sx={sx}>
-      {title && (
-        <Typography variant="h6" sx={{ my: 2 }}>
-          {title}
-        </Typography>
-      )}
-
-      <ButtonsContainer>
-        {buttons.length > 0 && (
-          <Stack spacing={1} direction="row">
-            {buttons.map((button, index) => (
-              <CButton
-                key={index}
-                size="small"
-                variant="outlined"
-                sx={{ borderRadius: 5 }}
-                {...button}
-              />
-            ))}
-          </Stack>
-        )}
-        {showSearch && rows.length > 0 ? (
-          <StyledSearch onSearch={handleSearch} sx={{ ...flexSX }} />
-        ) : null}
+    <Box {...containerProps}>
+      <ButtonsContainer
+        sx={{ p: 1 }}
+        style={{
+          display: buttons.length == 0 && !showSearch ? "none" : "flex",
+        }}
+      >
+        <Stack
+          spacing={1}
+          direction="row"
+          sx={{
+            display: buttons.length == 0 ? "none" : "flex",
+          }}
+        >
+          {buttons.map((button, index) => (
+            <CButton
+              key={index}
+              variant="outlined"
+              sx={{ borderRadius: 2 }}
+              {...button}
+            />
+          ))}
+        </Stack>
+        <StyledSearch
+          onSearch={handleSearch}
+          sx={{
+            display: showSearch ? "flex" : "none",
+            flex: buttons.length == 0 ? "1" : undefined,
+          }}
+        />
       </ButtonsContainer>
 
-      <>
+      <Paper elevation={0} {...tableAreaProps}>
         <TableBody
           loading={loading}
           error={error}
@@ -109,7 +111,7 @@ export default function Table({
         {!hidePagination && (
           <TablePagination
             alignment={paginationAlign}
-            total={total || rows.length}
+            total={total ?? rows.length}
             page={page}
             setPage={setPage}
             rowsPerPage={rowsPerPage}
@@ -117,7 +119,7 @@ export default function Table({
             rowsPerPageOptions={rowsPerPageOptions}
           />
         )}
-      </>
+      </Paper>
     </Box>
   );
 }

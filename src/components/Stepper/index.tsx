@@ -20,7 +20,7 @@ export default function CustomStepper({ steps, activeStep = 0 }: StepperProps) {
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
-        {steps.map(({ title, subtitle, icon, content }, index) => {
+        {steps.map(({ title, subtitle, icon }, index) => {
           return (
             <Step
               key={index}

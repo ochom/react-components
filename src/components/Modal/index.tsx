@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { Icon } from "@iconify/react";
+import { IconButton } from "@mui/material";
 import React from "react";
 
 const BackDrop = styled.div`
@@ -23,9 +25,10 @@ const BackDrop = styled.div`
 `;
 
 const Dialog = styled.div`
-  background-color: white;
+  background-color: ${({ theme }: any) => theme.palette.background.paper};
   border-radius: 0.5rem;
   min-width: 300px;
+  max-width: 90%;
   min-height: 50px;
   overflow: auto;
   display: block;
@@ -60,42 +63,13 @@ const Dialog = styled.div`
 `;
 
 const Title = styled.div`
-  height: 50px;
   font-size: 1.2rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1.5rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid #eee;
-`;
-
-const ModalClose = styled.button`
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  padding: 0.3rem;
-  border-radius: 0.3rem;
-  margin: 0;
-  transition: all 0.3s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  svg {
-    width: 24px;
-    height: 24px;
-    fill: #000;
-  }
-  &:hover {
-    background-color: #eee;
-    svg {
-      fill: #666;
-    }
-  }
-`;
-
-const ModalContent = styled.div`
-  padding: 1.5rem;
 `;
 
 export interface ModalProps {
@@ -108,17 +82,6 @@ export interface ModalProps {
   width?: string;
   contentStyle?: any;
 }
-
-const Close = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-  </svg>
-);
 
 export const Modal = ({
   open,
@@ -134,21 +97,19 @@ export const Modal = ({
     <BackDrop className={open ? "open" : "closed"}>
       <Dialog
         className={`${size} ${open ? "open" : "closed"}`}
-        style={{
-          width: width ?? undefined,
-        }}
+        style={{ width: width ?? undefined }}
       >
         {title && (
           <Title>
             <div>{title}</div>
             {showClose && (
-              <ModalClose type="button" onClick={onClose}>
-                <Close />
-              </ModalClose>
+              <IconButton type="button" onClick={onClose}>
+                <Icon icon="material-symbols:close" />
+              </IconButton>
             )}
           </Title>
         )}
-        <div style={contentStyle}>{open ? children : null}</div>
+        <div style={contentStyle}>{open && children}</div>
       </Dialog>
     </BackDrop>
   );

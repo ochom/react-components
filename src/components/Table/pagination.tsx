@@ -1,9 +1,4 @@
-import {
-  FirstPage,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-  LastPage,
-} from "@mui/icons-material";
+import { Icon } from "@iconify/react";
 import { Box, IconButton, TablePagination as Pagination } from "@mui/material";
 import React from "react";
 
@@ -45,34 +40,34 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   };
 
   return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+    <Box sx={{ flexShrink: 0, mx: 2 }}>
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
         aria-label="first page"
       >
-        <FirstPage />
+        <Icon icon="mdi:page-first" fontSize="1.5rem" />
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
       >
-        <KeyboardArrowLeft />
+        <Icon icon="mdi:navigate-before" fontSize="1.5rem" />
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        <KeyboardArrowRight />
+        <Icon icon="mdi:navigate-next" fontSize="1.5rem" />
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        <LastPage />
+        <Icon icon="mdi:page-last" fontSize="1.5rem" />
       </IconButton>
     </Box>
   );
@@ -109,7 +104,6 @@ const TablePagination = ({
   return (
     <Pagination
       sx={{
-        mt: 2,
         display: "flex",
         alignItems: "flex-end",
         justifyContent: `flex-${alignment || "end"}`,

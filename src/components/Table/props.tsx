@@ -1,4 +1,4 @@
-import { ButtonProps } from "@mui/material";
+import { ButtonProps, BoxProps, PaperProps } from "@mui/material";
 import { ReactNode } from "react";
 
 export type TableColumn = {
@@ -9,12 +9,11 @@ export type TableColumn = {
 };
 
 export type TableProps<T> = {
-  title?: string;
   loading?: boolean;
   error?: Error;
   columns: TableColumn[];
   data: any[];
-  total: number;
+  total?: number;
   emptyMessage?: string;
   showSearch?: boolean;
   onSearch?: (value: string) => void;
@@ -25,5 +24,6 @@ export type TableProps<T> = {
   paginationAlign?: "start" | "center" | "end";
   hidePagination?: boolean;
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
-  sx?: any;
+  containerProps?: BoxProps;
+  tableAreaProps?: PaperProps;
 };
