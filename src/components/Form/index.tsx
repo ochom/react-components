@@ -34,10 +34,6 @@ import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import {  LoadingButtonProps } from "@mui/lab";
 import DateRangePicker from '@mui/lab/DateRangePicker';
 
-const CustomTextField = (props: any) => {
-  return <TextField {...props} />;
-};
-
 type FieldType =
   | "text"
   | "textarea"
