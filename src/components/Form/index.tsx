@@ -30,12 +30,7 @@ import { CButton } from "../Buttons";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo } from "react";
 
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { DateRangePicker, LoadingButtonProps } from "@mui/lab";
-
-const CustomTextField = (props: any) => {
-  return <TextField {...props} />;
-};
 
 type FieldType =
   | "text"
@@ -296,24 +291,24 @@ export const DateTimeField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DateRangeField = ({field}: {field: FormField}) => {
-  return(
+export const DateRangeField = ({ field }: { field: FormField }) => {
+  return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DateRangePicker
-          format={field?.format ?? "DD/MM/Y"} 
+          format={field?.format ?? "DD/MM/Y"}
           label
           value={moment(field.value)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-          onChange={(newValue:[moment.Moment, moment.Moment]) => {
+          onChange={(newValue: [moment.Moment, moment.Moment]) => {
             field.onChange({ target: { name: field.name, value: newValue } });
           }}
-         />
+        />
       </LocalizationProvider>
     </FormControl>
-  )
-}
+  );
+};
 
 export const SwitchField = ({ field }: { field: FormField }) => {
   return (
@@ -474,7 +469,7 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
     case "datetime":
       return <DateTimeField field={field} />;
     case "daterange":
-      return <DateRangeField field={field} />
+      return <DateRangeField field={field} />;
     case "switch":
       return <SwitchField field={field} />;
     case "checkbox":
