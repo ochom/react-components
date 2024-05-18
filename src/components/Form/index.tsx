@@ -33,6 +33,10 @@ import React, { useEffect, useMemo } from "react";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { DateRangePicker, LoadingButtonProps } from "@mui/lab";
 
+const CustomTextField = (props: any) => {
+  return <TextField {...props} />;
+};
+
 type FieldType =
   | "text"
   | "textarea"
@@ -88,6 +92,7 @@ export interface FormField {
   onChange: (e: ChangeEvent) => void;
   options?: SelectOption[]; // for select
   component?: React.ReactNode; // for custom
+  size?: "small" | "medium";
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
@@ -230,6 +235,7 @@ export const SelectField = ({ field }: { field: FormField }) => {
             target: { name: field.name, value: e.target.value },
           });
         }}
+        size={field.size}
         required={field.required}
       >
         {(field?.options ?? []).map((option) => (
@@ -254,6 +260,16 @@ export const DateField = ({ field }: { field: FormField }) => {
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
             field.onChange({ target: { name: field.name, value: newValue } });
+          }}
+          slotProps={{
+            textField: {
+              fullWidth: true,
+              required: field.required,
+              size: field.size,
+            },
+          }}
+          slots={{
+            textField: TextField,
           }}
         />
       </LocalizationProvider>
