@@ -31,7 +31,8 @@ import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo } from "react";
 
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
-import { DateRangePicker, LoadingButtonProps } from "@mui/lab";
+import {  LoadingButtonProps } from "@mui/lab";
+import DateRangePicker from '@mui/lab/DateRangePicker';
 
 type FieldType =
   | "text"
@@ -100,6 +101,8 @@ export interface FormField {
   maxDate?: Date;
   format?: string;
   grow?: Grow;
+  startText?: string; 
+  endText?: string;
 }
 
 interface FormProps {
@@ -280,24 +283,41 @@ export const DateTimeField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DateRangeField = ({field}: {field: FormField}) => {
-  return(
+export const DateRangeField = ({ field }: { field: FormField }) => {
+  const [value, setValue] = React.useState<[moment.Moment | null, moment.Moment | null]>([null, null]);
+
+  useEffect(() => {
+    const startDate = field.value && field.value[0] ? moment(field.value[0]) : null;
+    const endDate = field.value && field.value[1] ? moment(field.value[1]) : null;
+    setValue([startDate, endDate]);
+  }, [field.value]);
+
+
+  return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DateRangePicker
-          format={field?.format ?? "DD/MM/Y"} 
-          label
-          value={moment(field.value)}
+          format={field?.format ?? "DD/MM/Y"}
+          startText={field.startText ?? 'Start'}
+          endText={field.endText ?? 'End'}
+          value={value}
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-          onChange={(newValue:[moment.Moment, moment.Moment]) => {
+          onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
             field.onChange({ target: { name: field.name, value: newValue } });
           }}
-         />
+          renderInput={(startProps:any, endProps:any) => (
+            <>
+              <TextField {...startProps} label={`${field.label} Start`} />
+              <Box sx={{ mx: 2 }}> to </Box>
+              <TextField {...endProps} label={`${field.label} End`} />
+            </>
+          )}
+        />
       </LocalizationProvider>
     </FormControl>
-  )
-}
+  );
+};
 
 export const SwitchField = ({ field }: { field: FormField }) => {
   return (
