@@ -70,30 +70,21 @@ interface ChangeEvent {
   };
 }
 
-export interface CreateFieldProps {
+export interface FormField {
+  name: string;
+  label: string;
   type?: FieldType;
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
-  value?: string;
-  onChange?: (e: any) => void;
-}
-
-export interface FormField {
-  name: string;
-  label: string;
-  type: FieldType;
   value: string;
   accept?: string;
   onChange: (e: ChangeEvent) => void;
-  options?: SelectOption[]; // for select
   component?: React.ReactNode; // for custom
   size?: "small" | "medium";
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  multiline?: boolean;
-  rows?: number;
   hidden?: boolean;
   min?: number;
   max?: number;
