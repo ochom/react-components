@@ -28,7 +28,7 @@ import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import { CButton } from "../Buttons";
 import { Icon } from "@iconify/react";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useId, useMemo } from "react";
 
 import { LoadingButtonProps } from "@mui/lab";
 import DateRangePicker from "@mui/lab/DateRangePicker";
@@ -415,6 +415,7 @@ export const RadioGroupField = ({ field }: { field: FormField }) => {
 };
 
 export const DefaultField = ({ field }: { field: FormField }) => {
+  const inputId = useId();
   const handleChange = (e: any) => {
     const value = e.target.value;
 
@@ -439,10 +440,17 @@ export const DefaultField = ({ field }: { field: FormField }) => {
   return (
     <FormControl fullWidth>
       <TextField
-        id={field.name}
-        name={field.name}
-        value={field.value}
+        id={inputId}
         type={field.type}
+        name={field.name}
+        label={field.label}
+        value={field.value}
+        size={field.size}
+        multiline={field.multiline}
+        rows={field.rows}
+        required={field.required}
+        disabled={field.disabled}
+        placeholder={field.placeholder}
         onChange={handleChange}
       />
     </FormControl>
