@@ -558,15 +558,9 @@ export default function Form({
           if (field.required === undefined) field.required = true;
           if (field.hidden) return null;
 
-          // define grow dimensions
-          const xs = field.grow?.xs || 12;
-          const sm = field.grow?.sm || xs;
-          const md = field.grow?.md || sm;
-          const lg = field.grow?.lg || md;
-
-          delete field.grow;
+          const grow = field.grow || {};
           return (
-            <Grid item xs={xs} sm={sm} md={md} lg={lg} key={index}>
+            <Grid key={index} item {...grow}>
               <FormFieldComponent field={field} />
             </Grid>
           );
