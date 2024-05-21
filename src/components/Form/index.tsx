@@ -564,8 +564,6 @@ export default function Form({
           const md = field.grow?.md || sm;
           const lg = field.grow?.lg || md;
 
-          console.log("grow", field.grow, xs, sm, md, lg);
-
           delete field.grow;
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} key={index}>
