@@ -30,9 +30,8 @@ import { CButton } from "../Buttons";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useMemo } from "react";
 
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
-import {  LoadingButtonProps } from "@mui/lab";
-import DateRangePicker from '@mui/lab/DateRangePicker';
+import { LoadingButtonProps } from "@mui/lab";
+import DateRangePicker from "@mui/lab/DateRangePicker";
 
 type FieldType =
   | "text"
@@ -42,7 +41,7 @@ type FieldType =
   | "number"
   | "date"
   | "datetime"
-  | "daterange"
+  | "date-range"
   | "switch"
   | "checkbox"
   | "radio"
@@ -102,7 +101,7 @@ export interface FormField {
   maxDate?: Date;
   format?: string;
   grow?: Grow;
-  startText?: string; 
+  startText?: string;
   endText?: string;
 }
 
@@ -125,10 +124,11 @@ export const SearchField = ({ field }: { field: FormField }) => {
     return field.options?.find((opt) => opt.value === field.value) ?? null;
   }, [field.value, field.options]);
 
-  const handleChange = (e: any, newValue: SelectOption | null) =>
+  const handleChange = (e: any, newValue: SelectOption | null) => {
     field.onChange({
       target: { name: field.name, value: newValue?.value ?? "" },
     });
+  };
 
   return (
     <FormControl fullWidth>
@@ -296,29 +296,44 @@ export const DateTimeField = ({ field }: { field: FormField }) => {
 };
 
 export const DateRangeField = ({ field }: { field: FormField }) => {
-  const [value, setValue] = React.useState<[moment.Moment | null, moment.Moment | null]>([null, null]);
+  const [value, setValue] = React.useState<
+    [moment.Moment | null, moment.Moment | null]
+  >([null, null]);
 
   useEffect(() => {
-    const startDate = field.value && field.value[0] ? moment(field.value[0]) : null;
-    const endDate = field.value && field.value[1] ? moment(field.value[1]) : null;
-    setValue([startDate, endDate]);
+    try {
+      if (Array.isArray(field.value) && field.value.length === 2) {
+        const startDate = moment(field.value[0]);
+        const endDate = moment(field.value[1]);
+        if (startDate.isValid() && endDate.isValid()) {
+          setValue([startDate, endDate]);
+        } else {
+          throw new Error("Invalid date range, should be an array of 2 dates");
+        }
+      } else {
+        throw new Error("Invalid date range, should be an array of 2 dates");
+      }
+    } catch (error) {
+      console.log("Invalid value for DateRangeField:", error);
+    }
   }, [field.value]);
-
 
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
         <DateRangePicker
           format={field?.format ?? "DD/MM/Y"}
-          startText={field.startText ?? 'Start'}
-          endText={field.endText ?? 'End'}
+          startText={field.startText ?? "Start"}
+          endText={field.endText ?? "End"}
           value={value}
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-          onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
+          onChange={(
+            newValue: [moment.Moment | null, moment.Moment | null]
+          ) => {
             field.onChange({ target: { name: field.name, value: newValue } });
           }}
-          renderInput={(startProps:any, endProps:any) => (
+          renderInput={(startProps: any, endProps: any) => (
             <>
               <TextField {...startProps} label={`${field.label} Start`} />
               <Box sx={{ mx: 2 }}> to </Box>
@@ -423,7 +438,13 @@ export const DefaultField = ({ field }: { field: FormField }) => {
 
   return (
     <FormControl fullWidth>
-      <TextField {...field} onChange={handleChange} />
+      <TextField
+        id={field.name}
+        name={field.name}
+        value={field.value}
+        type={field.type}
+        onChange={handleChange}
+      />
     </FormControl>
   );
 };
@@ -489,7 +510,7 @@ const FormFieldComponent = ({ field }: { field: FormField }) => {
       return <DateField field={field} />;
     case "datetime":
       return <DateTimeField field={field} />;
-    case "daterange":
+    case "date-range":
       return <DateRangeField field={field} />;
     case "switch":
       return <SwitchField field={field} />;
@@ -539,10 +560,10 @@ export default function Form({
           if (field.hidden) return null;
 
           // define grow dimensions
-          const xs = field.grow?.xs ?? 12;
-          const sm = field.grow?.sm ?? xs;
-          const md = field.grow?.md ?? sm;
-          const lg = field.grow?.lg ?? md;
+          const xs = field.grow?.xs || 12;
+          const sm = field.grow?.sm || xs;
+          const md = field.grow?.md || sm;
+          const lg = field.grow?.lg || md;
 
           delete field.grow;
           return (

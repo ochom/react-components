@@ -11,3 +11,6 @@ push:
 
 story:
 	npm run storybook
+
+update:
+	npm update
