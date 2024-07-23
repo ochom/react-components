@@ -16,16 +16,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@octocat"
 
-      - name: Install dependencies
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Dependencies
         run: npm ci
 
-      - name: Run tests
+      - name: Tests
         run: npm run test
 
-      - name: Deploy
+      - name: Publish
         run: npm run deploy
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
