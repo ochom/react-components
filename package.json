@@ -10,6 +10,10 @@
         "url": "https://github.com/ochom/react-components/issues"
     },
     "homepage": "https://github.com/ochom/react-components#readme",
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://npm.pkg.github.com"
+    },
     "keywords": [
         "components",
         "ui",
