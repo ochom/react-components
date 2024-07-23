@@ -147,10 +147,12 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
 
   // initialize selected options
   useEffect(() => {
-    const selectedOptions = field.options?.filter((opt) =>
-      field.value.includes(opt.value)
-    );
-    setSelected(selectedOptions ?? []);
+    if (field.options?.length) {
+      const selectedOptions = field.options.filter((opt) =>
+        field.value.includes(opt.value)
+      );
+      setSelected(selectedOptions ?? []);
+    }
   }, []);
 
   // update field value when selected options change
