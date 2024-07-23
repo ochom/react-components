@@ -70,6 +70,16 @@ interface ChangeEvent {
   };
 }
 
+type FormFieldValue =
+  | string
+  | number
+  | boolean
+  | Date
+  | Date[]
+  | SelectOption
+  | SelectOption[]
+  | undefined;
+
 export interface FormField {
   name: string;
   label: string;
@@ -77,7 +87,7 @@ export interface FormField {
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
-  value: string;
+  value: FormFieldValue;
   accept?: string;
   onChange: (e: ChangeEvent) => void;
   component?: React.ReactNode; // for custom
@@ -143,25 +153,16 @@ export const SearchField = ({ field }: { field: FormField }) => {
 };
 
 const MultiSelectField = ({ field }: { field: FormField }) => {
-  const [selected, setSelected] = React.useState<SelectOption[]>([]);
-
-  // initialize selected options
-  useEffect(() => {
-    const selectedOptions = field.options?.filter((opt) =>
-      field.value.includes(opt.value)
-    );
-    setSelected(selectedOptions ?? []);
-  }, []);
-
-  // update field value when selected options change
-  useEffect(() => {
+  const handleChange = (newValue: SelectOption[]) => {
     field.onChange({
       target: {
         name: field.name,
-        value: selected.map((opt) => opt.value),
+        value: newValue?.map((opt) => opt.value),
       },
     });
-  }, [selected]);
+  };
+
+  const value = field.value as SelectOption[];
 
   return (
     <FormControl fullWidth>
@@ -170,10 +171,10 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         id={`${field.name}-label`}
         options={field?.options ?? []}
         disableCloseOnSelect
-        value={selected}
+        value={value}
         getOptionLabel={(option) => option.label}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
-        onChange={(e, newValue) => setSelected(newValue)}
+        onChange={(e, newValue) => handleChange(newValue)}
         renderOption={(props, option) => {
           return (
             <li key={option.value} {...props}>
@@ -181,7 +182,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
                 icon={<Icon icon="mdi:checkbox-blank-outline" />}
                 checkedIcon={<Icon icon="mdi:checkbox-marked" />}
                 style={{ marginRight: 8 }}
-                checked={selected.map((s) => s.value).includes(option.value)}
+                checked={value.map((s) => s.value).includes(option.value)}
               />
               {option.label}
             </li>
@@ -200,7 +201,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
           <TextField
             {...params}
             label={field.label}
-            required={field.required && selected.length === 0}
+            required={field.required && value.length === 0}
             placeholder={field?.placeholder ?? ""}
           />
         )}
@@ -245,7 +246,7 @@ export const DateField = ({ field }: { field: FormField }) => {
         <DatePicker
           format={field?.format ?? "DD/MM/Y"}
           label={field.label}
-          value={moment(field.value)}
+          value={moment(field.value as Date)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
@@ -274,7 +275,7 @@ export const DateTimeField = ({ field }: { field: FormField }) => {
         <DateTimePicker
           format="DD/MM/Y HH:mm"
           label={field.label}
-          value={moment(field.value)}
+          value={moment(field.value as Date)}
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
@@ -294,8 +295,8 @@ export const DateRangeField = ({ field }: { field: FormField }) => {
   useEffect(() => {
     try {
       if (Array.isArray(field.value) && field.value.length === 2) {
-        const startDate = moment(field.value[0]);
-        const endDate = moment(field.value[1]);
+        const startDate = moment(field.value[0] as Date);
+        const endDate = moment(field.value[1] as Date);
         if (startDate.isValid() && endDate.isValid()) {
           setValue([startDate, endDate]);
         } else {
