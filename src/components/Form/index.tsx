@@ -154,6 +154,8 @@ export const SearchField = ({ field }: { field: FormField }) => {
 
 const MultiSelectField = ({ field }: { field: FormField }) => {
   const handleChange = (newValue: SelectOption[]) => {
+    console.log("changing multiselect", newValue);
+
     field.onChange({
       target: {
         name: field.name,
