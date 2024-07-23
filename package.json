@@ -1,9 +1,8 @@
 {
-    "name": "@ochom/react-components",
+    "name": "ochom-react-components",
     "version": "2.3.8",
     "author": "Richard Ochom",
     "license": "ISC",
-    "private": false,
     "description": "A collection of react components built with material ui",
     "repository": {
         "type": "git",
@@ -13,10 +12,6 @@
         "url": "https://github.com/ochom/react-components/issues"
     },
     "homepage": "https://github.com/ochom/react-components#readme",
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://npm.pkg.github.com"
-    },
     "keywords": [
         "components",
         "ui",
