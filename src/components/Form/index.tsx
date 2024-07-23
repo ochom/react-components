@@ -71,6 +71,7 @@ interface ChangeEvent {
 }
 
 export interface FormField {
+  loading: boolean;
   name: string;
   label: string;
   type?: FieldType;
@@ -110,6 +111,21 @@ interface FormProps {
   cancelButtonProps?: ButtonProps;
 }
 
+const Loading = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      <Typography variant="h6">Loading...</Typography>
+    </Box>
+  );
+};
+
 export const SearchField = ({ field }: { field: FormField }) => {
   const selected = useMemo(() => {
     return field.options?.find((opt) => opt.value === field.value) ?? null;
@@ -120,6 +136,8 @@ export const SearchField = ({ field }: { field: FormField }) => {
       target: { name: field.name, value: newValue?.value ?? "" },
     });
   };
+
+  if (field.loading) return <Loading />;
 
   return (
     <FormControl fullWidth>
@@ -164,6 +182,8 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       },
     });
   }, [selected]);
+
+  if (field.loading) return <Loading />;
 
   return (
     <FormControl fullWidth>
@@ -212,6 +232,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
 };
 
 export const SelectField = ({ field }: { field: FormField }) => {
+  if (field.loading) return <Loading />;
   return (
     <FormControl fullWidth>
       <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
