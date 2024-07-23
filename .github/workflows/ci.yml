@@ -1,26 +1,25 @@
-name: Lint and Test
+name: Lint, Test, and Publish
 
 on:
   push:
-    branches-ignore:
-      - "master"
-      - "main"
+    branches:
+      - "dev"
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@ochom"
 
-      - name: Install dependencies
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Dependencies
         run: npm ci
 
-      - name: Run tests
+      - name: Tests
         run: npm run test
