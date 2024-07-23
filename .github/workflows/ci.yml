@@ -1,10 +1,9 @@
-name: Lint and Test
+name: Lint, Test, and Publish
 
 on:
   push:
-    branches-ignore:
-      - "master"
-      - "main"
+    branches:
+      - "dev"
 
 jobs:
   lint:
