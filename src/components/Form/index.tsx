@@ -164,6 +164,16 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
   const [values, setValues] = useState<SelectOption[]>([]);
 
   useEffect(() => {
+    const currentValues = [];
+    for (const option of field?.options ?? []) {
+      if (field.value.includes(option.value)) {
+        currentValues.push(option);
+      }
+    }
+    setValues(currentValues);
+  }, []);
+
+  useEffect(() => {
     field.onChange({
       target: {
         name: field.name,
