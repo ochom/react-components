@@ -27,7 +27,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
-import React, { useEffect, useId, useMemo } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 import { CButton } from "../Buttons";
 
 import { LoadingButtonProps } from "@mui/lab";
@@ -161,20 +161,26 @@ export const SearchField = ({ field }: { field: FormField }) => {
 };
 
 const MultiSelectField = ({ field }: { field: FormField }) => {
-  const handleChange = (newValue: SelectOption[]) => {
+  const [values, setValues] = useState<SelectOption[]>([]);
+
+  useEffect(() => {
+    const currentValues = [];
+    for (const option of field?.options ?? []) {
+      if (field.value.includes(option.value)) {
+        currentValues.push(option);
+      }
+    }
+    setValues(currentValues);
+  }, []);
+
+  useEffect(() => {
     field.onChange({
       target: {
         name: field.name,
-        value: newValue.map((opt) => opt.value),
+        value: values.map((opt) => opt.value),
       },
     });
-  };
-
-  const selectedOptions = useMemo(() => {
-    return (
-      field.options?.filter((opt) => field.value.includes(opt.value)) ?? []
-    );
-  }, [field.value, field.options]);
+  }, [values]);
 
   if (field.loading) return <Loading />;
 
@@ -185,10 +191,10 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         id={`${field.name}-label`}
         options={field?.options ?? []}
         disableCloseOnSelect
-        // value={selectedOptions}
+        value={values}
         getOptionLabel={(option) => option.label}
         isOptionEqualToValue={(prev, next) => prev.value === next.value}
-        onChange={(e, newValue) => handleChange(newValue)}
+        onChange={(e, newValues) => setValues(newValues)}
         renderOption={(props, option) => {
           return (
             <li key={option.value} {...props}>
@@ -196,9 +202,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
                 icon={<Icon icon="mdi:checkbox-blank-outline" />}
                 checkedIcon={<Icon icon="mdi:checkbox-marked" />}
                 style={{ marginRight: 8 }}
-                checked={selectedOptions
-                  .map((s) => s.value)
-                  .includes(option.value)}
+                checked={values.map((s) => s.value).includes(option.value)}
               />
               {option.label}
             </li>
@@ -217,7 +221,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
           <TextField
             {...params}
             label={field.label}
-            required={field.required && selectedOptions.length === 0}
+            required={field.required && values.length === 0}
             placeholder={field?.placeholder ?? ""}
           />
         )}
