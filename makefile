@@ -12,5 +12,5 @@ push:
 story:
 	npm run storybook
 
-update:
-	npm update
+tidy:
+	npm i && npm update
