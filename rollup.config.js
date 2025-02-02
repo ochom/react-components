@@ -22,7 +22,17 @@ export default [
         sourcemap: true,
       },
     ],
-    external: ["react", "react-dom", "@mui/material", "@mui/lab"],
+    external: [
+      "react",
+      "react-dom",
+      "react-is",
+      "@mui/material",
+      "@mui/lab",
+      "@mui/system",
+      "@mui/x-date-pickers",
+      "@iconify/react",
+      "moment",
+    ],
     plugins: [
       typescript({ tsconfig: "./tsconfig.json" }),
       commonjs({ include: "node_modules/**" }),
