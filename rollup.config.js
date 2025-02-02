@@ -22,7 +22,7 @@ export default [
         sourcemap: true,
       },
     ],
-    external: ["react", "react-dom"],
+    external: ["react", "react-dom", "@mui/material", "@mui/lab"],
     plugins: [
       typescript({ tsconfig: "./tsconfig.json" }),
       commonjs({ include: "node_modules/**" }),
