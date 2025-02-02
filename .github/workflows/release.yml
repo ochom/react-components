@@ -1,7 +1,7 @@
 name: Node.js Package
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -34,7 +34,7 @@ jobs:
         run: |
           git add package.json
           git commit -m "Version Bump"
-          git push
+          git push origin main
 
       - name: Publish the package
         env:
