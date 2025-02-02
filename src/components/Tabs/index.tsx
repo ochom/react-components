@@ -9,22 +9,22 @@ export interface TabProps {
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number;
-  value: number;
+  panelIndex: number;
+  currentTabIndex: number;
 }
 
 function Panel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, currentTabIndex, panelIndex, ...other } = props;
 
   return (
     <Box
       role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      hidden={currentTabIndex !== panelIndex}
+      id={`simple-tabpanel-${panelIndex}`}
+      aria-labelledby={`simple-tab-${panelIndex}`}
       {...other}
     >
-      {value === index && <Box sx={{ py: 1 }}>{children}</Box>}
+      {currentTabIndex === panelIndex && <Box sx={{ py: 1 }}>{children}</Box>}
     </Box>
   );
 }
@@ -67,7 +67,7 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
       </Tabs>
 
       {tabs.map((tab, idx) => (
-        <Panel value={index} index={idx}>
+        <Panel key={idx} currentTabIndex={index} panelIndex={idx}>
           {tab.panel}
         </Panel>
       ))}
