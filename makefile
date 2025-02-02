@@ -1,16 +1,16 @@
 SHELL:=/bin/bash
 
-roll:
-	npm i; npm run rollup
+build:
+	yarn install; yarn run rollup
 
 deploy:
-	npx auto-version --patch && npm run deploy
+	npx auto-version --patch && yarn run deploy
 
 push:
 	npx auto-version --patch && git add . && git commit -am "auto-version" && git push origin dev && gh pr create --web
 
 story:
-	npm run storybook
+	yarn run storybook
 
 tidy:
-	npm i && npm update
+	yarn install
