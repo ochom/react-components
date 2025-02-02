@@ -17,6 +17,7 @@
         "ui",
         "material"
     ],
+    "type": "module",
     "main": "dist/index.js",
     "module": "dist/index.es.js",
     "scripts": {
