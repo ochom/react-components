@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Icon } from "@iconify/react";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import React from "react";
 
 const BackDrop = styled.div`
@@ -24,7 +24,7 @@ const BackDrop = styled.div`
   }
 `;
 
-const Dialog = styled.div`
+const Dialog = styled(Box)`
   background-color: ${({ theme }: any) => theme.palette.background.paper};
   border-radius: 0.5rem;
   min-width: 300px;
