@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Icon } from "@iconify/react";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, useTheme } from "@mui/material";
 import React from "react";
 
 const BackDrop = styled.div`
@@ -25,7 +25,6 @@ const BackDrop = styled.div`
 `;
 
 const Dialog = styled(Box)`
-  background-color: ${({ theme }: any) => theme.palette.background.paper};
   border-radius: 0.5rem;
   min-width: 300px;
   max-width: 90%;
@@ -93,11 +92,15 @@ export const Modal = ({
   width,
   contentStyle = {},
 }: ModalProps) => {
+  const theme = useTheme();
   return (
     <BackDrop className={open ? "open" : "closed"}>
       <Dialog
         className={`${size} ${open ? "open" : "closed"}`}
-        style={{ width: width ?? undefined }}
+        sx={{
+          width: width ?? undefined,
+          backgroundColor: theme.palette.background.paper,
+        }}
       >
         {title && (
           <Title>
