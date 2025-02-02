@@ -8,6 +8,7 @@ import TablePagination from "./pagination";
 import { TableProps } from "./props";
 
 export default function Table({
+  id,
   loading = false,
   error,
   columns,
@@ -26,8 +27,14 @@ export default function Table({
   containerProps = {},
   tableAreaProps = {},
 }: TableProps<any>) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+  const tableCache = JSON.parse(
+    id ? localStorage.getItem(`ochom-react-tables-${id}`) || "{}" : "{}"
+  );
+
+  const [page, setPage] = useState(tableCache.page || 0);
+  const [rowsPerPage, setRowsPerPage] = useState(
+    tableCache.rowsPerPage || rowsPerPageOptions[0]
+  );
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
@@ -43,6 +50,14 @@ export default function Table({
       setRows(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!id) return;
+    localStorage.setItem(
+      `ochom-react-tables-${id}`,
+      JSON.stringify({ page, rowsPerPage })
+    );
+  }, [page, rowsPerPage]);
 
   useEffect(() => {
     if (serverSide && onPaginationChange) {
