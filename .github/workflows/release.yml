@@ -34,7 +34,7 @@ jobs:
         run: |
           git add package.json
           git commit -m "Version Bump"
-          git push origin dev
+          git push
 
       - name: Publish the package
         env:
