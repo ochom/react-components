@@ -8,7 +8,7 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  Grid,
+  Grid2 as Grid,
   InputLabel,
   MenuItem,
   Radio,
@@ -585,14 +585,14 @@ export default function Form({
 
           delete field.grow;
           return (
-            <Grid item xs={xs} sm={sm} md={md} lg={lg} key={index}>
+            <Grid key={index} size={{ xs, sm, md, lg }}>
               <FormFieldComponent field={field} />
             </Grid>
           );
         })}
 
         {showButtons && (
-          <Grid item>
+          <Grid>
             <Stack direction="row" spacing={3} justifyContent="left">
               <CButton type="submit" {...submitButtonProps}>
                 {submitText}
