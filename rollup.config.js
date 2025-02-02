@@ -1,4 +1,5 @@
 import babel from "@rollup/plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import resolve from "@rollup/plugin-node-resolve";
@@ -21,11 +22,13 @@ export default [
         sourcemap: true,
       },
     ],
+    external: ["react", "react-dom"],
     plugins: [
       typescript({ tsconfig: "./tsconfig.json" }),
+      commonjs({ include: "node_modules/**" }),
       babel({
         exclude: "node_modules/**",
-        presets: ["@babel/preset-react"],
+        presets: ["@babel/preset-react", { runtime: "automatic" }],
         babelHelpers: "runtime",
       }),
       resolve(),

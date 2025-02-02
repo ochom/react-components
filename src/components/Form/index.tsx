@@ -197,7 +197,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
         onChange={(e, newValues) => setValues(newValues)}
         renderOption={(props, option) => {
           return (
-            <li key={option.value} {...props}>
+            <li {...props}>
               <Checkbox
                 icon={<Icon icon="mdi:checkbox-blank-outline" />}
                 checkedIcon={<Icon icon="mdi:checkbox-marked" />}
@@ -242,7 +242,7 @@ export const SelectField = ({ field }: { field: FormField }) => {
         name={field.name}
         value={field.value}
         label={field.label}
-        onChange={(e) => {
+        onChange={(e: any) => {
           field.onChange({
             target: { name: field.name, value: e.target.value },
           });
@@ -279,9 +279,6 @@ export const DateField = ({ field }: { field: FormField }) => {
               required: field.required,
               size: field.size,
             },
-          }}
-          slots={{
-            textField: TextField,
           }}
         />
       </LocalizationProvider>
@@ -366,7 +363,7 @@ export const SwitchField = ({ field }: { field: FormField }) => {
         control={
           <Switch
             checked={Boolean(field.value)}
-            onChange={(e) => {
+            onChange={(e: any) => {
               field.onChange({
                 target: { name: field.name, value: e.target.checked },
               });
@@ -386,7 +383,7 @@ export const CheckBoxField = ({ field }: { field: FormField }) => {
         control={
           <Checkbox
             checked={Boolean(field.value)}
-            onChange={(e) => {
+            onChange={(e: any) => {
               field.onChange({
                 target: { name: field.name, value: e.target.checked },
               });
@@ -408,7 +405,7 @@ export const RadioGroupField = ({ field }: { field: FormField }) => {
         aria-label={field.label}
         name={field.name}
         value={field.value}
-        onChange={(e) => {
+        onChange={(e: any) => {
           field.onChange({
             target: { name: field.name, value: e.target.value },
           });
@@ -501,7 +498,7 @@ export const FileField = ({ field }: { field: FormField }) => {
           id={field.name}
           name={field.name}
           accept={field?.accept ?? "*"}
-          onChange={(e) => {
+          onChange={(e: any) => {
             field.onChange({
               target: {
                 name: field.name,

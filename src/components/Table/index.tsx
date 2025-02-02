@@ -80,8 +80,8 @@ export default function Table({
   return (
     <Box {...containerProps}>
       <ButtonsContainer
-        sx={{ p: 1 }}
         style={{
+          padding: "0.5rem",
           display: buttons.length == 0 && !showSearch ? "none" : "flex",
         }}
       >

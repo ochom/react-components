@@ -77,13 +77,13 @@ export const StyledSearch = ({
       <input
         type="text"
         placeholder="Search..."
-        onChange={(e) => onSearch(e.target.value)}
+        onChange={(e: any) => onSearch(e.target.value)}
       />
     </SearchBox>
   );
 };
 
-export const ButtonsContainer = styled(Box)`
+export const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
