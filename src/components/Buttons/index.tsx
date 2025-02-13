@@ -1,14 +1,14 @@
-import { LoadingButton, LoadingButtonProps } from "@mui/lab";
+import { Button, ButtonProps } from "@mui/material";
 
 import React from "react";
 
-const CButton = ({ children, ...rest }: LoadingButtonProps) => {
+const CButton = ({ children, ...rest }: ButtonProps) => {
   rest.sx = { textTransform: "none", ...rest.sx };
   rest = { disableElevation: true, ...rest };
   return (
-    <LoadingButton variant="contained" color="primary" {...rest}>
+    <Button variant="contained" color="primary" {...rest}>
       {rest?.title ?? children}
-    </LoadingButton>
+    </Button>
   );
 };
 
