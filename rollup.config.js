@@ -31,7 +31,11 @@ export default [
       "@mui/system",
       "@mui/x-date-pickers",
       "@iconify/react",
+      "@emotion/react",
       "moment",
+      "@emotion/cache",
+      "@emotion/react",
+      "@emotion/styled",
     ],
     plugins: [
       typescript({ tsconfig: "./tsconfig.json" }),
