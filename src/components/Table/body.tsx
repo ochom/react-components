@@ -34,12 +34,19 @@ const TableBody = ({
     }
   };
 
+  function getValueFromJson(json: any, selector: string) {
+    return selector
+      .split(/\.|\[|\]/)
+      .filter(Boolean)
+      .reduce((obj, key) => obj && obj[key], json);
+  }
+
   const getColumnValue = (column: TableColumn, item: any) => {
     if (typeof column.selector === "function") {
       return column.selector(item);
     }
 
-    return item[column.selector];
+    return getValueFromJson(item, column.selector);
   };
 
   const sliced = useMemo(() => {
