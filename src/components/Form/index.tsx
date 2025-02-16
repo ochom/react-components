@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import {
   Autocomplete,
   Box,
+  Button,
   ButtonProps,
   Checkbox,
   Chip,
@@ -28,9 +29,7 @@ import {
 import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import React, { useEffect, useId, useMemo, useState } from "react";
-import { CButton } from "../Buttons";
 
-import { LoadingButtonProps } from "@mui/lab";
 import DateRangePicker from "@mui/lab/DateRangePicker";
 
 type FieldType =
@@ -107,7 +106,7 @@ interface FormProps {
   cancelText?: string;
   showButtons?: boolean;
   showCancelButton?: boolean;
-  submitButtonProps?: LoadingButtonProps;
+  submitButtonProps?: ButtonProps;
   cancelButtonProps?: ButtonProps;
 }
 
@@ -575,7 +574,11 @@ export default function Form({
         {fields.map((field, index) => {
           // check if the field's required prop is defined, if not set it to true
           if (field.required === undefined) field.required = true;
-          if (field.hidden) return null;
+
+          // early return for hidden field
+          if (field.hidden) {
+            return <FormFieldComponent key={index} field={field} />;
+          }
 
           // define grow dimensions
           const xs = field.grow?.xs || 12;
@@ -594,17 +597,17 @@ export default function Form({
         {showButtons && (
           <Grid>
             <Stack direction="row" spacing={3} justifyContent="left">
-              <CButton type="submit" {...submitButtonProps}>
+              <Button type="submit" {...submitButtonProps}>
                 {submitText}
-              </CButton>
+              </Button>
               {showCancelButton && (
-                <CButton
+                <Button
                   onClick={onCancel}
                   variant="outlined"
                   {...cancelButtonProps}
                 >
                   {cancelText}
-                </CButton>
+                </Button>
               )}
             </Stack>
           </Grid>

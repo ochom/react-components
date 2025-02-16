@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { CircularLoader } from "../Monitors";
+import React from "react";
 import ConstructionSVG from "../../assets/construction-svg";
 import NetworkErrorSVG from "../../assets/network-svg";
-import React from "react";
+import { CircularLoader } from "../Monitors";
 
 export interface ErrorPageProps {
   title: string;

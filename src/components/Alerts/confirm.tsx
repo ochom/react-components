@@ -1,6 +1,5 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import React from "react";
-import { CButton } from "../Buttons";
 import Modal from "../Modal";
 import { ConfirmModalProps } from "./props";
 
@@ -16,9 +15,9 @@ function ConfirmModal(props: ConfirmModalProps) {
         <Box sx={{ py: 3 }}>{message}</Box>
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           {buttons.map((button, index) => (
-            <CButton key={index} onClick={button.onClick} color={button.color}>
+            <Button key={index} onClick={button.onClick} color={button.color}>
               {button.text}
-            </CButton>
+            </Button>
           ))}
         </Stack>
       </Box>
