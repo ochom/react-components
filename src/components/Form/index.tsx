@@ -57,9 +57,9 @@ interface SelectOption {
 
 interface Grow {
   xs: number;
-  sm: number;
-  md: number;
-  lg: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
 }
 
 interface ChangeEvent {
