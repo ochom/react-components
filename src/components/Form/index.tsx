@@ -69,15 +69,12 @@ interface ChangeEvent {
   };
 }
 
-export interface FormField {
-  loading: boolean;
-  name: string;
-  label: string;
+export interface FormFieldProps {
+  value?: string;
   type?: FieldType;
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
-  value: string;
   accept?: string;
   onChange: (e: ChangeEvent) => void;
   component?: React.ReactNode; // for custom
@@ -96,9 +93,17 @@ export interface FormField {
   endText?: string;
 }
 
+export interface FormField {
+  loading: boolean;
+  name: string;
+  label: string;
+}
+
+export type Field = FormField & FormFieldProps;
+
 interface FormProps {
   component?: "div" | "form";
-  fields: FormField[];
+  fields: Field[];
   fieldSpacing: number;
   onSubmit: () => void;
   onCancel?: () => void;
@@ -125,7 +130,7 @@ const Loading = () => {
   );
 };
 
-export const SearchField = ({ field }: { field: FormField }) => {
+export const SearchField = ({ field }: { field: Field }) => {
   const selected = useMemo(() => {
     return field.options?.find((opt) => opt.value === field.value) ?? null;
   }, [field.value, field.options]);
@@ -159,13 +164,13 @@ export const SearchField = ({ field }: { field: FormField }) => {
   );
 };
 
-const MultiSelectField = ({ field }: { field: FormField }) => {
+const MultiSelectField = ({ field }: { field: Field }) => {
   const [values, setValues] = useState<SelectOption[]>([]);
 
   useEffect(() => {
     const currentValues = [];
     for (const option of field?.options ?? []) {
-      if (field.value.includes(option.value)) {
+      if (field.value && field.value.includes(option.value)) {
         currentValues.push(option);
       }
     }
@@ -229,7 +234,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const SelectField = ({ field }: { field: FormField }) => {
+export const SelectField = ({ field }: { field: Field }) => {
   if (field.loading) return <Loading />;
   return (
     <FormControl fullWidth>
@@ -259,7 +264,7 @@ export const SelectField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DateField = ({ field }: { field: FormField }) => {
+export const DateField = ({ field }: { field: Field }) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
@@ -285,7 +290,7 @@ export const DateField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DateTimeField = ({ field }: { field: FormField }) => {
+export const DateTimeField = ({ field }: { field: Field }) => {
   return (
     <FormControl fullWidth>
       <LocalizationProvider dateAdapter={Adapter}>
@@ -304,7 +309,7 @@ export const DateTimeField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DateRangeField = ({ field }: { field: FormField }) => {
+export const DateRangeField = ({ field }: { field: Field }) => {
   const [value, setValue] = React.useState<
     [moment.Moment | null, moment.Moment | null]
   >([null, null]);
@@ -355,7 +360,7 @@ export const DateRangeField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const SwitchField = ({ field }: { field: FormField }) => {
+export const SwitchField = ({ field }: { field: Field }) => {
   return (
     <FormControl fullWidth>
       <FormControlLabel
@@ -375,7 +380,7 @@ export const SwitchField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const CheckBoxField = ({ field }: { field: FormField }) => {
+export const CheckBoxField = ({ field }: { field: Field }) => {
   return (
     <FormControl fullWidth>
       <FormControlLabel
@@ -395,7 +400,7 @@ export const CheckBoxField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const RadioGroupField = ({ field }: { field: FormField }) => {
+export const RadioGroupField = ({ field }: { field: Field }) => {
   return (
     <FormControl fullWidth>
       <FormLabel id={`${field.name}-label`}>{field.label}</FormLabel>
@@ -423,7 +428,7 @@ export const RadioGroupField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const DefaultField = ({ field }: { field: FormField }) => {
+export const DefaultField = ({ field }: { field: Field }) => {
   const inputId = useId();
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -466,7 +471,7 @@ export const DefaultField = ({ field }: { field: FormField }) => {
   );
 };
 
-export const FileField = ({ field }: { field: FormField }) => {
+export const FileField = ({ field }: { field: Field }) => {
   const theme = useTheme();
   return (
     <FormControl fullWidth>
@@ -511,11 +516,11 @@ export const FileField = ({ field }: { field: FormField }) => {
   );
 };
 
-const CustomField = ({ field }: { field: FormField }) => {
+const CustomField = ({ field }: { field: Field }) => {
   return <>{field.component}</>;
 };
 
-const FormFieldComponent = ({ field }: { field: FormField }) => {
+const FormFieldComponent = ({ field }: { field: Field }) => {
   switch (field.type) {
     case "search":
       return <SearchField field={field} />;
