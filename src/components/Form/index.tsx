@@ -70,11 +70,11 @@ interface ChangeEvent {
 }
 
 export interface FormFieldProps {
+  value?: string;
   type?: FieldType;
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
-  value: string;
   accept?: string;
   onChange: (e: ChangeEvent) => void;
   component?: React.ReactNode; // for custom
@@ -170,7 +170,7 @@ const MultiSelectField = ({ field }: { field: Field }) => {
   useEffect(() => {
     const currentValues = [];
     for (const option of field?.options ?? []) {
-      if (field.value.includes(option.value)) {
+      if (field.value && field.value.includes(option.value)) {
         currentValues.push(option);
       }
     }
