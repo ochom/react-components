@@ -1,9 +1,9 @@
-import { ButtonProps, BoxProps, PaperProps } from "@mui/material";
+import { BoxProps, ButtonProps, PaperProps } from "@mui/material";
 import { ReactNode } from "react";
 
 export type TableColumn = {
-  name: string;
-  selector: string | ((item: any) => ReactNode);
+  selector: string | ((row: any) => ReactNode);
+  name?: string;
   button?: boolean;
   style?: any;
 };
