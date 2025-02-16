@@ -94,7 +94,7 @@ export interface FormFieldProps {
 }
 
 export interface FormField {
-  loading: boolean;
+  loading?: boolean;
   name: string;
   label: string;
 }
