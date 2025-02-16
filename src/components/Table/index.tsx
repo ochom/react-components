@@ -98,7 +98,7 @@ export default function Table({
               sx={{ borderRadius: 2 }}
               {...button}
             >
-              {button?.title}
+              {button?.title ?? button?.children}
             </Button>
           ))}
         </Stack>
