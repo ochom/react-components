@@ -76,7 +76,7 @@ export interface FormFieldProps {
   rows?: number;
   options?: SelectOption[];
   accept?: string;
-  onChange: (e: ChangeEvent) => void;
+  onChange?: (e: ChangeEvent) => void;
   component?: React.ReactNode; // for custom
   size?: "small" | "medium";
   required?: boolean;
@@ -136,9 +136,10 @@ export const SearchField = ({ field }: { field: Field }) => {
   }, [field.value, field.options]);
 
   const handleChange = (e: any, newValue: SelectOption | null) => {
-    field.onChange({
-      target: { name: field.name, value: newValue?.value ?? "" },
-    });
+    field.onChange &&
+      field.onChange({
+        target: { name: field.name, value: newValue?.value ?? "" },
+      });
   };
 
   if (field.loading) return <Loading />;
@@ -178,12 +179,13 @@ const MultiSelectField = ({ field }: { field: Field }) => {
   }, []);
 
   useEffect(() => {
-    field.onChange({
-      target: {
-        name: field.name,
-        value: values.map((opt) => opt.value),
-      },
-    });
+    field.onChange &&
+      field.onChange({
+        target: {
+          name: field.name,
+          value: values.map((opt) => opt.value),
+        },
+      });
   }, [values]);
 
   if (field.loading) return <Loading />;
@@ -247,9 +249,10 @@ export const SelectField = ({ field }: { field: Field }) => {
         value={field.value}
         label={field.label}
         onChange={(e: any) => {
-          field.onChange({
-            target: { name: field.name, value: e.target.value },
-          });
+          field.onChange &&
+            field.onChange({
+              target: { name: field.name, value: e.target.value },
+            });
         }}
         size={field.size}
         required={field.required}
@@ -275,7 +278,8 @@ export const DateField = ({ field }: { field: Field }) => {
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
-            field.onChange({ target: { name: field.name, value: newValue } });
+            field.onChange &&
+              field.onChange({ target: { name: field.name, value: newValue } });
           }}
           slotProps={{
             textField: {
@@ -301,7 +305,8 @@ export const DateTimeField = ({ field }: { field: Field }) => {
           minDate={field.minDate ? moment(field.minDate) : undefined}
           maxDate={field.maxDate ? moment(field.maxDate) : undefined}
           onChange={(newValue) => {
-            field.onChange({ target: { name: field.name, value: newValue } });
+            field.onChange &&
+              field.onChange({ target: { name: field.name, value: newValue } });
           }}
         />
       </LocalizationProvider>
@@ -345,7 +350,8 @@ export const DateRangeField = ({ field }: { field: Field }) => {
           onChange={(
             newValue: [moment.Moment | null, moment.Moment | null]
           ) => {
-            field.onChange({ target: { name: field.name, value: newValue } });
+            field.onChange &&
+              field.onChange({ target: { name: field.name, value: newValue } });
           }}
           renderInput={(startProps: any, endProps: any) => (
             <>
@@ -368,9 +374,10 @@ export const SwitchField = ({ field }: { field: Field }) => {
           <Switch
             checked={Boolean(field.value)}
             onChange={(e: any) => {
-              field.onChange({
-                target: { name: field.name, value: e.target.checked },
-              });
+              field.onChange &&
+                field.onChange({
+                  target: { name: field.name, value: e.target.checked },
+                });
             }}
           />
         }
@@ -388,9 +395,10 @@ export const CheckBoxField = ({ field }: { field: Field }) => {
           <Checkbox
             checked={Boolean(field.value)}
             onChange={(e: any) => {
-              field.onChange({
-                target: { name: field.name, value: e.target.checked },
-              });
+              field.onChange &&
+                field.onChange({
+                  target: { name: field.name, value: e.target.checked },
+                });
             }}
           />
         }
@@ -410,9 +418,10 @@ export const RadioGroupField = ({ field }: { field: Field }) => {
         name={field.name}
         value={field.value}
         onChange={(e: any) => {
-          field.onChange({
-            target: { name: field.name, value: e.target.value },
-          });
+          field.onChange &&
+            field.onChange({
+              target: { name: field.name, value: e.target.value },
+            });
         }}
       >
         {(field?.options ?? []).map((option) => (
@@ -448,7 +457,7 @@ export const DefaultField = ({ field }: { field: Field }) => {
       }
     }
 
-    field.onChange(e);
+    field.onChange && field.onChange(e);
   };
 
   return (
@@ -503,12 +512,13 @@ export const FileField = ({ field }: { field: Field }) => {
           name={field.name}
           accept={field?.accept ?? "*"}
           onChange={(e: any) => {
-            field.onChange({
-              target: {
-                name: field.name,
-                value: e.target.files?.length ? e.target.files[0] : null,
-              },
-            });
+            field.onChange &&
+              field.onChange({
+                target: {
+                  name: field.name,
+                  value: e.target.files?.length ? e.target.files[0] : null,
+                },
+              });
           }}
         />
       </Box>
