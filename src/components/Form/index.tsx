@@ -612,7 +612,7 @@ export default function Form({
         {showButtons && (
           <Grid>
             <Stack direction="row" spacing={3} justifyContent="left">
-              <Button type="submit" {...submitButtonProps}>
+              <Button type="submit" variant="contained" {...submitButtonProps}>
                 {submitText}
               </Button>
               {showCancelButton && (

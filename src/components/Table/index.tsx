@@ -97,7 +97,9 @@ export default function Table({
               variant="outlined"
               sx={{ borderRadius: 2 }}
               {...button}
-            />
+            >
+              {button?.title ?? button?.children}
+            </Button>
           ))}
         </Stack>
         <StyledSearch
