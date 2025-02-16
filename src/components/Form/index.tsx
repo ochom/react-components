@@ -104,7 +104,7 @@ export type Field = FormField & FormFieldProps;
 interface FormProps {
   component?: "div" | "form";
   fields: Field[];
-  fieldSpacing: number;
+  fieldSpacing?: number;
   onSubmit: () => void;
   onCancel?: () => void;
   submitText?: string;
