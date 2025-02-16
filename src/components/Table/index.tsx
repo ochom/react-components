@@ -1,8 +1,7 @@
-import { Box, Paper, Stack } from "@mui/material";
+import { Box, Button, Paper, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ButtonsContainer, StyledSearch } from "./styles";
 
-import { CButton } from "../Buttons";
 import TableBody from "./body";
 import TablePagination from "./pagination";
 import { TableProps } from "./props";
@@ -93,7 +92,7 @@ export default function Table({
           }}
         >
           {buttons.map((button, index) => (
-            <CButton
+            <Button
               key={index}
               variant="outlined"
               sx={{ borderRadius: 2 }}
