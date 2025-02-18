@@ -581,7 +581,12 @@ export default function Form({
           // early return for hidden field
           if (field.hidden) {
             return (
-              <input type="hidden" name={field.name} value={field.value} />
+              <input
+                type="hidden"
+                name={field.name}
+                value={field.value}
+                hidden
+              />
             );
           }
 
