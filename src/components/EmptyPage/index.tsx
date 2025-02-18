@@ -6,7 +6,7 @@ import NetworkErrorSVG from "../../assets/network-svg";
 import { CircularLoader } from "../Monitors";
 
 export interface ErrorPageProps {
-  title: string;
+  title?: string;
   error: Error;
 }
 
@@ -27,7 +27,7 @@ export const ErrorPage = ({ error, title = "Oops!" }: ErrorPageProps) => {
 };
 
 export interface PageConstructionProps {
-  feature: string;
+  feature?: string;
   mobile?: string;
   email?: string;
   delay?: number;
