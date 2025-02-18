@@ -571,8 +571,8 @@ export default function Form({
     <Container component={component} onSubmit={onSubmit}>
       <Grid container spacing={fieldSpacing}>
         {fields.map((field, index) => {
-          // check if the field's required prop is defined, if not set it to true
-          if (field.required === undefined) field.required = true;
+          // check if the field's required prop is defined, if not set it to true by default
+          field.required = field.required ?? true;
 
           // define grow dimensions
           const xs = field.grow?.xs || 12;
