@@ -580,9 +580,9 @@ export default function Form({
 
           // early return for hidden field
           if (field.hidden) {
-            <Grid key={index} size={{ xs, sm, md, lg }}>
+            return (
               <input type="hidden" name={field.name} value={field.value} />
-            </Grid>;
+            );
           }
 
           return (
