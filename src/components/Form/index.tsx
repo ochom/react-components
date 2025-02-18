@@ -545,7 +545,11 @@ const FormFieldComponent = ({ field }: { field: Field }) => {
 
 const Container = ({ component, onSubmit, children }: any) => {
   if (component === "form") {
-    return <form onSubmit={onSubmit}>{children}</form>;
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      onSubmit && onSubmit();
+    };
+    return <form onSubmit={(e) => handleSubmit(e)}>{children}</form>;
   }
   return <div>{children}</div>;
 };
