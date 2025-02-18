@@ -570,11 +570,6 @@ export default function Form({
           // check if the field's required prop is defined, if not set it to true
           if (field.required === undefined) field.required = true;
 
-          // early return for hidden field
-          if (field.hidden) {
-            return <FormFieldComponent key={index} field={field} />;
-          }
-
           // define grow dimensions
           const xs = field.grow?.xs || 12;
           const sm = field.grow?.sm || xs;
@@ -582,6 +577,14 @@ export default function Form({
           const lg = field.grow?.lg || md;
 
           delete field.grow;
+
+          // early return for hidden field
+          if (field.hidden) {
+            <Grid key={index} size={{ xs, sm, md, lg }}>
+              <input type="hidden" name={field.name} value={field.value} />
+            </Grid>;
+          }
+
           return (
             <Grid key={index} size={{ xs, sm, md, lg }}>
               <FormControl fullWidth>
