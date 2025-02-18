@@ -591,9 +591,7 @@ export default function Form({
           if (field.required === undefined) field.required = true;
 
           // early return for hidden field
-          if (field.hidden) {
-            return <FormFieldComponent key={index} field={field} />;
-          }
+          if (field.hidden) return null;
 
           // define grow dimensions
           const xs = field.grow?.xs || 12;
