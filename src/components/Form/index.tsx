@@ -145,23 +145,21 @@ export const SearchField = ({ field }: { field: Field }) => {
   if (field.loading) return <Loading />;
 
   return (
-    <FormControl fullWidth>
-      <Autocomplete
-        id={`${field.name}-label`}
-        autoHighlight
-        value={selected}
-        options={field?.options ?? []}
-        onChange={handleChange}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={field.label}
-            required={field.required && !selected}
-          />
-        )}
-        isOptionEqualToValue={(prev, next) => prev.value === next.value}
-      />
-    </FormControl>
+    <Autocomplete
+      id={`${field.name}-label`}
+      autoHighlight
+      value={selected}
+      options={field?.options ?? []}
+      onChange={handleChange}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={field.label}
+          required={field.required && !selected}
+        />
+      )}
+      isOptionEqualToValue={(prev, next) => prev.value === next.value}
+    />
   );
 };
 
@@ -191,55 +189,53 @@ const MultiSelectField = ({ field }: { field: Field }) => {
   if (field.loading) return <Loading />;
 
   return (
-    <FormControl fullWidth>
-      <Autocomplete
-        multiple
-        id={`${field.name}-label`}
-        options={field?.options ?? []}
-        disableCloseOnSelect
-        value={values}
-        getOptionLabel={(option) => option.label}
-        isOptionEqualToValue={(prev, next) => prev.value === next.value}
-        onChange={(e, newValues) => setValues(newValues)}
-        renderOption={(props, option) => {
-          return (
-            <li {...props}>
-              <Checkbox
-                icon={<Icon icon="mdi:checkbox-blank-outline" />}
-                checkedIcon={<Icon icon="mdi:checkbox-marked" />}
-                style={{ marginRight: 8 }}
-                checked={values.map((s) => s.value).includes(option.value)}
-              />
-              {option.label}
-            </li>
-          );
-        }}
-        renderTags={(value, getTagProps) => {
-          return value.map((option, index) => (
-            <Chip
-              {...getTagProps({ index })}
-              key={option.value}
-              label={option.label}
+    <Autocomplete
+      multiple
+      id={`${field.name}-label`}
+      options={field?.options ?? []}
+      disableCloseOnSelect
+      value={values}
+      getOptionLabel={(option) => option.label}
+      isOptionEqualToValue={(prev, next) => prev.value === next.value}
+      onChange={(e, newValues) => setValues(newValues)}
+      renderOption={(props, option) => {
+        return (
+          <li {...props}>
+            <Checkbox
+              icon={<Icon icon="mdi:checkbox-blank-outline" />}
+              checkedIcon={<Icon icon="mdi:checkbox-marked" />}
+              style={{ marginRight: 8 }}
+              checked={values.map((s) => s.value).includes(option.value)}
             />
-          ));
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={field.label}
-            required={field.required && values.length === 0}
-            placeholder={field?.placeholder ?? ""}
+            {option.label}
+          </li>
+        );
+      }}
+      renderTags={(value, getTagProps) => {
+        return value.map((option, index) => (
+          <Chip
+            {...getTagProps({ index })}
+            key={option.value}
+            label={option.label}
           />
-        )}
-      />
-    </FormControl>
+        ));
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={field.label}
+          required={field.required && values.length === 0}
+          placeholder={field?.placeholder ?? ""}
+        />
+      )}
+    />
   );
 };
 
 export const SelectField = ({ field }: { field: Field }) => {
   if (field.loading) return <Loading />;
   return (
-    <FormControl fullWidth>
+    <>
       <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
       <Select
         labelId={`${field.name}-label`}
@@ -263,54 +259,50 @@ export const SelectField = ({ field }: { field: Field }) => {
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </>
   );
 };
 
 export const DateField = ({ field }: { field: Field }) => {
   return (
-    <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={Adapter}>
-        <DatePicker
-          format={field?.format ?? "DD/MM/Y"}
-          label={field.label}
-          value={moment(field.value)}
-          minDate={field.minDate ? moment(field.minDate) : undefined}
-          maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-          onChange={(newValue) => {
-            field.onChange &&
-              field.onChange({ target: { name: field.name, value: newValue } });
-          }}
-          slotProps={{
-            textField: {
-              fullWidth: true,
-              required: field.required,
-              size: field.size,
-            },
-          }}
-        />
-      </LocalizationProvider>
-    </FormControl>
+    <LocalizationProvider dateAdapter={Adapter}>
+      <DatePicker
+        format={field?.format ?? "DD/MM/Y"}
+        label={field.label}
+        value={moment(field.value)}
+        minDate={field.minDate ? moment(field.minDate) : undefined}
+        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+        onChange={(newValue) => {
+          field.onChange &&
+            field.onChange({ target: { name: field.name, value: newValue } });
+        }}
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: field.required,
+            size: field.size,
+          },
+        }}
+      />
+    </LocalizationProvider>
   );
 };
 
 export const DateTimeField = ({ field }: { field: Field }) => {
   return (
-    <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={Adapter}>
-        <DateTimePicker
-          format="DD/MM/Y HH:mm"
-          label={field.label}
-          value={moment(field.value)}
-          minDate={field.minDate ? moment(field.minDate) : undefined}
-          maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-          onChange={(newValue) => {
-            field.onChange &&
-              field.onChange({ target: { name: field.name, value: newValue } });
-          }}
-        />
-      </LocalizationProvider>
-    </FormControl>
+    <LocalizationProvider dateAdapter={Adapter}>
+      <DateTimePicker
+        format="DD/MM/Y HH:mm"
+        label={field.label}
+        value={moment(field.value)}
+        minDate={field.minDate ? moment(field.minDate) : undefined}
+        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+        onChange={(newValue) => {
+          field.onChange &&
+            field.onChange({ target: { name: field.name, value: newValue } });
+        }}
+      />
+    </LocalizationProvider>
   );
 };
 
@@ -338,79 +330,71 @@ export const DateRangeField = ({ field }: { field: Field }) => {
   }, [field.value]);
 
   return (
-    <FormControl fullWidth>
-      <LocalizationProvider dateAdapter={Adapter}>
-        <DateRangePicker
-          format={field?.format ?? "DD/MM/Y"}
-          startText={field.startText ?? "Start"}
-          endText={field.endText ?? "End"}
-          value={value}
-          minDate={field.minDate ? moment(field.minDate) : undefined}
-          maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-          onChange={(
-            newValue: [moment.Moment | null, moment.Moment | null]
-          ) => {
-            field.onChange &&
-              field.onChange({ target: { name: field.name, value: newValue } });
-          }}
-          renderInput={(startProps: any, endProps: any) => (
-            <>
-              <TextField {...startProps} label={`${field.label} Start`} />
-              <Box sx={{ mx: 2 }}> to </Box>
-              <TextField {...endProps} label={`${field.label} End`} />
-            </>
-          )}
-        />
-      </LocalizationProvider>
-    </FormControl>
+    <LocalizationProvider dateAdapter={Adapter}>
+      <DateRangePicker
+        format={field?.format ?? "DD/MM/Y"}
+        startText={field.startText ?? "Start"}
+        endText={field.endText ?? "End"}
+        value={value}
+        minDate={field.minDate ? moment(field.minDate) : undefined}
+        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+        onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
+          field.onChange &&
+            field.onChange({ target: { name: field.name, value: newValue } });
+        }}
+        renderInput={(startProps: any, endProps: any) => (
+          <>
+            <TextField {...startProps} label={`${field.label} Start`} />
+            <Box sx={{ mx: 2 }}> to </Box>
+            <TextField {...endProps} label={`${field.label} End`} />
+          </>
+        )}
+      />
+    </LocalizationProvider>
   );
 };
 
 export const SwitchField = ({ field }: { field: Field }) => {
   return (
-    <FormControl fullWidth>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={Boolean(field.value)}
-            onChange={(e: any) => {
-              field.onChange &&
-                field.onChange({
-                  target: { name: field.name, value: e.target.checked },
-                });
-            }}
-          />
-        }
-        label={field.label}
-      />
-    </FormControl>
+    <FormControlLabel
+      control={
+        <Switch
+          checked={Boolean(field.value)}
+          onChange={(e: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { name: field.name, value: e.target.checked },
+              });
+          }}
+        />
+      }
+      label={field.label}
+    />
   );
 };
 
 export const CheckBoxField = ({ field }: { field: Field }) => {
   return (
-    <FormControl fullWidth>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={Boolean(field.value)}
-            onChange={(e: any) => {
-              field.onChange &&
-                field.onChange({
-                  target: { name: field.name, value: e.target.checked },
-                });
-            }}
-          />
-        }
-        label={field.label}
-      />
-    </FormControl>
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={Boolean(field.value)}
+          onChange={(e: any) => {
+            field.onChange &&
+              field.onChange({
+                target: { name: field.name, value: e.target.checked },
+              });
+          }}
+        />
+      }
+      label={field.label}
+    />
   );
 };
 
 export const RadioGroupField = ({ field }: { field: Field }) => {
   return (
-    <FormControl fullWidth>
+    <>
       <FormLabel id={`${field.name}-label`}>{field.label}</FormLabel>
       <RadioGroup
         row
@@ -433,7 +417,7 @@ export const RadioGroupField = ({ field }: { field: Field }) => {
           />
         ))}
       </RadioGroup>
-    </FormControl>
+    </>
   );
 };
 
@@ -461,73 +445,69 @@ export const DefaultField = ({ field }: { field: Field }) => {
   };
 
   return (
-    <FormControl fullWidth>
-      <TextField
-        id={inputId}
-        type={field.type}
-        name={field.name}
-        label={field.label}
-        value={field.value}
-        size={field.size}
-        multiline={field.multiline}
-        rows={field.rows}
-        required={field.required}
-        disabled={field.disabled}
-        placeholder={field.placeholder}
-        onChange={handleChange}
-      />
-    </FormControl>
+    <TextField
+      id={inputId}
+      type={field.type}
+      name={field.name}
+      label={field.label}
+      value={field.value}
+      size={field.size}
+      multiline={field.multiline}
+      rows={field.rows}
+      required={field.required}
+      disabled={field.disabled}
+      placeholder={field.placeholder}
+      onChange={handleChange}
+    />
   );
 };
 
 export const FileField = ({ field }: { field: Field }) => {
   const theme = useTheme();
   return (
-    <FormControl fullWidth>
-      <Box
+    <Box
+      sx={{
+        position: "relative",
+        py: 1.5,
+        px: 2,
+        border: "1px solid #ccc",
+        borderRadius: 1,
+      }}
+    >
+      <Typography
+        variant="caption"
         sx={{
-          position: "relative",
-          py: 1.5,
-          px: 2,
-          border: "1px solid #ccc",
-          borderRadius: 1,
+          top: "-10px",
+          left: "10px",
+          pb: 1,
+          position: "absolute",
+          backgroundColor: theme.palette.background.paper,
+          padding: "0 5px",
         }}
       >
-        <Typography
-          variant="caption"
-          sx={{
-            top: "-10px",
-            left: "10px",
-            pb: 1,
-            position: "absolute",
-            backgroundColor: theme.palette.background.paper,
-            padding: "0 5px",
-          }}
-        >
-          {field.label}
-        </Typography>
-        <input
-          type="file"
-          id={field.name}
-          name={field.name}
-          accept={field?.accept ?? "*"}
-          onChange={(e: any) => {
-            field.onChange &&
-              field.onChange({
-                target: {
-                  name: field.name,
-                  value: e.target.files?.length ? e.target.files[0] : null,
-                },
-              });
-          }}
-        />
-      </Box>
-    </FormControl>
+        {field.label}
+      </Typography>
+      <input
+        type="file"
+        id={field.name}
+        name={field.name}
+        accept={field?.accept ?? "*"}
+        onChange={(e: any) => {
+          field.onChange &&
+            field.onChange({
+              target: {
+                name: field.name,
+                value: e.target.files?.length ? e.target.files[0] : null,
+              },
+            });
+        }}
+      />
+    </Box>
   );
 };
 
 const CustomField = ({ field }: { field: Field }) => {
-  return <>{field.component}</>;
+  return field.component;
 };
 
 const FormFieldComponent = ({ field }: { field: Field }) => {
@@ -591,7 +571,9 @@ export default function Form({
           if (field.required === undefined) field.required = true;
 
           // early return for hidden field
-          if (field.hidden) return null;
+          if (field.hidden) {
+            return <FormFieldComponent key={index} field={field} />;
+          }
 
           // define grow dimensions
           const xs = field.grow?.xs || 12;
@@ -602,7 +584,9 @@ export default function Form({
           delete field.grow;
           return (
             <Grid key={index} size={{ xs, sm, md, lg }}>
-              <FormFieldComponent field={field} />
+              <FormControl fullWidth>
+                <FormFieldComponent field={field} />
+              </FormControl>
             </Grid>
           );
         })}
