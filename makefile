@@ -1,10 +1,10 @@
 SHELL:=/bin/bash
 
 build:
-	npm run build
+	bun run build
 
 deploy:
-	npx auto-version --patch && npm run deploy
+	npx auto-version --patch && bun run build && bun run deploy
  
 tidy:
-	npm i
+	bun install
