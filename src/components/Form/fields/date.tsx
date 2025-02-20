@@ -1,11 +1,11 @@
-import DateRangePicker from "@mui/lab/DateRangePicker";
-import { Box, TextField } from "@mui/material";
 import {
   DatePicker,
+  DateRangePicker,
   DateTimePicker,
   LocalizationProvider,
-} from "@mui/x-date-pickers";
-import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
+  SingleInputDateRangeField,
+} from "@mui/x-date-pickers-pro";
+import { AdapterMoment as Adapter } from "@mui/x-date-pickers-pro/AdapterMoment";
 import moment from "moment";
 import React, { useEffect } from "react";
 
@@ -81,8 +81,6 @@ const DateRangeField = ({ field }: { field: FormField }) => {
     <LocalizationProvider dateAdapter={Adapter}>
       <DateRangePicker
         format={field?.format ?? "DD/MM/Y"}
-        startText={field.startText ?? "Start"}
-        endText={field.endText ?? "End"}
         value={value}
         minDate={field.minDate ? moment(field.minDate) : undefined}
         maxDate={field.maxDate ? moment(field.maxDate) : undefined}
@@ -90,13 +88,8 @@ const DateRangeField = ({ field }: { field: FormField }) => {
           field.onChange &&
             field.onChange({ target: { name: field.name, value: newValue } });
         }}
-        renderInput={(startProps: any, endProps: any) => (
-          <>
-            <TextField {...startProps} label={`${field.label} Start`} />
-            <Box sx={{ mx: 2 }}> to </Box>
-            <TextField {...endProps} label={`${field.label} End`} />
-          </>
-        )}
+        slots={{ field: SingleInputDateRangeField }}
+        name="allowedRange"
       />
     </LocalizationProvider>
   );

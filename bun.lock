@@ -15,7 +15,7 @@
         "@iconify/react": "^5.2.0",
         "@mui/lab": "^6.0.0-beta.28",
         "@mui/material": "^6.4.5",
-        "@mui/x-date-pickers": "^7.27.0",
+        "@mui/x-date-pickers-pro": "^7.27.0",
         "@vitejs/plugin-react": "^4.3.4",
         "auto-version-js": "^0.3.10",
         "moment": "^2.30.1",
@@ -29,7 +29,7 @@
         "@iconify/react": "^5.2.0",
         "@mui/lab": "^6.0.0-beta.28",
         "@mui/material": "^6.4.5",
-        "@mui/x-date-pickers": "^7.27.0",
+        "@mui/x-date-pickers-pro": "^7.27.0",
         "moment": "^2.30.1",
       },
     },
@@ -201,7 +201,11 @@
 
     "@mui/x-date-pickers": ["@mui/x-date-pickers@7.27.0", "", { "dependencies": { "@babel/runtime": "^7.25.7", "@mui/utils": "^5.16.6 || ^6.0.0", "@mui/x-internals": "7.26.0", "@types/react-transition-group": "^4.4.11", "clsx": "^2.1.1", "prop-types": "^15.8.1", "react-transition-group": "^4.4.5" }, "peerDependencies": { "@emotion/react": "^11.9.0", "@emotion/styled": "^11.8.1", "@mui/material": "^5.15.14 || ^6.0.0", "@mui/system": "^5.15.14 || ^6.0.0", "date-fns": "^2.25.0 || ^3.2.0 || ^4.0.0", "date-fns-jalali": "^2.13.0-0 || ^3.2.0-0 || ^4.0.0-0", "dayjs": "^1.10.7", "luxon": "^3.0.2", "moment": "^2.29.4", "moment-hijri": "^2.1.2 || ^3.0.0", "moment-jalaali": "^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0", "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/react", "@emotion/styled", "date-fns", "date-fns-jalali", "dayjs", "luxon", "moment", "moment-hijri", "moment-jalaali"] }, "sha512-wSx8JGk4WQ2hTObfQITc+zlmUKNleQYoH1hGocaQlpWpo1HhauDtcQfX6sDN0J0dPT2eeyxDWGj4uJmiSfQKcw=="],
 
+    "@mui/x-date-pickers-pro": ["@mui/x-date-pickers-pro@7.27.0", "", { "dependencies": { "@babel/runtime": "^7.25.7", "@mui/utils": "^5.16.6 || ^6.0.0", "@mui/x-date-pickers": "7.27.0", "@mui/x-internals": "7.26.0", "@mui/x-license": "7.26.0", "clsx": "^2.1.1", "prop-types": "^15.8.1", "react-transition-group": "^4.4.5" }, "peerDependencies": { "@emotion/react": "^11.9.0", "@emotion/styled": "^11.8.1", "@mui/material": "^5.15.14 || ^6.0.0", "@mui/system": "^5.15.14 || ^6.0.0", "date-fns": "^2.25.0 || ^3.2.0 || ^4.0.0", "date-fns-jalali": "^2.13.0-0 || ^3.2.0-0 || ^4.0.0-0", "dayjs": "^1.10.7", "luxon": "^3.0.2", "moment": "^2.29.4", "moment-hijri": "^2.1.2 || ^3.0.0", "moment-jalaali": "^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0", "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/react", "@emotion/styled", "date-fns", "date-fns-jalali", "dayjs", "luxon", "moment", "moment-hijri", "moment-jalaali"] }, "sha512-iT3J6wcU1BV1KSoOgljrHkouspBL0Uf6NEfSy9TDGQjBPLJNPNpVMmFIcj2ysH2CaZqzKPeJtNk8ruSb7GWJWw=="],
+
     "@mui/x-internals": ["@mui/x-internals@7.26.0", "", { "dependencies": { "@babel/runtime": "^7.25.7", "@mui/utils": "^5.16.6 || ^6.0.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-VxTCYQcZ02d3190pdvys2TDg9pgbvewAVakEopiOgReKAUhLdRlgGJHcOA/eAuGLyK1YIo26A6Ow6ZKlSRLwMg=="],
+
+    "@mui/x-license": ["@mui/x-license@7.26.0", "", { "dependencies": { "@babel/runtime": "^7.25.7", "@mui/utils": "^5.16.6 || ^6.0.0", "@mui/x-internals": "7.26.0" }, "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-WxwBGk6xXF0vi4IGCCojMHjQsAXvltjP+YgFTTgWVFhIpDFDu89xLOwRnSWrhCwD6dlK/BwKgn2UgxTE8BZGFQ=="],
 
     "@popperjs/core": ["@popperjs/core@2.11.8", "", {}, "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A=="],
 
