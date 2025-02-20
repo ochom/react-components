@@ -1,68 +1,68 @@
 {
-  "name": "ochom-react-components",
-  "version": "2.3.10",
-  "author": "Richard Ochom",
-  "license": "ISC",
-  "description": "A collection of react components built with material ui",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ochom/react-components.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ochom/react-components/issues"
-  },
-  "homepage": "https://github.com/ochom/react-components#readme",
-  "keywords": [
-    "components",
-    "ui",
-    "material"
-  ],
-  "type": "module",
-  "scripts": {
-    "rollup": "rollup -c",
-    "test": "echo \"no test specified\"",
-    "build": "npm i && npm run rollup",
-    "deploy": "npm i && npm run rollup && npm publish --access public"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.21.3",
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@iconify/react": "^5.2.0",
-    "@mui/lab": "^6.0.0-beta.25",
-    "@mui/material": "^6.1.5",
-    "@mui/system": "^5.15.14",
-    "@mui/x-date-pickers": "^7.25.0",
-    "@types/react": "^19.0.8",
-    "auto-version-js": "^0.3.10",
-    "moment": "^2.29.4",
-    "postcss": "^8.4.21",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-is": "^19.0.0",
-    "tslib": "^2.4.1",
-    "typescript": "^5.7.3",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-is": "^19.0.0",
-    "@mui/material": "^6.1.5",
-    "@mui/system": "^5.15.14",
-    "@mui/lab": "^6.0.0-beta.25",
-    "@mui/x-date-pickers": "^7.25.0",
-    "@iconify/react": "^5.2.0",
-    "moment": "^2.29.4",
-    "@emotion/cache": "^11.14.0",
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0"
-  }
+    "name": "ochom-react-components",
+    "version": "2.3.11",
+    "author": "Richard Ochom",
+    "license": "ISC",
+    "description": "A collection of react components built with material ui",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ochom/react-components.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ochom/react-components/issues"
+    },
+    "homepage": "https://github.com/ochom/react-components#readme",
+    "keywords": [
+        "components",
+        "ui",
+        "material"
+    ],
+    "type": "module",
+    "scripts": {
+        "rollup": "rollup -c",
+        "test": "echo \"no test specified\"",
+        "build": "npm i && npm run rollup",
+        "deploy": "npm i && npm run rollup && npm publish --access public"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.3",
+        "@emotion/cache": "^11.14.0",
+        "@emotion/react": "^11.13.3",
+        "@emotion/styled": "^11.13.0",
+        "@iconify/react": "^5.2.0",
+        "@mui/lab": "^6.0.0-beta.25",
+        "@mui/material": "^6.1.5",
+        "@mui/system": "^5.15.14",
+        "@mui/x-date-pickers": "^7.25.0",
+        "@types/react": "^19.0.8",
+        "auto-version-js": "^0.3.10",
+        "moment": "^2.29.4",
+        "postcss": "^8.4.21",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-is": "^19.0.0",
+        "tslib": "^2.4.1",
+        "typescript": "^5.7.3",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-commonjs": "^28.0.2",
+        "@rollup/plugin-node-resolve": "^16.0.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^12.1.2",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-postcss": "^4.0.2"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-is": "^19.0.0",
+        "@mui/material": "^6.1.5",
+        "@mui/system": "^5.15.14",
+        "@mui/lab": "^6.0.0-beta.25",
+        "@mui/x-date-pickers": "^7.25.0",
+        "@iconify/react": "^5.2.0",
+        "moment": "^2.29.4",
+        "@emotion/cache": "^11.14.0",
+        "@emotion/react": "^11.13.3",
+        "@emotion/styled": "^11.13.0"
+    }
 }
