@@ -21,6 +21,7 @@
   "scripts": {
     "rollup": "rollup -c",
     "test": "echo \"no test specified\"",
+    "build": "npm i && npm run rollup",
     "deploy": "npm i && npm run rollup && npm publish --access public"
   },
   "devDependencies": {
