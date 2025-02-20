@@ -1,11 +1,13 @@
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 import {
   DatePicker,
   DateRangePicker,
   DateTimePicker,
-  LocalizationProvider,
   SingleInputDateRangeField,
 } from "@mui/x-date-pickers-pro";
-import { AdapterMoment as Adapter } from "@mui/x-date-pickers-pro/AdapterMoment";
+
 import moment from "moment";
 import React, { useEffect } from "react";
 
@@ -13,7 +15,7 @@ import { FormField } from "../properties";
 
 export const DateField = ({ field }: { field: FormField }) => {
   return (
-    <LocalizationProvider dateAdapter={Adapter}>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
       <DatePicker
         format={field?.format ?? "DD/MM/Y"}
         label={field.label}
@@ -38,7 +40,7 @@ export const DateField = ({ field }: { field: FormField }) => {
 
 const DateTimeField = ({ field }: { field: FormField }) => {
   return (
-    <LocalizationProvider dateAdapter={Adapter}>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
       <DateTimePicker
         format="DD/MM/Y HH:mm"
         label={field.label}
@@ -78,7 +80,7 @@ const DateRangeField = ({ field }: { field: FormField }) => {
   }, [field.value]);
 
   return (
-    <LocalizationProvider dateAdapter={Adapter}>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
       <DateRangePicker
         format={field?.format ?? "DD/MM/Y"}
         value={value}

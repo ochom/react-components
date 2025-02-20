@@ -20,6 +20,7 @@ export default defineConfig({
         "@mui/lab",
         "@mui/material",
         "@mui/x-date-pickers",
+        "@mui/x-date-pickers-pro",
         "moment",
       ],
       output: {
