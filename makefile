@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 
 build:
-	npm i; npm run rollup
+	npm run build
 
 deploy:
 	npx auto-version --patch && npm run deploy
