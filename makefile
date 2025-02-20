@@ -1,5 +1,8 @@
 SHELL:=/bin/bash
 
+dev:
+	bun run dev
+
 build:
 	bun run build
 

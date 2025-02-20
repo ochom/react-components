@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "2.3.45",
+    "version": "2.3.48",
     "author": "Richard Ochom",
     "license": "ISC",
     "description": "A collection of react components built with material ui",
@@ -18,6 +18,17 @@
         "material"
     ],
     "type": "module",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.umd.cjs",
+    "module": "./dist/index.js",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.umd.cjs"
+        }
+    },
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",

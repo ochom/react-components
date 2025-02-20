@@ -1,4 +1,5 @@
 .github/
 .gitignore
 secrets
+src
 package-lock.json

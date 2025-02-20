@@ -51,15 +51,15 @@ export default function Form({
   component = "form",
   fields = [],
   fieldSpacing = 4,
-  onSubmit = () => {},
-  onCancel = () => {},
-  showButtons = true,
-  showCancelButton = true,
+  onSubmit,
+  onCancel,
   submitText = "Save",
   cancelText = "Cancel",
   submitButtonProps,
   cancelButtonProps,
 }: FormProps) {
+  const showButtons = onSubmit !== undefined || onCancel !== undefined;
+
   return (
     <Container component={component} onSubmit={onSubmit}>
       <Grid container spacing={fieldSpacing}>
@@ -97,10 +97,16 @@ export default function Form({
         {showButtons && (
           <Grid>
             <Stack direction="row" spacing={3} justifyContent="left">
-              <Button type="submit" variant="contained" {...submitButtonProps}>
-                {submitText}
-              </Button>
-              {showCancelButton && (
+              {onSubmit !== undefined && (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  {...submitButtonProps}
+                >
+                  {submitText}
+                </Button>
+              )}
+              {onCancel !== undefined && (
                 <Button
                   onClick={onCancel}
                   variant="outlined"

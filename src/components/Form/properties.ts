@@ -84,8 +84,6 @@ export interface FormProps {
   onCancel?: () => void;
   submitText?: string;
   cancelText?: string;
-  showButtons?: boolean;
-  showCancelButton?: boolean;
   submitButtonProps?: ButtonProps;
   cancelButtonProps?: ButtonProps;
 }

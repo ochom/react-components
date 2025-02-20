@@ -8,7 +8,7 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts",
       name: "ochom-react-components",
-      fileName: (format) => `index.${format}.js`,
+      fileName: "index",
     },
     rollupOptions: {
       external: [
@@ -26,13 +26,6 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          "@emotion/react": "emotionReact",
-          "@emotion/styled": "emotionStyled",
-          "@iconify/react": "iconifyReact",
-          "@mui/lab": "muiLab",
-          "@mui/material": "muiMaterial",
-          "@mui/x-date-pickers": "muiXDatePickers",
-          moment: "moment",
         },
       },
     },
