@@ -1,6 +1,6 @@
 import { Box, TextField, Typography, useTheme } from "@mui/material";
-import React, { useId } from "react";
-import { FormField } from "../types";
+import { useId } from "react";
+import { FormField } from "../properties";
 
 const DefaultField = ({ field }: { field: FormField }) => {
   const inputId = useId();

@@ -1,9 +1,8 @@
-import styled from "@emotion/styled";
 import { Icon } from "@iconify/react";
-import { Box, IconButton, useTheme } from "@mui/material";
+import { Box, IconButton, styled, useTheme } from "@mui/material";
 import React from "react";
 
-const BackDrop = styled.div`
+const BackDrop = styled(Box)`
   position: fixed;
   top: 0;
   left: 0;
@@ -61,7 +60,7 @@ const Dialog = styled(Box)`
   }
 `;
 
-const Title = styled.div`
+const Title = styled(Box)`
   font-size: 1.2rem;
   font-weight: 500;
   display: flex;

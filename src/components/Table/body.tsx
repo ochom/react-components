@@ -1,9 +1,41 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import React, { useMemo } from "react";
+import { Box, styled, Typography, useTheme } from "@mui/material";
+import { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
 import { TableColumn } from "./props";
-import { StyledTable } from "./styles";
+
+const StyledTable = styled("table")`
+  width: 100%;
+  border-collapse: collapse;
+  background-color: transparent;
+  thead {
+    tr {
+      border: none;
+      th {
+        padding: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        text-align: left;
+        background-color: ${({ theme }) => theme.palette.action.hover};
+      }
+    }
+  }
+  tbody {
+    tr {
+      margin: 0 5px;
+      transition: 0.3s;
+      border-top: 1px solid ${({ theme }) => theme.palette.divider};
+      td {
+        padding: 8px;
+        font-size: 0.8rem;
+      }
+    }
+    tr:hover {
+      cursor: pointer;
+      background-color: ${({ theme }) => theme.palette.action.hover};
+    }
+  }
+`;
 
 const Spanned = ({ children, span }: any) => {
   return (

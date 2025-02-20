@@ -1,22 +1,21 @@
-import styled from "@emotion/styled";
-import React from "react";
-
-export const BoxSVG = styled.div`
-  width: 400px;
-  height: 400px;
-  margin: 0 auto;
-  & svg {
-    width: 100%;
-    height: 100%;
-  }
-`;
+import { Box } from "@mui/material";
 
 export default function NetworkErrorSVG({
   primaryColor = "#E8E8E8",
   secondaryColor = "#191919",
 }) {
   return (
-    <BoxSVG>
+    <Box
+      sx={{
+        width: "400px",
+        height: "400px",
+        margin: "0 auto",
+        "& svg": {
+          width: "100%",
+          height: "100%",
+        },
+      }}
+    >
       <svg
         width="1600px"
         height="1200px"
@@ -1702,6 +1701,6 @@ export default function NetworkErrorSVG({
           />
         </g>
       </svg>
-    </BoxSVG>
+    </Box>
   );
 }

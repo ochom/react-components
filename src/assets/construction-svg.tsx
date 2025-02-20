@@ -1,9 +1,18 @@
-import React from "react";
-import { BoxSVG } from "./network-svg";
+import { Box } from "@mui/material";
 
 export default function ConstructionSVG({ color = "#9c27b0" }) {
   return (
-    <BoxSVG>
+    <Box
+      sx={{
+        width: "400px",
+        height: "400px",
+        margin: "0 auto",
+        "& svg": {
+          width: "100%",
+          height: "100%",
+        },
+      }}
+    >
       <svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
@@ -787,6 +796,6 @@ export default function ConstructionSVG({ color = "#9c27b0" }) {
           opacity="0.2"
         />
       </svg>
-    </BoxSVG>
+    </Box>
   );
 }

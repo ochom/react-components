@@ -6,8 +6,7 @@ import {
   RadioGroup,
   Switch,
 } from "@mui/material";
-import React from "react";
-import { FormField } from "../types";
+import { FormField } from "../properties";
 
 const SwitchField = ({ field }: { field: FormField }) => {
   return (

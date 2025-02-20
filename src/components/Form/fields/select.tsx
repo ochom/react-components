@@ -8,9 +8,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { FormField, SelectOption } from "../types";
+import { FormField, SelectOption } from "../properties";
 import Loading from "./loading";
 
 const SelectField = ({ field }: { field: FormField }) => {
@@ -49,7 +49,7 @@ const SearchField = ({ field }: { field: FormField }) => {
     return field.options?.find((opt) => opt.value === field.value) ?? null;
   }, [field.value, field.options]);
 
-  const handleChange = (e: any, newValue: SelectOption | null) => {
+  const handleChange = (_e: any, newValue: SelectOption | null) => {
     field.onChange &&
       field.onChange({
         target: { name: field.name, value: newValue?.value ?? "" },
@@ -111,7 +111,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       value={values}
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(prev, next) => prev.value === next.value}
-      onChange={(e, newValues) => setValues(newValues)}
+      onChange={(_e, newValues) => setValues(newValues)}
       renderOption={(props, option) => {
         return (
           <li {...props}>

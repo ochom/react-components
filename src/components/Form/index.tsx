@@ -5,7 +5,7 @@ import { CustomField, DefaultField, FileField } from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
 import { DateField, DateRangeField, DateTimeField } from "./fields/date";
 import { MultiSelectField, SearchField, SelectField } from "./fields/select";
-import { FormField, FormProps } from "./types";
+import { FormField, FormProps } from "./properties";
 
 export const FormFieldComponent = ({ field }: { field: FormField }) => {
   switch (field.type) {

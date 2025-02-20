@@ -1,43 +1,5 @@
-import styled from "@emotion/styled";
 import { Icon } from "@iconify/react";
-import { Box, SxProps, Theme, useTheme } from "@mui/material";
-import React from "react";
-
-export const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  background-color: transparent;
-  thead {
-    tr {
-      border: none;
-      th {
-        padding: 8px;
-        font-weight: 500;
-        font-size: 14px;
-        text-align: left;
-        background-color: ${({ theme }: { theme: Theme }) =>
-          theme.palette.action.hover};
-      }
-    }
-  }
-  tbody {
-    tr {
-      margin: 0 5px;
-      transition: 0.3s;
-      border-top: 1px solid
-        ${({ theme }: { theme: Theme }) => theme.palette.divider};
-      td {
-        padding: 8px;
-        font-size: 0.8rem;
-      }
-    }
-    tr:hover {
-      cursor: pointer;
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.palette.action.hover};
-    }
-  }
-`;
+import { Box, styled, SxProps, Theme, useTheme } from "@mui/material";
 
 const SearchBox = styled(Box)`
   display: flex;
@@ -82,10 +44,3 @@ export const StyledSearch = ({
     </SearchBox>
   );
 };
-
-export const ButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-items: center;
-`;

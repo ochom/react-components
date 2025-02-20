@@ -1,5 +1,5 @@
-import React from "react";
 import { Box, Tab, Tabs } from "@mui/material";
+import React from "react";
 
 export interface TabProps {
   title: string;
@@ -40,7 +40,7 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
     <Box>
       <Tabs
         value={index}
-        onChange={(e: any, newValue: number) => setIndex(newValue)}
+        onChange={(_e: any, newValue: number) => setIndex(newValue)}
         indicatorColor="primary"
         textColor="primary"
       >

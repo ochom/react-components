@@ -1,6 +1,6 @@
 import { Box, Button, Paper, Stack } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { ButtonsContainer, StyledSearch } from "./styles";
+import { useEffect, useState } from "react";
+import { StyledSearch } from "./styles";
 
 import TableBody from "./body";
 import TablePagination from "./pagination";
@@ -78,10 +78,12 @@ export default function Table({
 
   return (
     <Box {...containerProps}>
-      <ButtonsContainer
-        style={{
-          padding: "0.5rem",
+      <Box
+        sx={{
           display: buttons.length == 0 && !showSearch ? "none" : "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0.5rem",
         }}
       >
         <Stack
@@ -109,7 +111,7 @@ export default function Table({
             flex: buttons.length == 0 ? "1" : undefined,
           }}
         />
-      </ButtonsContainer>
+      </Box>
 
       <Paper elevation={0} {...tableAreaProps}>
         <TableBody

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ContainerFieldGrow, SecondaryFormFieldProps } from "./types";
+import { ContainerFieldGrow, SecondaryFormFieldProps } from "./properties";
 
 type CreateFieldType = SecondaryFormFieldProps & ContainerFieldGrow;
 

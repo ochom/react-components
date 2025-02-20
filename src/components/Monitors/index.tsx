@@ -6,8 +6,6 @@ import {
   LinearProgressProps,
 } from "@mui/material";
 
-import React from "react";
-
 export function CircularLoader(props: CircularProgressProps) {
   return (
     <Box

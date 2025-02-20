@@ -1,3 +1,4 @@
+import DateRangePicker from "@mui/lab/DateRangePicker";
 import { Box, TextField } from "@mui/material";
 import {
   DatePicker,
@@ -8,8 +9,7 @@ import { AdapterMoment as Adapter } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import React, { useEffect } from "react";
 
-import DateRangePicker from "@mui/lab/DateRangePicker";
-import { FormField } from "../types";
+import { FormField } from "../properties";
 
 export const DateField = ({ field }: { field: FormField }) => {
   return (
