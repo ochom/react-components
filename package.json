@@ -21,7 +21,7 @@
   "scripts": {
     "rollup": "rollup -c",
     "test": "echo \"no test specified\"",
-    "deploy": "npm run rollup && npm publish --access public"
+    "deploy": "npm i && npm run rollup && npm publish --access public"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
@@ -64,4 +64,4 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0"
   }
-} 
+}
