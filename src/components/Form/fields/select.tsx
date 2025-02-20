@@ -10,10 +10,10 @@ import {
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 
-import { Field, SelectOption } from "../types";
+import { FormField, SelectOption } from "../types";
 import Loading from "./loading";
 
-const SelectField = ({ field }: { field: Field }) => {
+const SelectField = ({ field }: { field: FormField }) => {
   if (field.loading) return <Loading />;
   return (
     <>
@@ -44,7 +44,7 @@ const SelectField = ({ field }: { field: Field }) => {
   );
 };
 
-const SearchField = ({ field }: { field: Field }) => {
+const SearchField = ({ field }: { field: FormField }) => {
   const selected = useMemo(() => {
     return field.options?.find((opt) => opt.value === field.value) ?? null;
   }, [field.value, field.options]);
@@ -77,7 +77,7 @@ const SearchField = ({ field }: { field: Field }) => {
   );
 };
 
-const MultiSelectField = ({ field }: { field: Field }) => {
+const MultiSelectField = ({ field }: { field: FormField }) => {
   const [values, setValues] = useState<SelectOption[]>([]);
 
   useEffect(() => {

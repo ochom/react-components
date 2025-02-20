@@ -7,9 +7,9 @@ import {
   Switch,
 } from "@mui/material";
 import React from "react";
-import { Field } from "../types";
+import { FormField } from "../types";
 
-const SwitchField = ({ field }: { field: Field }) => {
+const SwitchField = ({ field }: { field: FormField }) => {
   return (
     <FormControlLabel
       control={
@@ -28,7 +28,7 @@ const SwitchField = ({ field }: { field: Field }) => {
   );
 };
 
-const CheckBoxField = ({ field }: { field: Field }) => {
+const CheckBoxField = ({ field }: { field: FormField }) => {
   return (
     <FormControlLabel
       control={
@@ -47,7 +47,7 @@ const CheckBoxField = ({ field }: { field: Field }) => {
   );
 };
 
-const RadioGroupField = ({ field }: { field: Field }) => {
+const RadioGroupField = ({ field }: { field: FormField }) => {
   return (
     <>
       <FormLabel id={`${field.name}-label`}>{field.label}</FormLabel>

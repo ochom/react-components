@@ -1,8 +1,8 @@
 import { Box, TextField, Typography, useTheme } from "@mui/material";
 import React, { useId } from "react";
-import { Field } from "../types";
+import { FormField } from "../types";
 
-const DefaultField = ({ field }: { field: Field }) => {
+const DefaultField = ({ field }: { field: FormField }) => {
   const inputId = useId();
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -43,7 +43,7 @@ const DefaultField = ({ field }: { field: Field }) => {
   );
 };
 
-const FileField = ({ field }: { field: Field }) => {
+const FileField = ({ field }: { field: FormField }) => {
   const theme = useTheme();
   return (
     <Box
@@ -87,7 +87,7 @@ const FileField = ({ field }: { field: Field }) => {
   );
 };
 
-const CustomField = ({ field }: { field: Field }) => {
+const CustomField = ({ field }: { field: FormField }) => {
   return field.component;
 };
 

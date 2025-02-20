@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { FormFieldProps } from ".";
+import { ContainerFieldGrow, SecondaryFormFieldProps } from "./types";
+
+type CreateFieldType = SecondaryFormFieldProps & ContainerFieldGrow;
 
 export const useForm = (initialState: { [key: string]: any } = {}) => {
   const [formData, setFormData] = useState(initialState);
@@ -8,7 +10,11 @@ export const useForm = (initialState: { [key: string]: any } = {}) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const createField = (name: string, label: string, props?: FormFieldProps) => {
+  const createField = (
+    name: string,
+    label: string,
+    props?: CreateFieldType
+  ) => {
     // create props if not defined
     let more: any = { name, label };
     if (props) {

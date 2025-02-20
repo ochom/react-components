@@ -9,9 +9,9 @@ import moment from "moment";
 import React, { useEffect } from "react";
 
 import DateRangePicker from "@mui/lab/DateRangePicker";
-import { Field } from "../types";
+import { FormField } from "../types";
 
-export const DateField = ({ field }: { field: Field }) => {
+export const DateField = ({ field }: { field: FormField }) => {
   return (
     <LocalizationProvider dateAdapter={Adapter}>
       <DatePicker
@@ -36,7 +36,7 @@ export const DateField = ({ field }: { field: Field }) => {
   );
 };
 
-const DateTimeField = ({ field }: { field: Field }) => {
+const DateTimeField = ({ field }: { field: FormField }) => {
   return (
     <LocalizationProvider dateAdapter={Adapter}>
       <DateTimePicker
@@ -54,7 +54,7 @@ const DateTimeField = ({ field }: { field: Field }) => {
   );
 };
 
-const DateRangeField = ({ field }: { field: Field }) => {
+const DateRangeField = ({ field }: { field: FormField }) => {
   const [value, setValue] = React.useState<
     [moment.Moment | null, moment.Moment | null]
   >([null, null]);

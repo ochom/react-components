@@ -5,9 +5,9 @@ import { CustomField, DefaultField, FileField } from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
 import { DateField, DateRangeField, DateTimeField } from "./fields/date";
 import { MultiSelectField, SearchField, SelectField } from "./fields/select";
-import { Field, FormProps } from "./types";
+import { FormField, FormProps } from "./types";
 
-export const FormFieldComponent = ({ field }: { field: Field }) => {
+export const FormFieldComponent = ({ field }: { field: FormField }) => {
   switch (field.type) {
     case "search":
       return <SearchField field={field} />;
@@ -72,8 +72,6 @@ export default function Form({
           const sm = field.grow?.sm || xs;
           const md = field.grow?.md || sm;
           const lg = field.grow?.lg || md;
-
-          delete field.grow;
 
           // early return for hidden field
           if (field.hidden) {

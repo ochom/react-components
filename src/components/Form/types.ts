@@ -37,7 +37,8 @@ export interface ChangeEvent {
   };
 }
 
-export interface FormFieldProps {
+export interface SecondaryFormFieldProps {
+  loading?: boolean;
   value?: string;
   type?: FieldType;
   multiline?: boolean;
@@ -56,22 +57,28 @@ export interface FormFieldProps {
   minDate?: Date;
   maxDate?: Date;
   format?: string;
-  grow?: Grow;
   startText?: string;
   endText?: string;
 }
 
-export interface FormField {
-  loading?: boolean;
+export interface PrimaryFormFieldProps {
   name: string;
   label: string;
 }
 
-export type Field = FormField & FormFieldProps;
+export interface ContainerFieldGrow {
+  grow?: Grow;
+}
+
+export type FormField = PrimaryFormFieldProps & SecondaryFormFieldProps;
+
+export type ContainerFormField = PrimaryFormFieldProps &
+  SecondaryFormFieldProps &
+  ContainerFieldGrow;
 
 export interface FormProps {
   component?: "div" | "form";
-  fields: Field[];
+  fields: ContainerFormField[];
   fieldSpacing?: number;
   onSubmit: () => void;
   onCancel?: () => void;
