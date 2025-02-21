@@ -78,6 +78,7 @@ export type ContainerFormField = PrimaryFormFieldProps &
   ContainerFieldGrow;
 
 export interface FormProps {
+  processing?: boolean;
   component?: "div" | "form";
   fields: ContainerFormField[];
   fieldSpacing?: number;

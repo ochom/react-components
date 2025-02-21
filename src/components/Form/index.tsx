@@ -105,6 +105,7 @@ const Container = ({ component, onSubmit, children }: any) => {
 };
 
 export default function Form({
+  processing = false,
   component = "form",
   fields = [],
   fieldSpacing = 4,
@@ -176,6 +177,7 @@ export default function Form({
                 <Button
                   type="submit"
                   variant="contained"
+                  loading={processing}
                   {...submitButtonProps}
                 >
                   {submitText}
@@ -185,6 +187,7 @@ export default function Form({
                 <Button
                   onClick={onCancel}
                   variant="outlined"
+                  disabled={processing}
                   {...cancelButtonProps}
                 >
                   {cancelText}
