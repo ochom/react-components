@@ -108,7 +108,7 @@ export default function Form({
   processing = false,
   component = "form",
   fields = [],
-  fieldSpacing = 4,
+  fieldSpacing = 2,
   useNativeLabels = false,
   capitalizeLabels = false,
   onSubmit,
