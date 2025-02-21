@@ -1,12 +1,11 @@
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import {
   DatePicker,
   DateRangePicker,
   DateTimePicker,
   SingleInputDateRangeField,
 } from "@mui/x-date-pickers-pro";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 import moment from "moment";
 import React, { useEffect } from "react";
