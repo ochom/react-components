@@ -9,6 +9,7 @@ export type FieldType =
   | "date"
   | "datetime"
   | "date-range"
+  | "datetime-range"
   | "switch"
   | "checkbox"
   | "radio"
@@ -80,7 +81,7 @@ export interface FormProps {
   component?: "div" | "form";
   fields: ContainerFormField[];
   fieldSpacing?: number;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onCancel?: () => void;
   submitText?: string;
   cancelText?: string;

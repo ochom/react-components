@@ -112,9 +112,9 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(prev, next) => prev.value === next.value}
       onChange={(_e, newValues) => setValues(newValues)}
-      renderOption={(props, option) => {
+      renderOption={({ key, ...more }, option) => {
         return (
-          <li {...props}>
+          <li key={key} {...more}>
             <Checkbox
               icon={<Icon icon="mdi:checkbox-blank-outline" />}
               checkedIcon={<Icon icon="mdi:checkbox-marked" />}

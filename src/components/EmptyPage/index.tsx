@@ -1,13 +1,11 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import React from "react";
 import ConstructionSVG from "../../assets/construction-svg";
 import NetworkErrorSVG from "../../assets/network-svg";
-import { CircularLoader } from "../Monitors";
 
 export interface ErrorPageProps {
   title?: string;
-  error: Error;
+  error: any | string;
 }
 
 export const ErrorPage = ({ error, title = "Oops!" }: ErrorPageProps) => {
@@ -19,7 +17,7 @@ export const ErrorPage = ({ error, title = "Oops!" }: ErrorPageProps) => {
           {title}
         </Typography>
         <Box sx={{ py: 1 }}>
-          <Typography align="center">{error.message}</Typography>
+          <Typography align="center">{error?.message || error}</Typography>
         </Box>
       </Box>
     </Stack>
@@ -30,7 +28,6 @@ export interface PageConstructionProps {
   feature?: string;
   mobile?: string;
   email?: string;
-  delay?: number;
   color?: string;
 }
 
@@ -38,20 +35,8 @@ export const PageConstruction = ({
   feature = "",
   mobile = "+254 708 113 456",
   email = "ochomrichard752@gmail.com",
-  delay = 3000,
   color = "grey",
 }: PageConstructionProps) => {
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const myTimeout = setTimeout(() => {
-      setLoading(false);
-    }, delay);
-    return () => clearTimeout(myTimeout);
-  }, []);
-
-  if (loading) return <CircularLoader />;
-
   return (
     <Stack sx={{ width: "100%", py: 3 }}>
       <ConstructionSVG color={color} />

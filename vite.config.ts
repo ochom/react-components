@@ -4,6 +4,9 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [react(), dts()],
+  server: {
+    open: true, // Opens browser automatically
+  },
   build: {
     lib: {
       entry: "src/index.ts",
@@ -11,18 +14,7 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        "@emotion/react",
-        "@emotion/styled",
-        "@iconify/react",
-        "@mui/lab",
-        "@mui/material",
-        "@mui/x-date-pickers",
-        "@mui/x-date-pickers-pro",
-        "moment",
-      ],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",

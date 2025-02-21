@@ -3,7 +3,12 @@ import React from "react";
 
 import { CustomField, DefaultField, FileField } from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
-import { DateField, DateRangeField, DateTimeField } from "./fields/date";
+import {
+  DateField,
+  DateRangeField,
+  DateTimeField,
+  DateTimeRangeField,
+} from "./fields/date";
 import { MultiSelectField, SearchField, SelectField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
@@ -21,6 +26,8 @@ export const FormFieldComponent = ({ field }: { field: FormField }) => {
       return <DateTimeField field={field} />;
     case "date-range":
       return <DateRangeField field={field} />;
+    case "datetime-range":
+      return <DateTimeRangeField field={field} />;
     case "switch":
       return <SwitchField field={field} />;
     case "checkbox":

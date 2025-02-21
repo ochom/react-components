@@ -4,6 +4,7 @@ import {
   DateRangePicker,
   DateTimePicker,
   SingleInputDateRangeField,
+  SingleInputDateTimeRangeField,
 } from "@mui/x-date-pickers-pro";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
@@ -12,7 +13,7 @@ import React, { useEffect } from "react";
 
 import { FormField } from "../properties";
 
-export const DateField = ({ field }: { field: FormField }) => {
+const DateField = ({ field }: { field: FormField }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <DatePicker
@@ -83,6 +84,7 @@ const DateRangeField = ({ field }: { field: FormField }) => {
       <DateRangePicker
         format={field?.format ?? "DD/MM/Y"}
         value={value}
+        label={field.label}
         minDate={field.minDate ? moment(field.minDate) : undefined}
         maxDate={field.maxDate ? moment(field.maxDate) : undefined}
         onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
@@ -90,10 +92,49 @@ const DateRangeField = ({ field }: { field: FormField }) => {
             field.onChange({ target: { name: field.name, value: newValue } });
         }}
         slots={{ field: SingleInputDateRangeField }}
-        name="allowedRange"
       />
     </LocalizationProvider>
   );
 };
 
-export { DateRangeField, DateTimeField };
+const DateTimeRangeField = ({ field }: { field: FormField }) => {
+  const [value, setValue] = React.useState<
+    [moment.Moment | null, moment.Moment | null]
+  >([null, null]);
+
+  useEffect(() => {
+    try {
+      if (Array.isArray(field.value) && field.value.length === 2) {
+        const startDate = moment(field.value[0]);
+        const endDate = moment(field.value[1]);
+        if (startDate.isValid() && endDate.isValid()) {
+          setValue([startDate, endDate]);
+        } else {
+          throw new Error("Invalid date range, should be an array of 2 dates");
+        }
+      } else {
+        throw new Error("Invalid date range, should be an array of 2 dates");
+      }
+    } catch (error) {
+      console.log("Invalid value for DateRangeField:", error);
+    }
+  }, [field.value]);
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <SingleInputDateTimeRangeField
+        label={field.label}
+        value={value}
+        format="DD/MM/Y HH:mm"
+        minDate={field.minDate ? moment(field.minDate) : undefined}
+        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+        onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
+          field.onChange &&
+            field.onChange({ target: { name: field.name, value: newValue } });
+        }}
+      />
+    </LocalizationProvider>
+  );
+};
+
+export { DateField, DateRangeField, DateTimeField, DateTimeRangeField };
