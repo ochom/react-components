@@ -1,7 +1,13 @@
-import { Button, FormControl, Grid2 as Grid, Stack } from "@mui/material";
-import React from "react";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Grid2 as Grid,
+  Stack,
+} from "@mui/material";
+import React, { ReactNode } from "react";
 
-import { CustomField, DefaultField, FileField } from "./fields/base";
+import { DefaultField, FileField } from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
 import {
   DateField,
@@ -12,35 +18,79 @@ import {
 import { MultiSelectField, SearchField, SelectField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
-export const FormFieldComponent = ({ field }: { field: FormField }) => {
+type CustomField = (props: { field: FormField }) => ReactNode;
+
+export const FormFieldComponent = ({
+  field,
+  useNativeLabels,
+}: {
+  field: FormField;
+  useNativeLabels: boolean;
+}) => {
+  const showNativeLabel =
+    useNativeLabels &&
+    field.type !== "checkbox" &&
+    field.type !== "switch" &&
+    field.type !== "radio";
+
+  let customField: CustomField;
+
   switch (field.type) {
     case "search":
-      return <SearchField field={field} />;
+      customField = SearchField;
+      break;
     case "select":
-      return <SelectField field={field} />;
+      customField = SelectField;
+      break;
     case "multiselect":
-      return <MultiSelectField field={field} />;
+      customField = MultiSelectField;
+      break;
     case "date":
-      return <DateField field={field} />;
+      customField = DateField;
+      break;
     case "datetime":
-      return <DateTimeField field={field} />;
+      customField = DateTimeField;
+      break;
     case "date-range":
-      return <DateRangeField field={field} />;
+      customField = DateRangeField;
+      break;
     case "datetime-range":
-      return <DateTimeRangeField field={field} />;
+      customField = DateTimeRangeField;
+      break;
     case "switch":
-      return <SwitchField field={field} />;
+      customField = SwitchField;
+      break;
     case "checkbox":
-      return <CheckBoxField field={field} />;
+      customField = CheckBoxField;
+      break;
     case "radio":
-      return <RadioGroupField field={field} />;
+      customField = RadioGroupField;
+      break;
     case "file":
-      return <FileField field={field} />;
-    case "custom":
-      return <CustomField field={field} />;
+      customField = FileField;
+      break;
     default:
-      return <DefaultField field={field} />;
+      customField = DefaultField;
   }
+
+  if (showNativeLabel) {
+    const withoutLabel: FormField = { ...field };
+    withoutLabel.label = "";
+    return (
+      <>
+        <FormLabel
+          htmlFor={field.name}
+          required={field.required}
+          sx={{ mb: 1 }}
+        >
+          {field.label}
+        </FormLabel>
+        {React.createElement(customField, { field: withoutLabel })}
+      </>
+    );
+  }
+
+  return React.createElement(customField, { field });
 };
 
 const Container = ({ component, onSubmit, children }: any) => {
@@ -58,6 +108,8 @@ export default function Form({
   component = "form",
   fields = [],
   fieldSpacing = 4,
+  useNativeLabels = false,
+  capitalizeLabels = false,
   onSubmit,
   onCancel,
   submitText = "Save",
@@ -92,10 +144,25 @@ export default function Form({
             );
           }
 
+          if (field.type === "custom") {
+            return (
+              <Grid key={index} size={{ xs, sm, md, lg }}>
+                {field.component}
+              </Grid>
+            );
+          }
+
+          if (capitalizeLabels) {
+            field.label = field.label.toUpperCase();
+          }
+
           return (
             <Grid key={index} size={{ xs, sm, md, lg }}>
               <FormControl fullWidth>
-                <FormFieldComponent field={field} />
+                <FormFieldComponent
+                  field={field}
+                  useNativeLabels={useNativeLabels}
+                />
               </FormControl>
             </Grid>
           );

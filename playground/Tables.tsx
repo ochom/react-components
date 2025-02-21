@@ -47,6 +47,14 @@ export default function Tables() {
             name: "Phone",
             selector: "phone",
           },
+          {
+            name: "Website",
+            selector: "website",
+          },
+          {
+            name: "Company",
+            selector: "company.name",
+          },
         ]}
         buttons={[
           {

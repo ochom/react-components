@@ -87,8 +87,4 @@ const FileField = ({ field }: { field: FormField }) => {
   );
 };
 
-const CustomField = ({ field }: { field: FormField }) => {
-  return field.component;
-};
-
-export { CustomField, DefaultField, FileField };
+export { DefaultField, FileField };

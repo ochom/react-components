@@ -33,6 +33,9 @@ export default function Forms() {
           toggle();
         }}
         onCancel={() => console.log("Cancel")}
+        useNativeLabels
+        capitalizeLabels
+        fieldSpacing={2}
         fields={[
           createField("name", "Name"),
           createField("email", "Email", { type: "email" }),

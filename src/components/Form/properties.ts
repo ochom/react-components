@@ -81,6 +81,8 @@ export interface FormProps {
   component?: "div" | "form";
   fields: ContainerFormField[];
   fieldSpacing?: number;
+  useNativeLabels?: boolean;
+  capitalizeLabels?: boolean;
   onSubmit?: () => void;
   onCancel?: () => void;
   submitText?: string;
