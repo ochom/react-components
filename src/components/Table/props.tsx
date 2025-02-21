@@ -8,10 +8,10 @@ export type TableColumn = {
   style?: any;
 };
 
-export type TableProps<T> = {
+export type TableProps = {
   id?: string;
   loading?: boolean;
-  error?: Error;
+  error?: any;
   columns: TableColumn[];
   data: any[];
   total?: number;
@@ -19,7 +19,7 @@ export type TableProps<T> = {
   showSearch?: boolean;
   onSearch?: (value: string) => void;
   buttons?: ButtonProps[];
-  onRowClicked?: (row: T) => void;
+  onRowClicked?: (row: any) => void;
   rowsPerPageOptions?: number[];
   serverSide?: boolean;
   paginationAlign?: "start" | "center" | "end";

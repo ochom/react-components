@@ -1,4 +1,5 @@
-import { Box, styled, Typography, useTheme } from "@mui/material";
+import styled from "@emotion/styled";
+import { Box, Theme, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
@@ -13,10 +14,11 @@ const StyledTable = styled("table")`
       border: none;
       th {
         padding: 8px;
-        font-weight: 500;
+        font-weight: bold !important;
         font-size: 14px;
         text-align: left;
-        background-color: ${({ theme }) => theme.palette.action.hover};
+        background-color: ${({ theme }: { theme: Theme }) =>
+          theme.palette.action.hover};
       }
     }
   }
@@ -24,15 +26,16 @@ const StyledTable = styled("table")`
     tr {
       margin: 0 5px;
       transition: 0.3s;
-      border-top: 1px solid ${({ theme }) => theme.palette.divider};
+      border-top: 1px solid
+        ${({ theme }: { theme: Theme }) => theme.palette.action.hover};
       td {
         padding: 8px;
-        font-size: 0.8rem;
       }
     }
     tr:hover {
       cursor: pointer;
-      background-color: ${({ theme }) => theme.palette.action.hover};
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.palette.action.hover};
     }
   }
 `;
@@ -45,17 +48,29 @@ const Spanned = ({ children, span }: any) => {
   );
 };
 
+type TableBodyProps = {
+  loading: boolean;
+  error: any;
+  emptyRowsMessage: string;
+  serverSide: boolean;
+  cols: TableColumn[];
+  rows: any[];
+  rowsPerPage: number;
+  page: number;
+  onRowClicked?: (item: any) => void;
+};
+
 const TableBody = ({
   loading,
   error,
-  message,
+  emptyRowsMessage,
   serverSide,
   cols,
   rows,
   rowsPerPage,
   page,
   onRowClicked,
-}: any) => {
+}: TableBodyProps) => {
   const theme = useTheme();
   const handleRowClicked = (col: TableColumn, item: any) => {
     if (col.button) {
@@ -94,9 +109,7 @@ const TableBody = ({
       <thead>
         <tr>
           {cols.map((column: TableColumn, cIndex: number) => (
-            <th key={cIndex}>
-              <Typography>{column.name}</Typography>
-            </th>
+            <th key={cIndex}>{column.name}</th>
           ))}
         </tr>
       </thead>
@@ -121,7 +134,7 @@ const TableBody = ({
 
           {!loading && rows.length === 0 && !error && (
             <Spanned span={cols.length}>
-              <Box sx={{ textAlign: "center", py: 3 }}>{message}</Box>
+              <Box sx={{ textAlign: "center", py: 3 }}>{emptyRowsMessage}</Box>
             </Spanned>
           )}
         </tr>

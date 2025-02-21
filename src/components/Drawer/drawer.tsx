@@ -33,8 +33,8 @@ const Body = styled(Box)`
 `;
 
 export type CDrawerProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  open?: boolean;
+  setOpen: (open?: boolean) => void;
   autoClose?: boolean;
   title: string | React.ReactNode;
   children: React.ReactNode;

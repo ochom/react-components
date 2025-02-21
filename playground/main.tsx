@@ -1,20 +1,21 @@
 import { Icon } from "@iconify/react";
 import {
+  Box,
   createTheme,
   CssBaseline,
   IconButton,
-  Paper,
   Stack,
   ThemeProvider,
   useColorScheme,
 } from "@mui/material";
-import { deepPurple, green } from "@mui/material/colors";
+import { deepPurple, grey, purple } from "@mui/material/colors";
 import { LicenseInfo } from "@mui/x-license-pro";
-import { Tabs } from "ochom-react-components";
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
+import { Tabs } from "../src";
 import EmptyPages from "./EmptyPages";
 import Forms from "./Forms";
+import Tables from "./Tables";
 
 LicenseInfo.setLicenseKey(import.meta.env.VITE_MUI_X_LICENSE_KEY);
 
@@ -22,21 +23,25 @@ const theme = createTheme({
   colorSchemes: {
     light: {
       palette: {
-        primary: {
-          main: deepPurple[500],
-        },
-        secondary: {
-          main: green[500],
+        primary: purple,
+        divider: purple[200],
+        text: {
+          primary: grey[900],
+          secondary: grey[800],
         },
       },
     },
     dark: {
       palette: {
-        primary: {
-          main: deepPurple[300],
+        primary: deepPurple,
+        divider: deepPurple[700],
+        background: {
+          default: "#050937",
+          paper: "#0b0f40",
         },
-        secondary: {
-          main: green[300],
+        text: {
+          primary: "#fff",
+          secondary: grey[500],
         },
       },
     },
@@ -68,7 +73,7 @@ const App = () => {
     <ThemeProvider theme={theme} defaultMode="dark">
       <CssBaseline />
 
-      <Paper sx={{ p: 5 }}>
+      <Box sx={{ p: 5 }}>
         <Stack
           direction="row"
           spacing={2}
@@ -84,16 +89,22 @@ const App = () => {
           tabs={[
             {
               title: "Empty Pages",
+              icon: <Icon icon="icon-park-solid:web-page" />,
               panel: <EmptyPages />,
             },
             {
               title: "Forms",
-              icon: <Icon icon="table:user" />,
+              icon: <Icon icon="fluent:form-48-regular" />,
               panel: <Forms />,
+            },
+            {
+              title: "Tables",
+              icon: <Icon icon="mi:table" />,
+              panel: <Tables />,
             },
           ]}
         />
-      </Paper>
+      </Box>
     </ThemeProvider>
   );
 };

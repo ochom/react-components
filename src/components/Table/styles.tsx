@@ -1,46 +1,48 @@
 import { Icon } from "@iconify/react";
-import { Box, styled, SxProps, Theme, useTheme } from "@mui/material";
-
-const SearchBox = styled(Box)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 15px;
-  box-shadow: 0 0 3px 0
-    ${({ theme }: { theme: Theme }) => theme.palette.action.hover};
-  padding: 0.3rem 0.5rem;
-  overflow: hidden;
-  input {
-    border: none;
-    outline: none;
-    font-size: 0.8rem;
-    font-weight: 400;
-    background-color: transparent;
-    flex: 1;
-    margin-left: 0.2rem;
-    margin-right: 0.5rem;
-  }
-`;
+import { IconButton, Stack, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
 
 export const StyledSearch = ({
+  showSearch,
+  serverSide,
   onSearch,
-  sx,
 }: {
+  showSearch?: boolean;
+  serverSide?: boolean;
   onSearch: (value: string) => void;
-  sx: SxProps;
 }) => {
-  const theme = useTheme();
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    if (serverSide) {
+      return;
+    }
+
+    onSearch(searchValue);
+  }, [searchValue]);
+
+  if (!showSearch) return null;
+
   return (
-    <SearchBox sx={sx} theme={theme}>
-      <Icon
-        style={{ color: "action.active", margin: "0.5rem 1" }}
-        icon="bi:search"
-      />
-      <input
+    <Stack direction={"row-reverse"} alignItems={"center"} spacing={1}>
+      <IconButton onClick={() => onSearch(searchValue)}>
+        <Icon style={{}} icon="bi:search" />
+      </IconButton>
+
+      <TextField
         type="text"
+        size="small"
         placeholder="Search..."
-        onChange={(e: any) => onSearch(e.target.value)}
+        value={searchValue}
+        onChange={(e: any) => setSearchValue(e.target.value)}
+        sx={{
+          position: "relative",
+          maxWidth: 300,
+          left: 0,
+          top: 0,
+          borderRadius: 15,
+        }}
       />
-    </SearchBox>
+    </Stack>
   );
 };

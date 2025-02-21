@@ -25,7 +25,7 @@ export default function Table({
   paginationAlign = "end",
   containerProps = {},
   tableAreaProps = {},
-}: TableProps<any>) {
+}: TableProps) {
   const tableCache = JSON.parse(
     id ? localStorage.getItem(`ochom-react-tables-${id}`) || "{}" : "{}"
   );
@@ -105,11 +105,9 @@ export default function Table({
           ))}
         </Stack>
         <StyledSearch
+          serverSide={serverSide}
+          showSearch={showSearch}
           onSearch={handleSearch}
-          sx={{
-            display: showSearch ? "flex" : "none",
-            flex: buttons.length == 0 ? "1" : undefined,
-          }}
         />
       </Box>
 
@@ -117,7 +115,7 @@ export default function Table({
         <TableBody
           loading={loading}
           error={error}
-          message={emptyMessage}
+          emptyRowsMessage={emptyMessage}
           serverSide={serverSide}
           cols={cols}
           rows={rows}

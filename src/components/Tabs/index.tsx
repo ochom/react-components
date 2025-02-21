@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 
 export interface TabProps {
@@ -56,7 +56,7 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
                 }}
               >
                 {tab.icon}
-                {tab.title}
+                <Typography variant="body1">{tab.title}</Typography>
               </Box>
             }
             sx={{ fontWeight: 400, textTransform: "none" }}
