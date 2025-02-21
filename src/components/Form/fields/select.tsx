@@ -62,6 +62,7 @@ const SearchField = ({ field }: { field: FormField }) => {
     <Autocomplete
       id={`${field.name}-label`}
       autoHighlight
+      size={field.size}
       value={selected}
       options={field?.options ?? []}
       onChange={handleChange}
@@ -105,6 +106,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
   return (
     <Autocomplete
       multiple
+      size={field.size}
       id={`${field.name}-label`}
       options={field?.options ?? []}
       disableCloseOnSelect

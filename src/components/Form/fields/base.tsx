@@ -1,5 +1,5 @@
-import { Box, TextField, Typography, useTheme } from "@mui/material";
-import { useId } from "react";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useId, useState } from "react";
 import { FormField } from "../properties";
 
 const DefaultField = ({ field }: { field: FormField }) => {
@@ -44,46 +44,40 @@ const DefaultField = ({ field }: { field: FormField }) => {
 };
 
 const FileField = ({ field }: { field: FormField }) => {
-  const theme = useTheme();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   return (
-    <Box
-      sx={{
-        position: "relative",
-        py: 1.5,
-        px: 2,
-        border: "1px solid #ccc",
-        borderRadius: 1,
-      }}
-    >
-      <Typography
-        variant="caption"
+    <Stack direction={"row"} spacing={3} alignItems={"center"}>
+      <Button
+        size={field.size}
+        variant="outlined"
+        component="label"
         sx={{
-          top: "-10px",
-          left: "10px",
-          pb: 1,
-          position: "absolute",
-          backgroundColor: theme.palette.background.paper,
-          padding: "0 5px",
+          display: "block",
+          textAlign: "center",
         }}
       >
-        {field.label}
+        Upload file
+        <input
+          type="file"
+          accept={field.accept ?? "*"}
+          hidden
+          onChange={(e: any) => {
+            setSelectedFile(e.target.files[0]);
+            field.onChange &&
+              field.onChange({
+                target: {
+                  name: field.name,
+                  value: e.target.files?.length ? e.target.files[0] : null,
+                },
+              });
+          }}
+        />
+      </Button>
+      <Typography sx={{ flex: 1 }}>
+        {selectedFile && selectedFile?.name}
       </Typography>
-      <input
-        type="file"
-        id={field.name}
-        name={field.name}
-        accept={field?.accept ?? "*"}
-        onChange={(e: any) => {
-          field.onChange &&
-            field.onChange({
-              target: {
-                name: field.name,
-                value: e.target.files?.length ? e.target.files[0] : null,
-              },
-            });
-        }}
-      />
-    </Box>
+    </Stack>
   );
 };
 

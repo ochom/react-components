@@ -51,6 +51,13 @@ const DateTimeField = ({ field }: { field: FormField }) => {
           field.onChange &&
             field.onChange({ target: { name: field.name, value: newValue } });
         }}
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: field.required,
+            size: field.size,
+          },
+        }}
       />
     </LocalizationProvider>
   );
@@ -91,7 +98,16 @@ const DateRangeField = ({ field }: { field: FormField }) => {
           field.onChange &&
             field.onChange({ target: { name: field.name, value: newValue } });
         }}
-        slots={{ field: SingleInputDateRangeField }}
+        slots={{
+          field: SingleInputDateRangeField,
+        }}
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: field.required,
+            size: field.size,
+          },
+        }}
       />
     </LocalizationProvider>
   );
@@ -131,6 +147,13 @@ const DateTimeRangeField = ({ field }: { field: FormField }) => {
         onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
           field.onChange &&
             field.onChange({ target: { name: field.name, value: newValue } });
+        }}
+        slotProps={{
+          textField: {
+            fullWidth: true,
+            required: field.required,
+            size: field.size,
+          },
         }}
       />
     </LocalizationProvider>

@@ -98,7 +98,7 @@ export default function Forms() {
           }),
           createField("file", "File", {
             type: "file",
-            grow: { xs: 6, md: 4 },
+            grow: { xs: 6 },
           }),
           createField("custom", "Custom", {
             type: "custom",
