@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import {
-  Box,
+  Container,
   createTheme,
   CssBaseline,
   IconButton,
@@ -57,11 +57,8 @@ const ModeToggler = () => {
   };
 
   return (
-    <IconButton onClick={toggleTheme}>
-      <Icon
-        icon={mode === "light" ? "bi:moon" : "bi:sun"}
-        style={{ fontSize: "2rem" }}
-      />
+    <IconButton size="small" onClick={toggleTheme}>
+      <Icon icon={mode === "light" ? "bi:moon" : "bi:sun"} />
     </IconButton>
   );
 };
@@ -73,14 +70,13 @@ const App = () => {
     <ThemeProvider theme={theme} defaultMode="dark">
       <CssBaseline />
 
-      <Box sx={{ p: 5 }}>
+      <Container sx={{ py: 2 }}>
         <Stack
           direction="row"
           spacing={2}
           justifyContent={"space-between"}
           sx={{ mb: 2 }}
         >
-          <h1>Testing React Components</h1>
           <ModeToggler />
         </Stack>
         <Tabs
@@ -104,7 +100,7 @@ const App = () => {
             },
           ]}
         />
-      </Box>
+      </Container>
     </ThemeProvider>
   );
 };
