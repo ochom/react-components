@@ -4,6 +4,7 @@ import {
   FormLabel,
   Grid2 as Grid,
   Stack,
+  Typography,
 } from "@mui/material";
 import React, { ReactNode } from "react";
 
@@ -77,16 +78,16 @@ export const FormFieldComponent = ({
     const withoutLabel: FormField = { ...field };
     withoutLabel.label = "";
     return (
-      <>
+      <Stack spacing={0.5}>
         <FormLabel
           htmlFor={field.name}
           required={field.required}
-          sx={{ mb: 1, fontSize: "0.8rem" }}
+          sx={{ display: "flex" }}
         >
-          {field.label}
+          <Typography variant="body2">{field.label}</Typography>
         </FormLabel>
         {React.createElement(customField, { field: withoutLabel })}
-      </>
+      </Stack>
     );
   }
 
