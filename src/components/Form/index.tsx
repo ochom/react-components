@@ -2,7 +2,7 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Grid2 as Grid,
+  Grid2,
   Stack,
   Typography,
 } from "@mui/material";
@@ -123,7 +123,7 @@ export default function Form({
 
   return (
     <Container component={component} onSubmit={onSubmit}>
-      <Grid container spacing={fieldSpacing}>
+      <Grid2 container spacing={fieldSpacing}>
         {fields.map((field, index) => {
           // check if the field's required prop is defined, if not set it to true by default
           field.required = field.required ?? true;
@@ -149,9 +149,9 @@ export default function Form({
 
           if (field.type === "custom") {
             return (
-              <Grid key={index} size={{ xs, sm, md, lg }}>
+              <Grid2 key={index} size={{ xs, sm, md, lg }}>
                 {field.component}
-              </Grid>
+              </Grid2>
             );
           }
 
@@ -160,19 +160,19 @@ export default function Form({
           }
 
           return (
-            <Grid key={index} size={{ xs, sm, md, lg }}>
+            <Grid2 key={index} size={{ xs, sm, md, lg }}>
               <FormControl fullWidth>
                 <FormFieldComponent
                   field={field}
                   useNativeLabels={useNativeLabels}
                 />
               </FormControl>
-            </Grid>
+            </Grid2>
           );
         })}
 
         {showButtons && (
-          <Grid>
+          <Grid2 size={12} sx={{ mt: 2 }}>
             <Stack direction="row" spacing={3} justifyContent="left">
               {onSubmit !== undefined && (
                 <Button
@@ -195,9 +195,9 @@ export default function Form({
                 </Button>
               )}
             </Stack>
-          </Grid>
+          </Grid2>
         )}
-      </Grid>
+      </Grid2>
     </Container>
   );
 }
