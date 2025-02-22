@@ -81,7 +81,7 @@ export const FormFieldComponent = ({
         <FormLabel
           htmlFor={field.name}
           required={field.required}
-          sx={{ mb: 1 }}
+          sx={{ mb: 1, fontSize: "0.8rem" }}
         >
           {field.label}
         </FormLabel>
