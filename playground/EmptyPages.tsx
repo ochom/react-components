@@ -1,6 +1,6 @@
 import { Card, Grid2 } from "@mui/material";
+import { ErrorPage, PageConstruction } from "ochom-react-components";
 import React from "react";
-import { ErrorPage, PageConstruction } from "../src";
 
 export default function EmptyPages() {
   return (
