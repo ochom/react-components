@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import {
-  Box,
+  Container,
   createTheme,
   CssBaseline,
   IconButton,
@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import { deepPurple, grey, purple } from "@mui/material/colors";
 import { LicenseInfo } from "@mui/x-license-pro";
+import { ConfirmHost, Tabs } from "ochom-react-components";
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { Tabs } from "../src";
 import EmptyPages from "./EmptyPages";
 import Forms from "./Forms";
 import Tables from "./Tables";
@@ -57,11 +57,8 @@ const ModeToggler = () => {
   };
 
   return (
-    <IconButton onClick={toggleTheme}>
-      <Icon
-        icon={mode === "light" ? "bi:moon" : "bi:sun"}
-        style={{ fontSize: "2rem" }}
-      />
+    <IconButton size="small" onClick={toggleTheme}>
+      <Icon icon={mode === "light" ? "bi:moon" : "bi:sun"} />
     </IconButton>
   );
 };
@@ -73,14 +70,13 @@ const App = () => {
     <ThemeProvider theme={theme} defaultMode="dark">
       <CssBaseline />
 
-      <Box sx={{ p: 5 }}>
+      <Container sx={{ py: 2 }}>
         <Stack
           direction="row"
           spacing={2}
           justifyContent={"space-between"}
           sx={{ mb: 2 }}
         >
-          <h1>Testing React Components</h1>
           <ModeToggler />
         </Stack>
         <Tabs
@@ -104,7 +100,8 @@ const App = () => {
             },
           ]}
         />
-      </Box>
+      </Container>
+      <ConfirmHost />
     </ThemeProvider>
   );
 };

@@ -3,6 +3,7 @@ import { ButtonProps } from "@mui/material";
 export type FieldType =
   | "text"
   | "textarea"
+  | "editor"
   | "email"
   | "password"
   | "number"
@@ -78,6 +79,7 @@ export type ContainerFormField = PrimaryFormFieldProps &
   ContainerFieldGrow;
 
 export interface FormProps {
+  processing?: boolean;
   component?: "div" | "form";
   fields: ContainerFormField[];
   fieldSpacing?: number;
