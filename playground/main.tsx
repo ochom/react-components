@@ -11,7 +11,7 @@ import {
 import { deepPurple, grey, purple } from "@mui/material/colors";
 import { LicenseInfo } from "@mui/x-license-pro";
 import { ConfirmHost, Tabs } from "ochom-react-components";
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import EmptyPages from "./EmptyPages";
 import Forms from "./Forms";

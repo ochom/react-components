@@ -7,7 +7,6 @@ import {
   useForm,
   useModal,
 } from "ochom-react-components";
-import React from "react";
 
 const initFormData = {
   name: "",
