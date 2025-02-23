@@ -11,6 +11,7 @@ import { closeConfirm, confirm, useConfirmStore } from "./store";
 type ButtonColor =
   | "primary"
   | "secondary"
+  | "success"
   | "info"
   | "warning"
   | "error"
