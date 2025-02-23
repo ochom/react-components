@@ -1,7 +1,12 @@
 import { Container, Typography } from "@mui/material";
 import moment from "moment";
-import React from "react";
-import { CDrawer, Form, useForm, useModal } from "../src";
+import {
+  CDrawer,
+  Form,
+  muiConfirm,
+  useForm,
+  useModal,
+} from "ochom-react-components";
 
 const initFormData = {
   name: "",
@@ -25,6 +30,18 @@ export default function Forms() {
   const [open, toggle] = useModal();
   const { createField, formData, setFormData } = useForm(initFormData);
 
+  const handleConfirm = () => {
+    muiConfirm({
+      title: "Form Data",
+      message: "Are you sure you want to submit this form?",
+      onConfirm: () => {
+        console.log(formData);
+        toggle();
+      },
+      onCancel: () => console.log("Cancelled"),
+    });
+  };
+
   return (
     <Container sx={{ py: 4 }}>
       <Form
@@ -32,7 +49,7 @@ export default function Forms() {
           console.log(formData);
           toggle();
         }}
-        onCancel={() => console.log("Cancel")}
+        onCancel={() => handleConfirm()}
         useNativeLabels
         capitalizeLabels
         fieldSpacing={2}

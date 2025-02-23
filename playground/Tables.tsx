@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Table } from "../src";
+import { Table } from "ochom-react-components";
+import { useEffect, useState } from "react";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);
@@ -15,8 +15,8 @@ export default function Tables() {
         );
         const json = await response.json();
         setData(json);
-      } catch (error) {
-        setError(error);
+      } catch (err: any) {
+        setError(err);
       } finally {
         setLoading(false);
       }

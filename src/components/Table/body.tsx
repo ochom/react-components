@@ -26,7 +26,7 @@ const StyledTable = styled("table")`
     tr {
       margin: 0 5px;
       transition: 0.3s;
-      border-top: 1px solid
+      border-bottom: 1px solid
         ${({ theme }: { theme: Theme }) => theme.palette.action.hover};
       td {
         padding: 8px;
