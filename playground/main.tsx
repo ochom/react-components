@@ -17,6 +17,9 @@ import EmptyPages from "./EmptyPages";
 import Forms from "./Forms";
 import Tables from "./Tables";
 
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 LicenseInfo.setLicenseKey(import.meta.env.VITE_MUI_X_LICENSE_KEY);
 
 const theme = createTheme({
@@ -68,40 +71,42 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme} defaultMode="dark">
-      <CssBaseline />
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <CssBaseline />
 
-      <Container sx={{ py: 2 }}>
-        <Stack
-          direction="row"
-          spacing={2}
-          justifyContent={"space-between"}
-          sx={{ mb: 2 }}
-        >
-          <ModeToggler />
-        </Stack>
-        <Tabs
-          index={index}
-          setIndex={setIndex}
-          tabs={[
-            {
-              title: "Empty Pages",
-              icon: <Icon icon="icon-park-solid:web-page" />,
-              panel: <EmptyPages />,
-            },
-            {
-              title: "Forms",
-              icon: <Icon icon="fluent:form-48-regular" />,
-              panel: <Forms />,
-            },
-            {
-              title: "Tables",
-              icon: <Icon icon="mi:table" />,
-              panel: <Tables />,
-            },
-          ]}
-        />
-      </Container>
-      <ConfirmHost />
+        <Container sx={{ py: 2 }}>
+          <Stack
+            direction="row"
+            spacing={2}
+            justifyContent={"space-between"}
+            sx={{ mb: 2 }}
+          >
+            <ModeToggler />
+          </Stack>
+          <Tabs
+            index={index}
+            setIndex={setIndex}
+            tabs={[
+              {
+                title: "Empty Pages",
+                icon: <Icon icon="icon-park-solid:web-page" />,
+                panel: <EmptyPages />,
+              },
+              {
+                title: "Forms",
+                icon: <Icon icon="fluent:form-48-regular" />,
+                panel: <Forms />,
+              },
+              {
+                title: "Tables",
+                icon: <Icon icon="mi:table" />,
+                panel: <Tables />,
+              },
+            ]}
+          />
+        </Container>
+        <ConfirmHost />
+      </LocalizationProvider>
     </ThemeProvider>
   );
 };

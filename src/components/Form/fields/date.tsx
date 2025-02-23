@@ -1,4 +1,3 @@
-import { LocalizationProvider } from "@mui/x-date-pickers";
 import {
   DatePicker,
   DateRangePicker,
@@ -6,7 +5,6 @@ import {
   SingleInputDateRangeField,
   SingleInputDateTimeRangeField,
 } from "@mui/x-date-pickers-pro";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 import moment from "moment";
 import React, { useEffect } from "react";
@@ -15,51 +13,47 @@ import { FormField } from "../properties";
 
 const DateField = ({ field }: { field: FormField }) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <DatePicker
-        format={field?.format ?? "DD/MM/Y"}
-        label={field.label}
-        value={moment(field.value)}
-        minDate={field.minDate ? moment(field.minDate) : undefined}
-        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-        onChange={(newValue) => {
-          field.onChange &&
-            field.onChange({ target: { name: field.name, value: newValue } });
-        }}
-        slotProps={{
-          textField: {
-            fullWidth: true,
-            required: field.required,
-            size: field.size,
-          },
-        }}
-      />
-    </LocalizationProvider>
+    <DatePicker
+      format={field?.format ?? "DD/MM/Y"}
+      label={field.label}
+      value={moment(field.value)}
+      minDate={field.minDate ? moment(field.minDate) : undefined}
+      maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+      onChange={(newValue) => {
+        field.onChange &&
+          field.onChange({ target: { name: field.name, value: newValue } });
+      }}
+      slotProps={{
+        textField: {
+          fullWidth: true,
+          required: field.required,
+          size: field.size,
+        },
+      }}
+    />
   );
 };
 
 const DateTimeField = ({ field }: { field: FormField }) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <DateTimePicker
-        format="DD/MM/Y HH:mm"
-        label={field.label}
-        value={moment(field.value)}
-        minDate={field.minDate ? moment(field.minDate) : undefined}
-        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-        onChange={(newValue) => {
-          field.onChange &&
-            field.onChange({ target: { name: field.name, value: newValue } });
-        }}
-        slotProps={{
-          textField: {
-            fullWidth: true,
-            required: field.required,
-            size: field.size,
-          },
-        }}
-      />
-    </LocalizationProvider>
+    <DateTimePicker
+      format="DD/MM/Y HH:mm"
+      label={field.label}
+      value={moment(field.value)}
+      minDate={field.minDate ? moment(field.minDate) : undefined}
+      maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+      onChange={(newValue) => {
+        field.onChange &&
+          field.onChange({ target: { name: field.name, value: newValue } });
+      }}
+      slotProps={{
+        textField: {
+          fullWidth: true,
+          required: field.required,
+          size: field.size,
+        },
+      }}
+    />
   );
 };
 
@@ -87,29 +81,27 @@ const DateRangeField = ({ field }: { field: FormField }) => {
   }, [field.value]);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <DateRangePicker
-        format={field?.format ?? "DD/MM/Y"}
-        value={value}
-        label={field.label}
-        minDate={field.minDate ? moment(field.minDate) : undefined}
-        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-        onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
-          field.onChange &&
-            field.onChange({ target: { name: field.name, value: newValue } });
-        }}
-        slots={{
-          field: SingleInputDateRangeField,
-        }}
-        slotProps={{
-          textField: {
-            fullWidth: true,
-            required: field.required,
-            size: field.size,
-          },
-        }}
-      />
-    </LocalizationProvider>
+    <DateRangePicker
+      format={field?.format ?? "DD/MM/Y"}
+      value={value}
+      label={field.label}
+      minDate={field.minDate ? moment(field.minDate) : undefined}
+      maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+      onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
+        field.onChange &&
+          field.onChange({ target: { name: field.name, value: newValue } });
+      }}
+      slots={{
+        field: SingleInputDateRangeField,
+      }}
+      slotProps={{
+        textField: {
+          fullWidth: true,
+          required: field.required,
+          size: field.size,
+        },
+      }}
+    />
   );
 };
 
@@ -137,26 +129,24 @@ const DateTimeRangeField = ({ field }: { field: FormField }) => {
   }, [field.value]);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
-      <SingleInputDateTimeRangeField
-        label={field.label}
-        value={value}
-        format="DD/MM/Y HH:mm"
-        minDate={field.minDate ? moment(field.minDate) : undefined}
-        maxDate={field.maxDate ? moment(field.maxDate) : undefined}
-        onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
-          field.onChange &&
-            field.onChange({ target: { name: field.name, value: newValue } });
-        }}
-        slotProps={{
-          textField: {
-            fullWidth: true,
-            required: field.required,
-            size: field.size,
-          },
-        }}
-      />
-    </LocalizationProvider>
+    <SingleInputDateTimeRangeField
+      label={field.label}
+      value={value}
+      format="DD/MM/Y HH:mm"
+      minDate={field.minDate ? moment(field.minDate) : undefined}
+      maxDate={field.maxDate ? moment(field.maxDate) : undefined}
+      onChange={(newValue: [moment.Moment | null, moment.Moment | null]) => {
+        field.onChange &&
+          field.onChange({ target: { name: field.name, value: newValue } });
+      }}
+      slotProps={{
+        textField: {
+          fullWidth: true,
+          required: field.required,
+          size: field.size,
+        },
+      }}
+    />
   );
 };
 
