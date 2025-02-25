@@ -127,7 +127,6 @@ export default function Form({
         {fields.map((field, index) => {
           // check if the field's required prop is defined, if not set it to true by default
           field.required = field.required ?? true;
-          field.size = field.size ?? "small";
 
           // define grow dimensions
           const xs = field.grow?.xs || 12;
