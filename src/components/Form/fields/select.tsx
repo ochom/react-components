@@ -1,48 +1,9 @@
 import { Icon } from "@iconify/react";
-import {
-  Autocomplete,
-  Checkbox,
-  Chip,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, Checkbox, Chip, TextField } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 
 import { FormField, SelectOption } from "../properties";
 import Loading from "./loading";
-
-const SelectField = ({ field }: { field: FormField }) => {
-  if (field.loading) return <Loading />;
-  return (
-    <>
-      <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
-      <Select
-        labelId={`${field.name}-label`}
-        fullWidth
-        id={field.name}
-        name={field.name}
-        value={field.value}
-        label={field.label}
-        onChange={(e: any) => {
-          field.onChange &&
-            field.onChange({
-              target: { name: field.name, value: e.target.value },
-            });
-        }}
-        size={field.size}
-        required={field.required}
-      >
-        {(field?.options ?? []).map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-    </>
-  );
-};
 
 const SearchField = ({ field }: { field: FormField }) => {
   const selected = useMemo(() => {
@@ -148,4 +109,4 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
   );
 };
 
-export { MultiSelectField, SearchField, SelectField };
+export { MultiSelectField, SearchField };

@@ -16,7 +16,7 @@ import {
   DateTimeField,
   DateTimeRangeField,
 } from "./fields/date";
-import { MultiSelectField, SearchField, SelectField } from "./fields/select";
+import { MultiSelectField, SearchField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
 type CustomField = (props: { field: FormField }) => ReactNode;
@@ -38,10 +38,8 @@ export const FormFieldComponent = ({
 
   switch (field.type) {
     case "search":
-      customField = SearchField;
-      break;
     case "select":
-      customField = SelectField;
+      customField = SearchField;
       break;
     case "multiselect":
       customField = MultiSelectField;
