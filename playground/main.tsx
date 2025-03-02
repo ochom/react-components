@@ -60,6 +60,21 @@ const theme = createTheme({
         size: "small",
       },
     },
+    MuiButtonBase: {
+      defaultProps: {
+        sx: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        size: "small",
+        sx: {
+          textTransform: "none",
+        },
+      },
+    },
   },
 });
 
