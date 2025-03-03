@@ -94,12 +94,7 @@ export default function Table({
           }}
         >
           {buttons.map((button, index) => (
-            <Button
-              key={index}
-              variant="outlined"
-              sx={{ borderRadius: 2 }}
-              {...button}
-            >
+            <Button key={index} variant="outlined" {...button}>
               {button?.title ?? button?.children}
             </Button>
           ))}
