@@ -18,6 +18,10 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <Box
+      sx={{
+        width: "100%",
+        flex: 1,
+      }}
       role="tabpanel"
       hidden={currentTabIndex !== panelIndex}
       id={`simple-tabpanel-${panelIndex}`}
@@ -36,14 +40,18 @@ interface TabsProps {
   orientation?: "horizontal" | "vertical";
 }
 
-export default function CustomTabs(props: TabsProps) {
-  const { index, setIndex, tabs } = props;
+export default function CustomTabs({
+  index,
+  setIndex,
+  tabs,
+  orientation,
+}: TabsProps) {
   return (
     <Box
       sx={{
         display: "flex",
         flexGrow: 1,
-        flexDirection: props.orientation === "vertical" ? "row" : "column",
+        flexDirection: orientation === "vertical" ? "row" : "column",
         height: "100%",
       }}
     >
@@ -54,10 +62,10 @@ export default function CustomTabs(props: TabsProps) {
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
-        orientation={props.orientation}
+        orientation={orientation}
         allowScrollButtonsMobile
         sx={{
-          minWidth: props.orientation === "vertical" ? 200 : "auto",
+          minWidth: orientation === "vertical" ? 200 : "auto",
         }}
       >
         {tabs.map((tab, idx) => (
@@ -71,7 +79,7 @@ export default function CustomTabs(props: TabsProps) {
                   alignItems: "center",
                   gap: 1,
                   justifyContent:
-                    props.orientation === "vertical" ? "start" : "center",
+                    orientation === "vertical" ? "start" : "center",
                 }}
               >
                 {tab.icon}
