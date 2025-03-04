@@ -37,12 +37,14 @@ interface TabsProps {
 
 export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
   return (
-    <Box>
+    <>
       <Tabs
         value={index}
         onChange={(_e: any, newValue: number) => setIndex(newValue)}
         indicatorColor="primary"
         textColor="primary"
+        variant="scrollable"
+        scrollButtons="auto"
       >
         {tabs.map((tab, idx) => (
           <Tab
@@ -71,6 +73,6 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
           {tab.panel}
         </Panel>
       ))}
-    </Box>
+    </>
   );
 }
