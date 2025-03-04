@@ -45,6 +45,7 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
+        allowScrollButtonsMobile
       >
         {tabs.map((tab, idx) => (
           <Tab
