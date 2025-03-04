@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
-import { Table } from "ochom-react-components";
 import { useEffect, useState } from "react";
+import { Table } from "../src";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);

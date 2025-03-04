@@ -9,18 +9,15 @@ import {
   useColorScheme,
 } from "@mui/material";
 import { deepPurple, grey, purple } from "@mui/material/colors";
-import { LicenseInfo } from "@mui/x-license-pro";
-import { ConfirmHost, Tabs } from "ochom-react-components";
 import { useState } from "react";
 import ReactDOM from "react-dom/client";
+import { ConfirmHost, Tabs } from "../src";
 import EmptyPages from "./EmptyPages";
 import Forms from "./Forms";
 import Tables from "./Tables";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
-LicenseInfo.setLicenseKey(import.meta.env.VITE_MUI_X_LICENSE_KEY);
 
 const theme = createTheme({
   colorSchemes: {
@@ -60,7 +57,7 @@ const theme = createTheme({
         size: "small",
       },
     },
-    MuiButtonBase: {
+    MuiTab: {
       defaultProps: {
         sx: {
           textTransform: "none",
@@ -113,6 +110,7 @@ const App = () => {
           <Tabs
             index={index}
             setIndex={setIndex}
+            orientation="vertical"
             tabs={[
               {
                 title: "Empty Pages",

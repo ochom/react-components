@@ -13,7 +13,7 @@ interface TabPanelProps {
   currentTabIndex: number;
 }
 
-function Panel(props: TabPanelProps) {
+function TabPanel(props: TabPanelProps) {
   const { children, currentTabIndex, panelIndex, ...other } = props;
 
   return (
@@ -24,7 +24,7 @@ function Panel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${panelIndex}`}
       {...other}
     >
-      {currentTabIndex === panelIndex && <Box sx={{ py: 1 }}>{children}</Box>}
+      {currentTabIndex === panelIndex && children}
     </Box>
   );
 }
@@ -33,11 +33,20 @@ interface TabsProps {
   index: number;
   setIndex: (index: number) => void;
   tabs: TabProps[];
+  orientation?: "horizontal" | "vertical";
 }
 
-export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
+export default function CustomTabs(props: TabsProps) {
+  const { index, setIndex, tabs } = props;
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexGrow: 1,
+        flexDirection: props.orientation === "vertical" ? "row" : "column",
+        height: "100%",
+      }}
+    >
       <Tabs
         value={index}
         onChange={(_e: any, newValue: number) => setIndex(newValue)}
@@ -45,7 +54,11 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
         textColor="primary"
         variant="scrollable"
         scrollButtons="auto"
+        orientation={props.orientation}
         allowScrollButtonsMobile
+        sx={{
+          minWidth: props.orientation === "vertical" ? 200 : "auto",
+        }}
       >
         {tabs.map((tab, idx) => (
           <Tab
@@ -53,16 +66,18 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
             label={
               <Box
                 sx={{
+                  width: "100%",
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
+                  justifyContent:
+                    props.orientation === "vertical" ? "start" : "center",
                 }}
               >
                 {tab.icon}
                 <Typography variant="body1">{tab.title}</Typography>
               </Box>
             }
-            sx={{ fontWeight: 400, textTransform: "none" }}
             id={`simple-tab-${idx}`}
             aria-controls={`simple-tabpanel-${idx}`}
           />
@@ -70,10 +85,10 @@ export default function CustomTabs({ index, setIndex, tabs }: TabsProps) {
       </Tabs>
 
       {tabs.map((tab, idx) => (
-        <Panel key={idx} currentTabIndex={index} panelIndex={idx}>
+        <TabPanel key={idx} currentTabIndex={index} panelIndex={idx}>
           {tab.panel}
-        </Panel>
+        </TabPanel>
       ))}
-    </>
+    </Box>
   );
 }

@@ -1,12 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import moment from "moment";
-import {
-  CDrawer,
-  Form,
-  muiConfirm,
-  useForm,
-  useModal,
-} from "ochom-react-components";
+import { CDrawer, Form, muiConfirm, useForm, useModal } from "../src";
 
 const initFormData = {
   name: "",
