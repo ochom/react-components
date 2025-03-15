@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Table } from "../src";
+import { RowActions, Table } from "../src";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);
@@ -54,6 +54,20 @@ export default function Tables() {
           {
             name: "Company",
             selector: "company.name",
+          },
+          {
+            name: "Actions",
+            selector: (row) => (
+              <RowActions
+                buttons={[
+                  {
+                    title: "Edit",
+                    color: "primary",
+                    onClick: () => console.log("Edit", row),
+                  },
+                ]}
+              />
+            ),
           },
         ]}
         buttons={[

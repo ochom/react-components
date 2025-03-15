@@ -10,7 +10,7 @@ type Color =
   | "info"
   | "inherit";
 
-type ButtonProps = {
+type ActionButtonProps = {
   title?: string;
   text?: string;
   icon?: string;
@@ -20,11 +20,7 @@ type ButtonProps = {
   variant?: "text" | "outlined" | "contained";
 };
 
-export default function RowActions({
-  buttons = [],
-}: {
-  buttons: ButtonProps[];
-}) {
+export function RowActions({ buttons = [] }: { buttons: ActionButtonProps[] }) {
   return (
     <Stack direction="row" spacing={1}>
       {buttons.map(({ title, text, icon, ...props }, index) => (
