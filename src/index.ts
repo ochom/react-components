@@ -11,3 +11,4 @@ export * from "./components/Form/useForm";
 export * from "./components/Modal/confirm";
 export * from "./components/Modal/useModal";
 export * from "./components/Monitors";
+export * from "./components/Table/row-actions";
