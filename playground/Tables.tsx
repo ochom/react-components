@@ -63,6 +63,7 @@ export default function Tables() {
                   {
                     title: "Edit",
                     color: "primary",
+                    icon: "akar-icons:edit",
                     onClick: () => console.log("Edit", row),
                   },
                 ]}
