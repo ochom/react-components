@@ -93,13 +93,15 @@ export const FormFieldComponent = ({
 };
 
 const Container = ({ component, onSubmit, children }: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit && onSubmit(e);
+  };
+
   if (component === "form") {
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      onSubmit && onSubmit();
-    };
     return <form onSubmit={(e) => handleSubmit(e)}>{children}</form>;
   }
+
   return <div>{children}</div>;
 };
 

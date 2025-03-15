@@ -85,8 +85,8 @@ export interface FormProps {
   fieldSpacing?: number;
   useNativeLabels?: boolean;
   capitalizeLabels?: boolean;
-  onSubmit?: () => void;
-  onCancel?: () => void;
+  onSubmit?: (e?: any) => void;
+  onCancel?: (e?: any) => void;
   submitText?: string;
   cancelText?: string;
   submitButtonProps?: ButtonProps;
