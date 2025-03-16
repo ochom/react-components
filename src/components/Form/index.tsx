@@ -16,6 +16,7 @@ import {
   DateTimeField,
   DateTimeRangeField,
 } from "./fields/date";
+import EditorField from "./fields/editor";
 import { MultiSelectField, SearchField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
@@ -67,6 +68,9 @@ export const FormFieldComponent = ({
       break;
     case "file":
       customField = FileField;
+      break;
+    case "editor":
+      customField = EditorField;
       break;
     default:
       customField = DefaultField;

@@ -16,6 +16,7 @@ const initFormData = {
   select: "",
   multiselect: [],
   search: "",
+  editor: "",
   file: null,
   custom: "",
 };
@@ -111,6 +112,8 @@ export default function Forms() {
             type: "file",
             grow: { xs: 6 },
           }),
+
+          createField("editor", "Editor", { type: "editor" }),
           createField("custom", "Custom", {
             type: "custom",
             component: (
