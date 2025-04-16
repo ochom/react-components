@@ -3,7 +3,7 @@ import { ContainerFieldGrow, SecondaryFormFieldProps } from "./properties";
 
 type CreateFieldType = SecondaryFormFieldProps & ContainerFieldGrow;
 
-export const useForm = (initialState: { [key: string]: any } = {}) => {
+export function useForm(initialState: Record<string, any>) {
   const [formData, setFormData] = useState(initialState);
 
   const onChange = (e: any) => {
@@ -50,4 +50,4 @@ export const useForm = (initialState: { [key: string]: any } = {}) => {
   };
 
   return { createField, formData, setFormData, onChange };
-};
+}
