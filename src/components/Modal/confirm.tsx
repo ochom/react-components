@@ -27,13 +27,13 @@ export function ConfirmHost() {
 
   return (
     <Modal open={isOpen}>
-      <Stack>
-        <Typography variant="h6" fontWeight={500} sx={{ px: 3 }}>
+      <Stack sx={{ pb: 3 }}>
+        <Typography variant="h6" fontWeight={500} sx={{ px: 3, mt: 1 }}>
           {dialog.title}
         </Typography>
         <Divider />
         <Typography sx={{ px: 3, py: 2 }}>{dialog.message}</Typography>
-        <Stack direction={"row"} spacing={3} sx={{ px: 3, py: 1 }}>
+        <Stack direction={"row"} spacing={3} sx={{ px: 3 }}>
           <Button
             size="small"
             variant="contained"
