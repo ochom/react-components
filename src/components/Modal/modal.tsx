@@ -32,11 +32,16 @@ export const Modal = (props: ModalProps) => {
       }}
     >
       <Card
+        variant="elevation"
+        elevation={0}
         sx={{
           width: width,
           maxWidth: "100%",
           maxHeight: "90vh",
           overflowY: "auto",
+          mx: "auto",
+          my: "auto",
+          mt: "10vh",
           ...props.contentStyle,
         }}
       >

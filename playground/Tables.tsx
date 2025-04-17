@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
-import { RowActions, Table } from "../src";
+import { muiConfirm, RowActions, Table } from "../src";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);
@@ -85,7 +85,13 @@ export default function Tables() {
           {
             children: "Delete",
             color: "error",
-            onClick: () => console.log("Delete"),
+            onClick: () =>
+              muiConfirm({
+                title: "Delete",
+                message: "Are you sure you want to delete this item?",
+                onConfirm: () => console.log("Delete"),
+                onCancel: () => console.log("Cancel"),
+              }),
           },
         ]}
       />
