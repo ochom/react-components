@@ -1,11 +1,5 @@
-import {
-  Backdrop,
-  Button,
-  Card,
-  Divider,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, Stack, Typography } from "@mui/material";
+import Modal from "./modal";
 import { closeConfirm, confirm, useConfirmStore } from "./store";
 
 type ButtonColor =
@@ -32,21 +26,16 @@ export function ConfirmHost() {
   const { isOpen, dialog } = useConfirmStore();
 
   return (
-    <Backdrop
-      sx={(theme) => ({ zIndex: theme.zIndex.drawer + 1 })}
-      open={isOpen}
-      onClick={() => {
-        closeConfirm();
-      }}
-    >
-      <Card sx={{ py: 2, minWidth: 400 }}>
-        <Typography variant="h6" fontWeight={500} sx={{ pl: 3 }}>
+    <Modal open={isOpen}>
+      <Stack>
+        <Typography variant="h6" fontWeight={500} sx={{ px: 3 }}>
           {dialog.title}
         </Typography>
         <Divider />
-        <Typography sx={{ px: 3, py: 1, pb: 2 }}>{dialog.message}</Typography>
-        <Stack direction={"row"} spacing={2} sx={{ px: 3 }}>
+        <Typography sx={{ px: 3, py: 2 }}>{dialog.message}</Typography>
+        <Stack direction={"row"} spacing={3} sx={{ px: 3, py: 1 }}>
           <Button
+            size="small"
             variant="contained"
             color={dialog.confirmButtonColor || "primary"}
             onClick={() => {
@@ -57,6 +46,7 @@ export function ConfirmHost() {
             {dialog.confirmButtonText || "Yes, confirm"}
           </Button>
           <Button
+            size="small"
             variant="outlined"
             color={dialog.cancelButtonColor || "error"}
             onClick={() => {
@@ -70,8 +60,8 @@ export function ConfirmHost() {
             {dialog.cancelButtonText || "Cancel"}
           </Button>
         </Stack>
-      </Card>
-    </Backdrop>
+      </Stack>
+    </Modal>
   );
 }
 
