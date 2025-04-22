@@ -41,7 +41,7 @@ const SearchField = ({ field }: { field: FormField }) => {
       value={selected}
       options={cleanOptions}
       onChange={handleChange}
-      getOptionKey={(option) => option.label}
+      getOptionKey={(option) => option.value}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -103,7 +103,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(prev, next) => prev.value === next.value}
       onChange={(_e, newValues) => setValues(newValues)}
-      getOptionKey={(option) => option.label}
+      getOptionKey={(option) => option.value}
       renderOption={({ key, ...more }, option) => {
         return (
           <li key={key} {...more}>

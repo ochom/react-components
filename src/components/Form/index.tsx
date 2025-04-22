@@ -80,7 +80,7 @@ export const FormFieldComponent = ({
     const withoutLabel: FormField = { ...field };
     withoutLabel.label = "";
     return (
-      <Stack spacing={0.5}>
+      <Stack>
         <FormLabel
           htmlFor={field.name}
           required={field.required}
