@@ -16,7 +16,7 @@ const DateField = ({ field }: { field: FormField }) => {
     <DatePicker
       format={field?.format ?? "DD/MM/Y"}
       label={field.label}
-      value={moment(field.value)}
+      value={field.value ? moment(field.value) : undefined}
       minDate={field.minDate ? moment(field.minDate) : undefined}
       maxDate={field.maxDate ? moment(field.maxDate) : undefined}
       onChange={(newValue) => {
@@ -39,7 +39,7 @@ const DateTimeField = ({ field }: { field: FormField }) => {
     <DateTimePicker
       format="DD/MM/Y HH:mm"
       label={field.label}
-      value={moment(field.value)}
+      value={field.value ? moment(field.value) : undefined}
       minDate={field.minDate ? moment(field.minDate) : undefined}
       maxDate={field.maxDate ? moment(field.maxDate) : undefined}
       onChange={(newValue) => {
@@ -64,17 +64,26 @@ const DateRangeField = ({ field }: { field: FormField }) => {
 
   useEffect(() => {
     try {
-      if (Array.isArray(field.value) && field.value.length === 2) {
-        const startDate = moment(field.value[0]);
-        const endDate = moment(field.value[1]);
-        if (startDate.isValid() && endDate.isValid()) {
-          setValue([startDate, endDate]);
-        } else {
-          throw new Error("Invalid date range, should be an array of 2 dates");
-        }
-      } else {
+      if (!Array.isArray(field.value)) {
+        throw new Error("Invalid date range, should be an array");
+      }
+
+      if (field.value.length !== 2) {
         throw new Error("Invalid date range, should be an array of 2 dates");
       }
+
+      const startDate = moment(field.value[0]);
+      const endDate = moment(field.value[1]);
+
+      if (!startDate.isValid()) {
+        throw new Error("Invalid start date");
+      }
+
+      if (!endDate.isValid()) {
+        throw new Error("Invalid end date");
+      }
+
+      setValue([startDate, endDate]);
     } catch (error) {
       console.log("Invalid value for DateRangeField:", error);
     }
@@ -112,19 +121,28 @@ const DateTimeRangeField = ({ field }: { field: FormField }) => {
 
   useEffect(() => {
     try {
-      if (Array.isArray(field.value) && field.value.length === 2) {
-        const startDate = moment(field.value[0]);
-        const endDate = moment(field.value[1]);
-        if (startDate.isValid() && endDate.isValid()) {
-          setValue([startDate, endDate]);
-        } else {
-          throw new Error("Invalid date range, should be an array of 2 dates");
-        }
-      } else {
+      if (!Array.isArray(field.value)) {
+        throw new Error("Invalid date range, should be an array");
+      }
+
+      if (field.value.length !== 2) {
         throw new Error("Invalid date range, should be an array of 2 dates");
       }
+
+      const startDate = moment(field.value[0]);
+      const endDate = moment(field.value[1]);
+
+      if (!startDate.isValid()) {
+        throw new Error("Invalid start date");
+      }
+
+      if (!endDate.isValid()) {
+        throw new Error("Invalid end date");
+      }
+
+      setValue([startDate, endDate]);
     } catch (error) {
-      console.log("Invalid value for DateRangeField:", error);
+      console.log("Invalid value for DateTimeRangeField:", error);
     }
   }, [field.value]);
 

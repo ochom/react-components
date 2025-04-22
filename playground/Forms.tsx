@@ -1,15 +1,14 @@
 import { Container, Typography } from "@mui/material";
-import moment from "moment";
 import { CDrawer, Form, muiConfirm, useForm, useModal } from "../src";
 
 const initFormData = {
   name: "",
   email: "",
   password: "",
-  date: moment(),
-  datetime: moment(),
-  dateRange: [moment(), moment()],
-  datetimeRange: [moment(), moment()],
+  date: "",
+  datetime: "",
+  dateRange: [],
+  datetimeRange: [],
   switch: false,
   checkbox: false,
   radio: "",
