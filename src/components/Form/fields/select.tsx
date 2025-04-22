@@ -30,6 +30,7 @@ const SearchField = ({ field }: { field: FormField }) => {
       renderInput={(params) => (
         <TextField
           {...params}
+          key={`${field.name}-input`}
           label={field.label}
           required={field.required && !selected}
         />
@@ -75,9 +76,9 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(prev, next) => prev.value === next.value}
       onChange={(_e, newValues) => setValues(newValues)}
-      renderOption={({ key, ...more }, option) => {
+      renderOption={({ ...more }, option) => {
         return (
-          <li key={key} {...more}>
+          <li {...more} key={option.value}>
             <Checkbox
               icon={<Icon icon="mdi:checkbox-blank-outline" />}
               checkedIcon={<Icon icon="mdi:checkbox-marked" />}
@@ -100,6 +101,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       renderInput={(params) => (
         <TextField
           {...params}
+          key={`${field.name}-input`}
           label={field.label}
           required={field.required && values.length === 0}
           placeholder={field?.placeholder ?? ""}
