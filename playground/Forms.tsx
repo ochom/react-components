@@ -65,6 +65,7 @@ export default function Forms() {
             options: [
               { label: "Option 1", value: "option1" },
               { label: "Option 2", value: "option2" },
+              { label: "Option 2", value: "option3" }, // on purpose to test option keys
             ],
             grow: { xs: 6, md: 4 },
           }),

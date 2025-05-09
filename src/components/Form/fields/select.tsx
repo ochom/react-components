@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Autocomplete, Checkbox, Chip, TextField } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { FormField, SelectOption } from "../properties";
 import Loading from "./loading";
@@ -55,10 +55,6 @@ const SearchField = ({ field }: { field: FormField }) => {
 };
 
 const MultiSelectField = ({ field }: { field: FormField }) => {
-  const [values, setValues] = useState<SelectOption[]>(
-    Array.isArray(field.value) ? field.value : []
-  );
-
   const cleanOptions = useMemo(() => {
     if (!field.options || field.options.length === 0) return [];
 
@@ -70,17 +66,10 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
     });
 
     return Array.from(uniqueOptions.values());
-  }, [field.options]);
+  }, [field.options, field.loading]);
 
-  useEffect(() => {
-    const currentValues = [];
-    for (const option of cleanOptions) {
-      if (field.value && field.value.includes(option.value)) {
-        currentValues.push(option);
-      }
-    }
-    setValues(currentValues);
-  }, []);
+  const values =
+    cleanOptions?.filter((opt) => field.value?.includes(opt.value)) || [];
 
   const handleChange = (newValues: SelectOption[]) => {
     field.onChange &&
@@ -102,10 +91,10 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       options={cleanOptions}
       disableCloseOnSelect
       value={values}
+      limitTags={2}
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(prev, next) => prev.value === next.value}
       onChange={(_e, newValues) => {
-        setValues(newValues);
         handleChange(newValues);
       }}
       getOptionKey={(option) => option.value}
