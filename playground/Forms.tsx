@@ -13,7 +13,7 @@ const initFormData = {
   checkbox: false,
   radio: "",
   select: "",
-  multiselect: [],
+  multiselect: ["option1"],
   search: "",
   editor: "",
   file: null,

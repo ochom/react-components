@@ -82,15 +82,15 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
     setValues(currentValues);
   }, []);
 
-  useEffect(() => {
+  const handleChange = (newValues: SelectOption[]) => {
     field.onChange &&
       field.onChange({
         target: {
           name: field.name,
-          value: values.map((opt) => opt.value),
+          value: newValues.map((opt) => opt.value),
         },
       });
-  }, [values]);
+  };
 
   if (field.loading) return <Loading />;
 
@@ -104,7 +104,10 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
       value={values}
       getOptionLabel={(option) => option.label}
       isOptionEqualToValue={(prev, next) => prev.value === next.value}
-      onChange={(_e, newValues) => setValues(newValues)}
+      onChange={(_e, newValues) => {
+        setValues(newValues);
+        handleChange(newValues);
+      }}
       getOptionKey={(option) => option.value}
       renderOption={({ key, ...more }, option) => {
         return (
