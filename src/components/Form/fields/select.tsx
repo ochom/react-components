@@ -55,7 +55,9 @@ const SearchField = ({ field }: { field: FormField }) => {
 };
 
 const MultiSelectField = ({ field }: { field: FormField }) => {
-  const [values, setValues] = useState<SelectOption[]>([]);
+  const [values, setValues] = useState<SelectOption[]>(
+    Array.isArray(field.value) ? field.value : []
+  );
 
   const cleanOptions = useMemo(() => {
     if (!field.options || field.options.length === 0) return [];
