@@ -26,14 +26,8 @@ export default function Table({
   containerProps = {},
   tableAreaProps = {},
 }: TableProps) {
-  const tableCache = JSON.parse(
-    id ? localStorage.getItem(`ochom-react-tables-${id}`) || "{}" : "{}"
-  );
-
-  const [page, setPage] = useState(tableCache.page || 0);
-  const [rowsPerPage, setRowsPerPage] = useState(
-    tableCache.rowsPerPage || rowsPerPageOptions[0]
-  );
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
