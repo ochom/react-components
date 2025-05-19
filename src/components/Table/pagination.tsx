@@ -48,6 +48,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 const TablePagination = ({
+  hidePagination,
   alignment,
   total,
   page,
@@ -65,15 +66,15 @@ const TablePagination = ({
     setPage(page);
   };
 
-  if (total < rowsPerPage) {
-    return null;
-  }
-
   const labelDisplayedRows = ({ count, page }: any) => {
     return `Page ${page + 1} of ${Math.ceil(
       count / rowsPerPage
     )} (${count} records)`;
   };
+
+  if (total < rowsPerPage && hidePagination) {
+    return null;
+  }
 
   return (
     <Pagination

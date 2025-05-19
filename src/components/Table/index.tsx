@@ -113,17 +113,16 @@ export default function Table({
           onRowClicked={onRowClicked}
         />
 
-        {!hidePagination && (
-          <TablePagination
-            alignment={paginationAlign}
-            total={total ?? rows.length}
-            page={page}
-            setPage={setPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
-          />
-        )}
+        <TablePagination
+          hidePagination={hidePagination}
+          alignment={paginationAlign}
+          total={total ?? rows.length}
+          page={page}
+          setPage={setPage}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
+        />
       </Paper>
     </Box>
   );
