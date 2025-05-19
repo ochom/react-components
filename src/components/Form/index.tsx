@@ -2,8 +2,9 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Grid2 as Grid,
+  Grid2,
   Stack,
+  Typography,
 } from "@mui/material";
 import React, { ReactNode } from "react";
 
@@ -15,7 +16,8 @@ import {
   DateTimeField,
   DateTimeRangeField,
 } from "./fields/date";
-import { MultiSelectField, SearchField, SelectField } from "./fields/select";
+import EditorField from "./fields/editor";
+import { MultiSelectField, SearchField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
 type CustomField = (props: { field: FormField }) => ReactNode;
@@ -37,10 +39,8 @@ export const FormFieldComponent = ({
 
   switch (field.type) {
     case "search":
-      customField = SearchField;
-      break;
     case "select":
-      customField = SelectField;
+      customField = SearchField;
       break;
     case "multiselect":
       customField = MultiSelectField;
@@ -69,6 +69,9 @@ export const FormFieldComponent = ({
     case "file":
       customField = FileField;
       break;
+    case "editor":
+      customField = EditorField;
+      break;
     default:
       customField = DefaultField;
   }
@@ -77,16 +80,16 @@ export const FormFieldComponent = ({
     const withoutLabel: FormField = { ...field };
     withoutLabel.label = "";
     return (
-      <>
+      <Stack>
         <FormLabel
           htmlFor={field.name}
           required={field.required}
-          sx={{ mb: 1 }}
+          sx={{ display: "flex" }}
         >
-          {field.label}
+          <Typography variant="body2">{field.label}</Typography>
         </FormLabel>
         {React.createElement(customField, { field: withoutLabel })}
-      </>
+      </Stack>
     );
   }
 
@@ -94,20 +97,23 @@ export const FormFieldComponent = ({
 };
 
 const Container = ({ component, onSubmit, children }: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit && onSubmit(e);
+  };
+
   if (component === "form") {
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      onSubmit && onSubmit();
-    };
     return <form onSubmit={(e) => handleSubmit(e)}>{children}</form>;
   }
+
   return <div>{children}</div>;
 };
 
 export default function Form({
+  processing = false,
   component = "form",
   fields = [],
-  fieldSpacing = 4,
+  fieldSpacing = 2,
   useNativeLabels = false,
   capitalizeLabels = false,
   onSubmit,
@@ -121,11 +127,10 @@ export default function Form({
 
   return (
     <Container component={component} onSubmit={onSubmit}>
-      <Grid container spacing={fieldSpacing}>
+      <Grid2 container spacing={fieldSpacing}>
         {fields.map((field, index) => {
           // check if the field's required prop is defined, if not set it to true by default
           field.required = field.required ?? true;
-          field.size = field.size ?? "small";
 
           // define grow dimensions
           const xs = field.grow?.xs || 12;
@@ -147,9 +152,9 @@ export default function Form({
 
           if (field.type === "custom") {
             return (
-              <Grid key={index} size={{ xs, sm, md, lg }}>
+              <Grid2 key={index} size={{ xs, sm, md, lg }}>
                 {field.component}
-              </Grid>
+              </Grid2>
             );
           }
 
@@ -158,24 +163,25 @@ export default function Form({
           }
 
           return (
-            <Grid key={index} size={{ xs, sm, md, lg }}>
+            <Grid2 key={index} size={{ xs, sm, md, lg }}>
               <FormControl fullWidth>
                 <FormFieldComponent
                   field={field}
                   useNativeLabels={useNativeLabels}
                 />
               </FormControl>
-            </Grid>
+            </Grid2>
           );
         })}
 
         {showButtons && (
-          <Grid>
+          <Grid2 size={12} sx={{ mt: 2 }}>
             <Stack direction="row" spacing={3} justifyContent="left">
               {onSubmit !== undefined && (
                 <Button
                   type="submit"
                   variant="contained"
+                  loading={processing}
                   {...submitButtonProps}
                 >
                   {submitText}
@@ -185,15 +191,16 @@ export default function Form({
                 <Button
                   onClick={onCancel}
                   variant="outlined"
+                  disabled={processing}
                   {...cancelButtonProps}
                 >
                   {cancelText}
                 </Button>
               )}
             </Stack>
-          </Grid>
+          </Grid2>
         )}
-      </Grid>
+      </Grid2>
     </Container>
   );
 }

@@ -15,12 +15,6 @@ interface TablePaginationActionsProps {
 function TablePaginationActions(props: TablePaginationActionsProps) {
   const { count, page, rowsPerPage, onPageChange } = props;
 
-  const handleFirstPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, 0);
-  };
-
   const handleBackButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -33,21 +27,8 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     onPageChange(event, page + 1);
   };
 
-  const handleLastPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
   return (
     <Box sx={{ flexShrink: 0, mx: 2 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        <Icon icon="mdi:page-first" fontSize="1.5rem" />
-      </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
@@ -62,18 +43,12 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
       >
         <Icon icon="mdi:navigate-next" fontSize="1.5rem" />
       </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        <Icon icon="mdi:page-last" fontSize="1.5rem" />
-      </IconButton>
     </Box>
   );
 }
 
 const TablePagination = ({
+  hidePagination,
   alignment,
   total,
   page,
@@ -91,15 +66,15 @@ const TablePagination = ({
     setPage(page);
   };
 
-  if (total < rowsPerPage) {
-    return null;
-  }
-
   const labelDisplayedRows = ({ count, page }: any) => {
     return `Page ${page + 1} of ${Math.ceil(
       count / rowsPerPage
     )} (${count} records)`;
   };
+
+  if (total < rowsPerPage && hidePagination) {
+    return null;
+  }
 
   return (
     <Pagination

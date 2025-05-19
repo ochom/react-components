@@ -1,22 +1,21 @@
 import { Container, Typography } from "@mui/material";
-import moment from "moment";
-import React from "react";
-import { CDrawer, Form, useForm, useModal } from "../src";
+import { CDrawer, Form, muiConfirm, useForm, useModal } from "../src";
 
 const initFormData = {
   name: "",
   email: "",
   password: "",
-  date: moment(),
-  datetime: moment(),
-  dateRange: [moment(), moment()],
-  datetimeRange: [moment(), moment()],
+  date: "",
+  datetime: "",
+  dateRange: [],
+  datetimeRange: [],
   switch: false,
   checkbox: false,
   radio: "",
   select: "",
-  multiselect: [],
+  multiselect: ["option1"],
   search: "",
+  editor: "",
   file: null,
   custom: "",
 };
@@ -25,6 +24,18 @@ export default function Forms() {
   const [open, toggle] = useModal();
   const { createField, formData, setFormData } = useForm(initFormData);
 
+  const handleConfirm = () => {
+    muiConfirm({
+      title: "Form Data",
+      message: "Are you sure you want to submit this form?",
+      onConfirm: () => {
+        console.log(formData);
+        toggle();
+      },
+      onCancel: () => console.log("Cancelled"),
+    });
+  };
+
   return (
     <Container sx={{ py: 4 }}>
       <Form
@@ -32,7 +43,7 @@ export default function Forms() {
           console.log(formData);
           toggle();
         }}
-        onCancel={() => console.log("Cancel")}
+        onCancel={() => handleConfirm()}
         useNativeLabels
         capitalizeLabels
         fieldSpacing={2}
@@ -45,6 +56,7 @@ export default function Forms() {
             options: [
               { label: "Option 1", value: "option1" },
               { label: "Option 2", value: "option2" },
+              { label: "Option 2", value: "option3" }, // on purpose to test option keys
             ],
             grow: { xs: 6, md: 4 },
           }),
@@ -53,6 +65,7 @@ export default function Forms() {
             options: [
               { label: "Option 1", value: "option1" },
               { label: "Option 2", value: "option2" },
+              { label: "Option 2", value: "option3" }, // on purpose to test option keys
             ],
             grow: { xs: 6, md: 4 },
           }),
@@ -61,6 +74,7 @@ export default function Forms() {
             options: [
               { label: "Option 1", value: "option1" },
               { label: "Option 2", value: "option2" },
+              { label: "Option 2", value: "option3" }, // on purpose to test option keys
             ],
             grow: { xs: 6, md: 4 },
           }),
@@ -100,6 +114,8 @@ export default function Forms() {
             type: "file",
             grow: { xs: 6 },
           }),
+
+          createField("editor", "Editor", { type: "editor" }),
           createField("custom", "Custom", {
             type: "custom",
             component: (

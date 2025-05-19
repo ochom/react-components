@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Table } from "../src";
+import { useEffect, useState } from "react";
+import { muiConfirm, RowActions, Table } from "../src";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);
@@ -15,8 +15,8 @@ export default function Tables() {
         );
         const json = await response.json();
         setData(json);
-      } catch (error) {
-        setError(error);
+      } catch (err: any) {
+        setError(err);
       } finally {
         setLoading(false);
       }
@@ -55,6 +55,21 @@ export default function Tables() {
             name: "Company",
             selector: "company.name",
           },
+          {
+            name: "Actions",
+            selector: (row) => (
+              <RowActions
+                buttons={[
+                  {
+                    title: "Edit",
+                    color: "primary",
+                    icon: "akar-icons:edit",
+                    onClick: () => console.log("Edit", row),
+                  },
+                ]}
+              />
+            ),
+          },
         ]}
         buttons={[
           {
@@ -70,7 +85,13 @@ export default function Tables() {
           {
             children: "Delete",
             color: "error",
-            onClick: () => console.log("Delete"),
+            onClick: () =>
+              muiConfirm({
+                title: "Delete",
+                message: "Are you sure you want to delete this item?",
+                onConfirm: () => console.log("Delete"),
+                onCancel: () => console.log("Cancel"),
+              }),
           },
         ]}
       />

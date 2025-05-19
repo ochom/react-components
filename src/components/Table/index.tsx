@@ -26,14 +26,8 @@ export default function Table({
   containerProps = {},
   tableAreaProps = {},
 }: TableProps) {
-  const tableCache = JSON.parse(
-    id ? localStorage.getItem(`ochom-react-tables-${id}`) || "{}" : "{}"
-  );
-
-  const [page, setPage] = useState(tableCache.page || 0);
-  const [rowsPerPage, setRowsPerPage] = useState(
-    tableCache.rowsPerPage || rowsPerPageOptions[0]
-  );
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
@@ -94,12 +88,7 @@ export default function Table({
           }}
         >
           {buttons.map((button, index) => (
-            <Button
-              key={index}
-              variant="outlined"
-              sx={{ borderRadius: 2 }}
-              {...button}
-            >
+            <Button key={index} variant="outlined" {...button}>
               {button?.title ?? button?.children}
             </Button>
           ))}
@@ -124,17 +113,16 @@ export default function Table({
           onRowClicked={onRowClicked}
         />
 
-        {!hidePagination && (
-          <TablePagination
-            alignment={paginationAlign}
-            total={total ?? rows.length}
-            page={page}
-            setPage={setPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
-          />
-        )}
+        <TablePagination
+          hidePagination={hidePagination}
+          alignment={paginationAlign}
+          total={total ?? rows.length}
+          page={page}
+          setPage={setPage}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
+        />
       </Paper>
     </Box>
   );
