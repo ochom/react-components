@@ -38,6 +38,7 @@ const DefaultField = ({ field }: { field: FormField }) => {
       required={field.required}
       disabled={field.disabled}
       placeholder={field.placeholder}
+      autoComplete={field.autoComplete}
       onChange={handleChange}
     />
   );

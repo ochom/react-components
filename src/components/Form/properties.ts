@@ -61,6 +61,7 @@ export interface SecondaryFormFieldProps {
   format?: string;
   startText?: string;
   endText?: string;
+  autoComplete?: string;
 }
 
 export interface PrimaryFormFieldProps {
