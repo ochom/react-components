@@ -42,7 +42,7 @@ export interface ChangeEvent {
 export interface SecondaryFormFieldProps {
   loading?: boolean;
   value?: string;
-  type?: FieldType;
+  type?: FieldType | string;
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
