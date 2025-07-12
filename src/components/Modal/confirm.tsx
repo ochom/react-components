@@ -1,5 +1,5 @@
-import { Button, Divider, Stack, Typography } from "@mui/material";
-import Modal from "./modal";
+import { Button, Stack, Typography } from "@mui/material";
+import { Modal } from "./modal";
 import { closeConfirm, confirm, useConfirmStore } from "./store";
 
 type ButtonColor =
@@ -26,14 +26,10 @@ export function ConfirmHost() {
   const { isOpen, dialog } = useConfirmStore();
 
   return (
-    <Modal open={isOpen}>
-      <Stack sx={{ pb: 3 }}>
-        <Typography variant="h6" fontWeight={500} sx={{ px: 3, mt: 1 }}>
-          {dialog.title}
-        </Typography>
-        <Divider />
-        <Typography sx={{ px: 3, py: 2 }}>{dialog.message}</Typography>
-        <Stack direction={"row"} spacing={3} sx={{ px: 3 }}>
+    <Modal open={isOpen} title={dialog.title}>
+      <Stack sx={{ p: 3, pt: 0 }} spacing={2}>
+        <Typography>{dialog.message}</Typography>
+        <Stack direction={"row"} spacing={3}>
           <Button
             size="small"
             variant="contained"
