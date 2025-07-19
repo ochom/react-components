@@ -12,8 +12,7 @@ export default function Table({
   error,
   columns,
   data,
-  total,
-  emptyMessage = "No data found",
+  emptyMessage = "No data on this page",
   showSearch,
   onSearch,
   buttons = [],
@@ -26,8 +25,8 @@ export default function Table({
   containerProps = {},
   tableAreaProps = {},
 }: TableProps) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(rowsPerPageOptions[0]);
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
@@ -115,13 +114,14 @@ export default function Table({
 
         <TablePagination
           hidePagination={hidePagination}
-          alignment={paginationAlign}
-          total={total ?? rows.length}
+          total={rows?.length || 0}
           page={page}
-          setPage={setPage}
+          setPage={(nextPage) => {
+            setPage(nextPage);
+          }}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
-          rowsPerPageOptions={rowsPerPageOptions}
+          alignment={paginationAlign}
         />
       </Paper>
     </Box>

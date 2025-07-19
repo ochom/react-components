@@ -1,99 +1,100 @@
 import { Icon } from "@iconify/react";
-import { Box, IconButton, TablePagination as Pagination } from "@mui/material";
-import React from "react";
+import { IconButton, Stack, styled, Typography } from "@mui/material";
 
-interface TablePaginationActionsProps {
-  count: number;
+const StyledSelect = styled("select")(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(0.5),
+  fontSize: theme.typography.body1.fontSize,
+  color: theme.palette.text.primary,
+  "&:focus": {
+    outline: "none",
+    borderColor: theme.palette.primary.main,
+  },
+}));
+
+type PaginationProps = {
+  hidePagination?: boolean;
+  total: number;
   page: number;
+  setPage: (page: number) => void;
   rowsPerPage: number;
-  onPageChange: (
-    event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number
-  ) => void;
-}
-
-function TablePaginationActions(props: TablePaginationActionsProps) {
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleBackButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, page + 1);
-  };
-
-  return (
-    <Box sx={{ flexShrink: 0, mx: 2 }}>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        <Icon icon="mdi:navigate-before" fontSize="1.5rem" />
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        <Icon icon="mdi:navigate-next" fontSize="1.5rem" />
-      </IconButton>
-    </Box>
-  );
-}
+  setRowsPerPage: (rowsPerPage: number) => void;
+  rowsPerPageOptions?: number[];
+  alignment?: "start" | "end";
+};
 
 const TablePagination = ({
   hidePagination,
-  alignment,
   total,
   page,
   setPage,
   rowsPerPage,
   setRowsPerPage,
-  rowsPerPageOptions,
-}: any) => {
+  alignment = "end",
+}: PaginationProps) => {
+  const noMorePages = page === 0 && total < rowsPerPage;
+  if (noMorePages || hidePagination) {
+    return null;
+  }
+
   const onRowsPerPageChange = (e: any) => {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
 
-  const onPageChange = (_e: any, page: number) => {
-    setPage(page);
-  };
-
-  const labelDisplayedRows = ({ count, page }: any) => {
-    return `Page ${page + 1} of ${Math.ceil(
-      count / rowsPerPage
-    )} (${count} records)`;
-  };
-
-  if (total < rowsPerPage && hidePagination) {
-    return null;
-  }
+  const goToFirstPage = () => setPage(0);
+  const goToPreviousPage = () => setPage(Math.max(page - 1, 0));
+  const goToNextPage = () =>
+    setPage(Math.min(page + 1, Math.ceil(total / rowsPerPage) - 1));
+  const goToLastPage = () => setPage(Math.ceil(total / rowsPerPage) - 1);
 
   return (
-    <Pagination
-      sx={{
-        display: "flex",
-        alignItems: "flex-end",
-        justifyContent: `flex-${alignment || "end"}`,
-        flexWrap: "wrap",
-      }}
-      component="div"
-      page={page}
-      count={total}
-      rowsPerPage={rowsPerPage}
-      rowsPerPageOptions={rowsPerPageOptions}
-      onRowsPerPageChange={onRowsPerPageChange}
-      onPageChange={onPageChange}
-      ActionsComponent={TablePaginationActions}
-      labelDisplayedRows={labelDisplayedRows}
-    />
+    <Stack
+      direction={"row"}
+      justifyContent={`flex-${alignment || "end"}`}
+      alignItems="center"
+      sx={{ width: "100%", py: 1, mt: 2 }}
+      spacing={2}
+    >
+      <Stack direction={"row"} alignItems="center" spacing={2}>
+        <Typography>Rows per page:</Typography>
+        <StyledSelect
+          value={rowsPerPage}
+          onChange={(e) => onRowsPerPageChange(e)}
+        >
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </StyledSelect>
+      </Stack>
+
+      <Stack direction={"row"} alignItems="center" spacing={1}>
+        <IconButton size="small" disabled={page === 0} onClick={goToFirstPage}>
+          <Icon icon="lucide:chevron-first" fontSize={"1.5rem"} />
+        </IconButton>
+
+        <IconButton
+          size="small"
+          disabled={page === 0}
+          onClick={goToPreviousPage}
+        >
+          <Icon icon="lucide:chevron-left" fontSize={"1.5rem"} />
+        </IconButton>
+
+        <Typography>{`Page: ${page + 1}`}</Typography>
+
+        <IconButton size="small" disabled={noMorePages} onClick={goToNextPage}>
+          <Icon icon="lucide:chevron-right" fontSize={"1.5rem"} />
+        </IconButton>
+
+        <IconButton size="small" disabled onClick={goToLastPage}>
+          <Icon icon="lucide:chevron-last" fontSize={"1.5rem"} />
+        </IconButton>
+      </Stack>
+    </Stack>
   );
 };
 

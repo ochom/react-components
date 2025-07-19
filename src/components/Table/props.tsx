@@ -22,7 +22,7 @@ export type TableProps = {
   onRowClicked?: (row: any) => void;
   rowsPerPageOptions?: number[];
   serverSide?: boolean;
-  paginationAlign?: "start" | "center" | "end";
+  paginationAlign?: "start" | "end";
   hidePagination?: boolean;
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
   containerProps?: BoxProps;
