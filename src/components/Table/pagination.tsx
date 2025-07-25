@@ -62,7 +62,7 @@ const TablePagination = (props: PaginationProps) => {
       direction={"row"}
       justifyContent={`flex-${props.alignment || "end"}`}
       alignItems="center"
-      sx={{ width: "100%", py: 1, mt: 2 }}
+      sx={{ width: "100%", p: 1, mt: 2 }}
       spacing={2}
     >
       <Stack direction={"row"} alignItems="center" spacing={2}>
