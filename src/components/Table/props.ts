@@ -18,7 +18,6 @@ export type TableProps = {
   onSearch?: (value: string) => void;
   buttons?: ButtonProps[];
   onRowClicked?: (row: any) => void;
-  rowsPerPageOptions?: number[];
   serverSide?: boolean;
   paginationAlign?: "start" | "end";
   onPaginationChange?: (page: number, rowsPerPage: number) => void;

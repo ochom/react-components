@@ -16,7 +16,6 @@ export default function Table({
   onSearch,
   buttons = [],
   onRowClicked,
-  rowsPerPageOptions = [10, 20, 30, 40, 50],
   serverSide = false,
   onPaginationChange,
   paginationAlign = "end",
@@ -24,7 +23,7 @@ export default function Table({
   tableAreaProps = {},
 }: TableProps) {
   const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(rowsPerPageOptions[0]);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);

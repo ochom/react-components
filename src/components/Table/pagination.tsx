@@ -21,7 +21,6 @@ type PaginationProps = {
   setPage: (page: number) => void;
   rowsPerPage: number;
   setRowsPerPage: (rowsPerPage: number) => void;
-  rowsPerPageOptions?: number[];
   alignment?: "start" | "end";
 };
 
