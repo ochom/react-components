@@ -115,6 +115,7 @@ export default function Table({
           setPage={(nextPage) => {
             setPage(nextPage);
           }}
+          serverSide={serverSide}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           alignment={paginationAlign}
