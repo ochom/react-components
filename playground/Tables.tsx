@@ -43,12 +43,10 @@ export default function Tables() {
   return (
     <Card>
       <Table
-        showSearch
         onSearch={(query) => console.log("Searching for", query)}
         loading={loading}
         error={error}
         data={data}
-        total={data.length}
         columns={[
           {
             name: "Name",

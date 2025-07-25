@@ -13,14 +13,12 @@ export default function Table({
   columns,
   data,
   emptyMessage = "No data on this page",
-  showSearch,
   onSearch,
   buttons = [],
   onRowClicked,
   rowsPerPageOptions = [10, 20, 30, 40, 50],
   serverSide = false,
   onPaginationChange,
-  hidePagination = false,
   paginationAlign = "end",
   containerProps = {},
   tableAreaProps = {},
@@ -58,7 +56,7 @@ export default function Table({
   }, [page, rowsPerPage]);
 
   const handleSearch = (value: string) => {
-    if (onSearch) return onSearch(value);
+    if (onSearch && serverSide) return onSearch(value);
 
     const filteredRows: any[] = (data || []).filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
@@ -73,7 +71,7 @@ export default function Table({
     <Box {...containerProps}>
       <Box
         sx={{
-          display: buttons.length == 0 && !showSearch ? "none" : "flex",
+          display: buttons.length == 0 && !onSearch ? "none" : "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "0.5rem",
@@ -94,7 +92,7 @@ export default function Table({
         </Stack>
         <StyledSearch
           serverSide={serverSide}
-          showSearch={showSearch}
+          showSearch={!!onSearch}
           onSearch={handleSearch}
         />
       </Box>
@@ -113,7 +111,6 @@ export default function Table({
         />
 
         <TablePagination
-          hidePagination={hidePagination}
           total={rows?.length || 0}
           page={page}
           setPage={(nextPage) => {

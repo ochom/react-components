@@ -14,16 +14,13 @@ export type TableProps = {
   error?: any;
   columns: TableColumn[];
   data: any[];
-  total?: number;
   emptyMessage?: string;
-  showSearch?: boolean;
   onSearch?: (value: string) => void;
   buttons?: ButtonProps[];
   onRowClicked?: (row: any) => void;
   rowsPerPageOptions?: number[];
   serverSide?: boolean;
   paginationAlign?: "start" | "end";
-  hidePagination?: boolean;
   onPaginationChange?: (page: number, rowsPerPage: number) => void;
   containerProps?: BoxProps;
   tableAreaProps?: PaperProps;

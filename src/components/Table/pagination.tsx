@@ -15,9 +15,9 @@ const StyledSelect = styled("select")(({ theme }) => ({
 }));
 
 type PaginationProps = {
-  hidePagination?: boolean;
   total: number;
   page: number;
+  serverSide?: boolean;
   setPage: (page: number) => void;
   rowsPerPage: number;
   setRowsPerPage: (rowsPerPage: number) => void;
@@ -25,35 +25,43 @@ type PaginationProps = {
   alignment?: "start" | "end";
 };
 
-const TablePagination = ({
-  hidePagination,
-  total,
-  page,
-  setPage,
-  rowsPerPage,
-  setRowsPerPage,
-  alignment = "end",
-}: PaginationProps) => {
-  const noMorePages = page === 0 && total < rowsPerPage;
-  if (noMorePages || hidePagination) {
+const TablePagination = (props: PaginationProps) => {
+  const inFirstPage = props.page === 0;
+  const inLastPage =
+    props.page === Math.ceil(props.total / props.rowsPerPage) - 1;
+
+  const noMorePages = props.total < props.rowsPerPage;
+  if (noMorePages && props.page === 0) {
     return null;
   }
 
   const onRowsPerPageChange = (e: any) => {
-    setRowsPerPage(parseInt(e.target.value, 10));
-    setPage(0);
+    props.setRowsPerPage(parseInt(e.target.value, 10));
+    props.setPage(0);
   };
 
-  const goToFirstPage = () => setPage(0);
-  const goToPreviousPage = () => setPage(Math.max(page - 1, 0));
-  const goToNextPage = () =>
-    setPage(Math.min(page + 1, Math.ceil(total / rowsPerPage) - 1));
-  const goToLastPage = () => setPage(Math.ceil(total / rowsPerPage) - 1);
+  const goToFirstPage = () => props.setPage(0);
+  const goToPreviousPage = () => props.setPage(Math.max(props.page - 1, 0));
+
+  const goToNextPage = () => {
+    let nextPage = props.page + 1;
+    if (!props.serverSide) {
+      nextPage = Math.min(
+        nextPage,
+        Math.ceil(props.total / props.rowsPerPage) - 1
+      );
+    }
+
+    props.setPage(nextPage);
+  };
+
+  const goToLastPage = () =>
+    props.setPage(Math.ceil(props.total / props.rowsPerPage) - 1);
 
   return (
     <Stack
       direction={"row"}
-      justifyContent={`flex-${alignment || "end"}`}
+      justifyContent={`flex-${props.alignment || "end"}`}
       alignItems="center"
       sx={{ width: "100%", py: 1, mt: 2 }}
       spacing={2}
@@ -61,7 +69,7 @@ const TablePagination = ({
       <Stack direction={"row"} alignItems="center" spacing={2}>
         <Typography>Rows per page:</Typography>
         <StyledSelect
-          value={rowsPerPage}
+          value={props.rowsPerPage}
           onChange={(e) => onRowsPerPageChange(e)}
         >
           <option value={10}>10</option>
@@ -72,25 +80,29 @@ const TablePagination = ({
       </Stack>
 
       <Stack direction={"row"} alignItems="center" spacing={1}>
-        <IconButton size="small" disabled={page === 0} onClick={goToFirstPage}>
+        <IconButton size="small" disabled={inFirstPage} onClick={goToFirstPage}>
           <Icon icon="lucide:chevron-first" fontSize={"1.5rem"} />
         </IconButton>
 
         <IconButton
           size="small"
-          disabled={page === 0}
+          disabled={inFirstPage}
           onClick={goToPreviousPage}
         >
           <Icon icon="lucide:chevron-left" fontSize={"1.5rem"} />
         </IconButton>
 
-        <Typography>{`Page: ${page + 1}`}</Typography>
+        <Typography>{`Page: ${props.page + 1}`}</Typography>
 
         <IconButton size="small" disabled={noMorePages} onClick={goToNextPage}>
           <Icon icon="lucide:chevron-right" fontSize={"1.5rem"} />
         </IconButton>
 
-        <IconButton size="small" disabled onClick={goToLastPage}>
+        <IconButton
+          size="small"
+          disabled={props.serverSide || noMorePages || inLastPage}
+          onClick={goToLastPage}
+        >
           <Icon icon="lucide:chevron-last" fontSize={"1.5rem"} />
         </IconButton>
       </Stack>
