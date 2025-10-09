@@ -1,6 +1,6 @@
 {
     "name": "ochom-react-components",
-    "version": "2.3.112",
+    "version": "2.3.113",
     "author": "Richard Ochom",
     "license": "ISC",
     "description": "A collection of react components built with material ui",
@@ -40,7 +40,7 @@
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
         "@iconify/react": "^5.2.0",
-        "@mui/material": "^7.2.0",
+        "@mui/material": "^7.3.4",
         "@mui/x-date-pickers": "^7.27.0",
         "@mui/x-date-pickers-pro": "^7.27.0",
         "@vitejs/plugin-react": "^4.3.4",
