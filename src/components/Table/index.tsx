@@ -74,11 +74,13 @@ export default function Table({
             display: buttons.length == 0 ? "none" : "flex",
           }}
         >
-          {buttons.map((button, index) => (
-            <Button key={index} variant="outlined" {...button}>
-              {button?.title ?? button?.children}
-            </Button>
-          ))}
+          {buttons
+            ?.filter((button) => !button?.hidden)
+            ?.map((button, index) => (
+              <Button key={index} variant="outlined" {...button}>
+                {button?.title ?? button?.children}
+              </Button>
+            ))}
         </Stack>
         <StyledSearch
           serverSide={serverSide}

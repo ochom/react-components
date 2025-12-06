@@ -10,13 +10,7 @@ import React, { ReactNode } from "react";
 
 import { DefaultField, FileField } from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
-import {
-  DateField,
-  DateRangeField,
-  DateTimeField,
-  DateTimeRangeField,
-} from "./fields/date";
-import EditorField from "./fields/editor";
+import { DateField, DateTimeField } from "./fields/date";
 import { MultiSelectField, SearchField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
@@ -51,12 +45,6 @@ export const FormFieldComponent = ({
     case "datetime":
       customField = DateTimeField;
       break;
-    case "date-range":
-      customField = DateRangeField;
-      break;
-    case "datetime-range":
-      customField = DateTimeRangeField;
-      break;
     case "switch":
       customField = SwitchField;
       break;
@@ -69,8 +57,6 @@ export const FormFieldComponent = ({
     case "file":
       customField = FileField;
       break;
-    case "editor":
-      customField = EditorField;
       break;
     default:
       customField = DefaultField;
