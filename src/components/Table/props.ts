@@ -16,6 +16,8 @@ export type TableProps = {
   error?: any;
   columns: TableColumn[];
   data: any[];
+  sort?: string;
+  onSort?: (value: string) => void;
   emptyMessage?: string;
   onSearch?: (value: string) => void;
   buttons?: ButtonProps[];

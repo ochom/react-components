@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
 import { TableColumn } from "./props";
+import Headers from "./headers";
 
 const StyledTable = styled("table")`
   width: 100%;
@@ -58,6 +59,8 @@ type TableBodyProps = {
   rowsPerPage: number;
   page: number;
   onRowClicked?: (item: any) => void;
+  sort?: string;
+  onSort?: (value: string) => void;
 };
 
 const TableBody = ({
@@ -70,6 +73,8 @@ const TableBody = ({
   rowsPerPage,
   page,
   onRowClicked,
+  sort,
+  onSort,
 }: TableBodyProps) => {
   const theme = useTheme();
   const handleRowClicked = (col: TableColumn, item: any) => {
@@ -106,13 +111,7 @@ const TableBody = ({
 
   return (
     <StyledTable theme={theme}>
-      <thead>
-        <tr>
-          {cols.map((column: TableColumn, cIndex: number) => (
-            <th key={cIndex}>{column.name || column.title}</th>
-          ))}
-        </tr>
-      </thead>
+      <Headers columns={cols} sort={sort} setSort={(s) => onSort?.(s)} />
       <tbody>
         <tr
           style={{
