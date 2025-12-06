@@ -6,6 +6,7 @@ export default function Tables() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState<any[]>([]);
+  const [sort, setSort] = useState<string>("");
 
   function shuffleArray(array: any[]) {
     const shuffledArray = [...array];
@@ -47,22 +48,10 @@ export default function Tables() {
         loading={loading}
         error={error}
         data={data}
+        sort={sort}
         onSort={(v) => {
-          if (v) {
-            const [key, direction] = v.split(":");
-            const sortedData = [...data].sort((a, b) => {
-              const aValue = key
-                .split(".")
-                .reduce((obj, k) => obj && obj[k], a);
-              const bValue = key
-                .split(".")
-                .reduce((obj, k) => obj && obj[k], b);
-              if (aValue < bValue) return direction === "asc" ? -1 : 1;
-              if (aValue > bValue) return direction === "asc" ? 1 : -1;
-              return 0;
-            });
-            setData(sortedData);
-          }
+          console.log("Sorting by", v);
+          setSort(v);
         }}
         columns={[
           {

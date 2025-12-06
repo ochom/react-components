@@ -15,6 +15,8 @@ const Header = ({
   const isAsc = sort === `${column.selector}:asc`;
   const isDesc = sort === `${column.selector}:desc`;
 
+  console.log("Header sort:", sort, "column", column);
+
   const handleSort = () => {
     if (!column.sortable || typeof column.selector !== "string") {
       return;
