@@ -1,4 +1,4 @@
-import { Card, Modal as ModalBox } from "@mui/material";
+import { Dialog, DialogTitle } from "@mui/material";
 import React from "react";
 
 export interface ModalProps {
@@ -12,18 +12,9 @@ export interface ModalProps {
   contentStyle?: any;
 }
 
-const sizes = {
-  small: 300,
-  medium: 500,
-  large: 800,
-  full: "100%",
-};
-
 export const Modal = (props: ModalProps) => {
-  const width = props.width || sizes[props.size || "medium"];
-
   return (
-    <ModalBox
+    <Dialog
       open={props.open}
       onClose={() => {
         if (props.onClose) {
@@ -31,23 +22,9 @@ export const Modal = (props: ModalProps) => {
         }
       }}
     >
-      <Card
-        variant="elevation"
-        elevation={0}
-        sx={{
-          width: width,
-          maxWidth: "100%",
-          maxHeight: "90vh",
-          overflowY: "auto",
-          mx: "auto",
-          my: "auto",
-          mt: "10vh",
-          ...props.contentStyle,
-        }}
-      >
-        {props.children}
-      </Card>
-    </ModalBox>
+      {props.title && <DialogTitle>{props.title}</DialogTitle>}
+      {props.children}
+    </Dialog>
   );
 };
 

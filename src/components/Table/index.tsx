@@ -7,27 +7,22 @@ import TablePagination from "./pagination";
 import { TableProps } from "./props";
 
 export default function Table({
-  id,
   loading = false,
   error,
   columns,
   data,
-  total,
-  emptyMessage = "No data found",
-  showSearch,
+  emptyMessage = "No data on this page",
   onSearch,
   buttons = [],
   onRowClicked,
-  rowsPerPageOptions = [10, 20, 30, 40, 50],
   serverSide = false,
   onPaginationChange,
-  hidePagination = false,
   paginationAlign = "end",
   containerProps = {},
   tableAreaProps = {},
 }: TableProps) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
   const [cols, setCols] = useState<any>([]);
   const [rows, setRows] = useState<any>([]);
@@ -45,21 +40,13 @@ export default function Table({
   }, [data]);
 
   useEffect(() => {
-    if (!id) return;
-    localStorage.setItem(
-      `ochom-react-tables-${id}`,
-      JSON.stringify({ page, rowsPerPage })
-    );
-  }, [page, rowsPerPage]);
-
-  useEffect(() => {
     if (serverSide && onPaginationChange) {
       onPaginationChange(page + 1, rowsPerPage);
     }
   }, [page, rowsPerPage]);
 
   const handleSearch = (value: string) => {
-    if (onSearch) return onSearch(value);
+    if (onSearch && serverSide) return onSearch(value);
 
     const filteredRows: any[] = (data || []).filter((row: any) =>
       JSON.stringify(row).toLowerCase().includes(value.toLowerCase())
@@ -74,7 +61,7 @@ export default function Table({
     <Box {...containerProps}>
       <Box
         sx={{
-          display: buttons.length == 0 && !showSearch ? "none" : "flex",
+          display: buttons.length == 0 && !onSearch ? "none" : "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "0.5rem",
@@ -87,15 +74,17 @@ export default function Table({
             display: buttons.length == 0 ? "none" : "flex",
           }}
         >
-          {buttons.map((button, index) => (
-            <Button key={index} variant="outlined" {...button}>
-              {button?.title ?? button?.children}
-            </Button>
-          ))}
+          {buttons
+            ?.filter((button) => !button?.hidden)
+            ?.map((button, index) => (
+              <Button key={index} variant="outlined" {...button}>
+                {button?.title ?? button?.children}
+              </Button>
+            ))}
         </Stack>
         <StyledSearch
           serverSide={serverSide}
-          showSearch={showSearch}
+          showSearch={!!onSearch}
           onSearch={handleSearch}
         />
       </Box>
@@ -114,14 +103,15 @@ export default function Table({
         />
 
         <TablePagination
-          hidePagination={hidePagination}
-          alignment={paginationAlign}
-          total={total ?? rows.length}
+          total={rows?.length || 0}
           page={page}
-          setPage={setPage}
+          setPage={(nextPage) => {
+            setPage(nextPage);
+          }}
+          serverSide={serverSide}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
-          rowsPerPageOptions={rowsPerPageOptions}
+          alignment={paginationAlign}
         />
       </Paper>
     </Box>

@@ -5,7 +5,22 @@ import { muiConfirm, RowActions, Table } from "../src";
 export default function Tables() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
+
+  function shuffleArray(array: any[]) {
+    const shuffledArray = [...array];
+
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+
+    return shuffledArray;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,8 +28,8 @@ export default function Tables() {
         const response = await fetch(
           "https://jsonplaceholder.typicode.com/users"
         );
-        const json = await response.json();
-        setData(json);
+        const json: any[] = await response.json();
+        setData(shuffleArray([...json, ...json, ...json]));
       } catch (err: any) {
         setError(err);
       } finally {
@@ -28,12 +43,10 @@ export default function Tables() {
   return (
     <Card>
       <Table
-        showSearch
         onSearch={(query) => console.log("Searching for", query)}
         loading={loading}
         error={error}
         data={data}
-        total={data.length}
         columns={[
           {
             name: "Name",

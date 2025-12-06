@@ -2,7 +2,7 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Grid2,
+  Grid,
   Stack,
   Typography,
 } from "@mui/material";
@@ -10,13 +10,7 @@ import React, { ReactNode } from "react";
 
 import { DefaultField, FileField } from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
-import {
-  DateField,
-  DateRangeField,
-  DateTimeField,
-  DateTimeRangeField,
-} from "./fields/date";
-import EditorField from "./fields/editor";
+import { DateField, DateTimeField } from "./fields/date";
 import { MultiSelectField, SearchField } from "./fields/select";
 import { FormField, FormProps } from "./properties";
 
@@ -51,12 +45,6 @@ export const FormFieldComponent = ({
     case "datetime":
       customField = DateTimeField;
       break;
-    case "date-range":
-      customField = DateRangeField;
-      break;
-    case "datetime-range":
-      customField = DateTimeRangeField;
-      break;
     case "switch":
       customField = SwitchField;
       break;
@@ -69,8 +57,6 @@ export const FormFieldComponent = ({
     case "file":
       customField = FileField;
       break;
-    case "editor":
-      customField = EditorField;
       break;
     default:
       customField = DefaultField;
@@ -127,7 +113,7 @@ export default function Form({
 
   return (
     <Container component={component} onSubmit={onSubmit}>
-      <Grid2 container spacing={fieldSpacing}>
+      <Grid container spacing={fieldSpacing}>
         {fields.map((field, index) => {
           // check if the field's required prop is defined, if not set it to true by default
           field.required = field.required ?? true;
@@ -152,9 +138,9 @@ export default function Form({
 
           if (field.type === "custom") {
             return (
-              <Grid2 key={index} size={{ xs, sm, md, lg }}>
+              <Grid key={index} size={{ xs, sm, md, lg }}>
                 {field.component}
-              </Grid2>
+              </Grid>
             );
           }
 
@@ -163,19 +149,19 @@ export default function Form({
           }
 
           return (
-            <Grid2 key={index} size={{ xs, sm, md, lg }}>
+            <Grid key={index} size={{ xs, sm, md, lg }}>
               <FormControl fullWidth>
                 <FormFieldComponent
                   field={field}
                   useNativeLabels={useNativeLabels}
                 />
               </FormControl>
-            </Grid2>
+            </Grid>
           );
         })}
 
         {showButtons && (
-          <Grid2 size={12} sx={{ mt: 2 }}>
+          <Grid size={12} sx={{ mt: 2 }}>
             <Stack direction="row" spacing={3} justifyContent="left">
               {onSubmit !== undefined && (
                 <Button
@@ -198,9 +184,9 @@ export default function Form({
                 </Button>
               )}
             </Stack>
-          </Grid2>
+          </Grid>
         )}
-      </Grid2>
+      </Grid>
     </Container>
   );
 }

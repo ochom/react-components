@@ -3,14 +3,11 @@ import { ButtonProps } from "@mui/material";
 export type FieldType =
   | "text"
   | "textarea"
-  | "editor"
   | "email"
   | "password"
   | "number"
   | "date"
   | "datetime"
-  | "date-range"
-  | "datetime-range"
   | "switch"
   | "checkbox"
   | "radio"
@@ -42,7 +39,7 @@ export interface ChangeEvent {
 export interface SecondaryFormFieldProps {
   loading?: boolean;
   value?: string;
-  type?: FieldType;
+  type?: FieldType | string;
   multiline?: boolean;
   rows?: number;
   options?: SelectOption[];
@@ -61,6 +58,7 @@ export interface SecondaryFormFieldProps {
   format?: string;
   startText?: string;
   endText?: string;
+  autoComplete?: string;
 }
 
 export interface PrimaryFormFieldProps {

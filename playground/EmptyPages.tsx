@@ -1,19 +1,19 @@
-import { Card, Grid2 } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import { ErrorPage, PageConstruction } from "../src";
 
 export default function EmptyPages() {
   return (
-    <Grid2 container spacing={3}>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+    <Grid container spacing={3}>
+      <Grid size={{ xs: 12, md: 6 }}>
         <Card variant="outlined">
           <ErrorPage title="404" error="Page not found" />
         </Card>
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
         <Card variant="outlined">
           <PageConstruction feature="Demo" />
         </Card>
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 }
