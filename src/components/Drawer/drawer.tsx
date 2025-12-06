@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { IconButton, styled, useMediaQuery } from "@mui/material";
-import Box from "@mui/material/Box";
+import Box, { BoxProps } from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import React from "react";
 
@@ -39,6 +39,7 @@ export type CDrawerProps = {
   title: string | React.ReactNode;
   children: React.ReactNode;
   width?: number;
+  slotProps?: BoxProps;
 };
 
 export const CDrawer = ({
@@ -48,6 +49,7 @@ export const CDrawer = ({
   title,
   children,
   width = 60,
+  slotProps = {},
 }: CDrawerProps) => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   let drawerTitle = title;
@@ -66,7 +68,7 @@ export const CDrawer = ({
         }
       }}
     >
-      <Content width={isMobile ? 100 : width}>
+      <Content width={isMobile ? 100 : width} {...slotProps}>
         <Title sx={{ px: isMobile ? 1 : 5 }}>
           <Box sx={{ flex: 1 }}>{drawerTitle}</Box>
           <IconButton onClick={() => setOpen(false)} color="error">
