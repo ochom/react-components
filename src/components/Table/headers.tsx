@@ -25,7 +25,7 @@ const Header = ({
   const isDesc = sort === `${sortKey}:desc`;
 
   const handleSort = () => {
-    if (!column.sortable || typeof column.selector !== "string") {
+    if (!column.sortable || !sortKey || !setSort) {
       return;
     }
 

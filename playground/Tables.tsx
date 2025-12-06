@@ -55,8 +55,10 @@ export default function Tables() {
         }}
         columns={[
           {
-            name: "Name",
+            title: "Name",
+            name: "name",
             selector: (row: any) => row.name,
+            sortable: true,
           },
           {
             name: "Email",
