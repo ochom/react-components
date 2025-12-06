@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import { Stack, Typography } from "@mui/material";
 import { TableColumn } from "./props";
 import { grey } from "@mui/material/colors";
+import { useMemo } from "react";
 
 const Header = ({
   sort,
@@ -12,8 +13,16 @@ const Header = ({
   column: TableColumn;
   setSort: (value: string) => void;
 }) => {
-  const isAsc = sort === `${column.selector}:asc`;
-  const isDesc = sort === `${column.selector}:desc`;
+  const sortKey = useMemo(() => {
+    if (typeof column.selector === "string") {
+      return column.selector;
+    }
+
+    return column.name || column.title;
+  }, [sort, column.selector, column.name, column.title]);
+
+  const isAsc = sort === `${sortKey}:asc`;
+  const isDesc = sort === `${sortKey}:desc`;
 
   const handleSort = () => {
     if (!column.sortable || typeof column.selector !== "string") {
@@ -21,9 +30,9 @@ const Header = ({
     }
 
     if (!isAsc && !isDesc) {
-      setSort(`${column.selector}:asc`);
+      setSort(`${sortKey}:asc`);
     } else if (isAsc) {
-      setSort(`${column.selector}:desc`);
+      setSort(`${sortKey}:desc`);
     } else if (isDesc) {
       setSort("");
     }
