@@ -73,7 +73,7 @@ const TableBody = ({
 }: TableBodyProps) => {
   const theme = useTheme();
   const handleRowClicked = (col: TableColumn, item: any) => {
-    if (col.button) {
+    if (col.is_button) {
       return;
     }
     if (onRowClicked) {
@@ -109,7 +109,7 @@ const TableBody = ({
       <thead>
         <tr>
           {cols.map((column: TableColumn, cIndex: number) => (
-            <th key={cIndex}>{column.name}</th>
+            <th key={cIndex}>{column.name || column.title}</th>
           ))}
         </tr>
       </thead>
