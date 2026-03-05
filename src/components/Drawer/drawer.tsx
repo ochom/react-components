@@ -67,11 +67,7 @@ export const CDrawer = ({
     <Drawer
       anchor="right"
       open={open}
-      onClose={(_, reason) => {
-        if (autoClose && reason === "backdropClick") {
-          setOpen(false);
-        }
-      }}
+      onClose={() => autoClose && setOpen(false)}
       slotProps={{
         paper: slotProps,
       }}
