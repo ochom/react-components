@@ -1,8 +1,17 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useId, useState } from "react";
 import { FormField } from "../properties";
 
 const DefaultField = ({ field }: { field: FormField }) => {
+  const [show, setShow] = useState(false);
   const inputId = useId();
   const handleChange = (e: any) => {
     const value = e.target.value;
@@ -28,7 +37,7 @@ const DefaultField = ({ field }: { field: FormField }) => {
   return (
     <TextField
       id={inputId}
-      type={field.type}
+      type={field.type === "password" && !show ? "password" : "text"}
       name={field.name}
       label={field.label}
       value={field.value}
@@ -40,6 +49,22 @@ const DefaultField = ({ field }: { field: FormField }) => {
       placeholder={field.placeholder}
       autoComplete={field.autoComplete}
       onChange={handleChange}
+      slotProps={{
+        input: {
+          endAdornment:
+            field.type === "password" ? (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShow((prev) => !prev)}
+                  aria-label={show ? "Hide password" : "Show password"}
+                  edge="end"
+                >
+                  <Icon icon={show ? "mdi:eye-off" : "mdi:eye"} />
+                </IconButton>
+              </InputAdornment>
+            ) : undefined,
+        },
+      }}
     />
   );
 };
