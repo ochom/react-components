@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { Activity, ReactNode } from "react";
 
 import {
   DefaultField,
@@ -170,10 +170,10 @@ export default function Form({
           );
         })}
 
-        {showButtons && (
+        <Activity mode={showButtons ? "visible" : "hidden"}>
           <Grid size={12} sx={{ mt: 2 }}>
             <Stack direction="row" spacing={3} justifyContent="left">
-              {onSubmit !== undefined && (
+              <Activity mode={!!onSubmit ? "visible" : "hidden"}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -182,8 +182,8 @@ export default function Form({
                 >
                   {submitText}
                 </Button>
-              )}
-              {onCancel !== undefined && (
+              </Activity>
+              <Activity mode={!!onCancel ? "visible" : "hidden"}>
                 <Button
                   onClick={onCancel}
                   variant="outlined"
@@ -192,10 +192,10 @@ export default function Form({
                 >
                   {cancelText}
                 </Button>
-              )}
+              </Activity>
             </Stack>
           </Grid>
-        )}
+        </Activity>
       </Grid>
     </Container>
   );
