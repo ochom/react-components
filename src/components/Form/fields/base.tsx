@@ -90,7 +90,12 @@ const NumberField = ({ field }: { field: FormField }) => {
       }
     }
 
-    field.onChange && field.onChange(e);
+    field.onChange?.({
+      target: {
+        name: field.name,
+        value: e.target.value.replace(",", ""),
+      },
+    });
   };
 
   return (
@@ -115,7 +120,7 @@ const NumberField = ({ field }: { field: FormField }) => {
 const PhoneNumberField = ({ field }: { field: FormField }) => {
   const inputId = useId();
   const handleChange = (e: any) => {
-    field.onChange && field.onChange(e);
+    field.onChange?.(e);
   };
 
   return (

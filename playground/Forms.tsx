@@ -6,7 +6,7 @@ const initFormData = {
   email: "",
   phone: "",
   password: "",
-  balance: 0,
+  balance: "",
   date: "",
   datetime: "",
   dateRange: [],
