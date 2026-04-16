@@ -4,7 +4,9 @@ import { ReactNode } from "react";
 export type TableColumn = {
   selector: string | ((row: any) => ReactNode);
   name?: string;
-  button?: boolean;
+  title?: string;
+  sortable?: boolean;
+  is_button?: boolean;
   style?: any;
 };
 
@@ -14,6 +16,8 @@ export type TableProps = {
   error?: any;
   columns: TableColumn[];
   data: any[];
+  sort?: string;
+  onSort?: (value: string) => void;
   emptyMessage?: string;
   onSearch?: (value: string) => void;
   buttons?: ButtonProps[];

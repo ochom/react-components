@@ -7,10 +7,9 @@ import Loading from "./loading";
 
 const SearchField = ({ field }: { field: FormField }) => {
   const handleChange = (_e: any, newValue: SelectOption | null) => {
-    field.onChange &&
-      field.onChange({
-        target: { name: field.name, value: newValue?.value ?? "" },
-      });
+    field.onChange?.({
+      target: { name: field.name, value: newValue?.value ?? "" },
+    });
   };
 
   // remove duplicate options
@@ -72,13 +71,12 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
     cleanOptions?.filter((opt) => field.value?.includes(opt.value)) || [];
 
   const handleChange = (newValues: SelectOption[]) => {
-    field.onChange &&
-      field.onChange({
-        target: {
-          name: field.name,
-          value: newValues.map((opt) => opt.value),
-        },
-      });
+    field.onChange?.({
+      target: {
+        name: field.name,
+        value: newValues.map((opt) => opt.value),
+      },
+    });
   };
 
   if (field.loading) return <Loading />;
@@ -111,7 +109,7 @@ const MultiSelectField = ({ field }: { field: FormField }) => {
           </li>
         );
       }}
-      renderTags={(value, getTagProps) => {
+      renderValue={(value, getTagProps) => {
         return value.map((option, index) => (
           <Chip
             {...getTagProps({ index })}

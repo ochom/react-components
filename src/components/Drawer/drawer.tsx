@@ -1,7 +1,12 @@
 import { Icon } from "@iconify/react";
-import { IconButton, styled, useMediaQuery } from "@mui/material";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  PaperProps,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 
 const Content = styled(Box)`
@@ -39,6 +44,7 @@ export type CDrawerProps = {
   title: string | React.ReactNode;
   children: React.ReactNode;
   width?: number;
+  slotProps?: PaperProps;
 };
 
 export const CDrawer = ({
@@ -48,6 +54,7 @@ export const CDrawer = ({
   title,
   children,
   width = 60,
+  slotProps = {},
 }: CDrawerProps) => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   let drawerTitle = title;
@@ -60,10 +67,9 @@ export const CDrawer = ({
     <Drawer
       anchor="right"
       open={open}
-      onClose={(_, reason) => {
-        if (autoClose && reason === "backdropClick") {
-          setOpen(false);
-        }
+      onClose={() => autoClose && setOpen(false)}
+      slotProps={{
+        paper: slotProps,
       }}
     >
       <Content width={isMobile ? 100 : width}>
