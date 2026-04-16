@@ -32,7 +32,7 @@ const DefaultField = ({ field }: { field: FormField }) => {
       }
     }
 
-    field.onChange && field.onChange(e);
+    field.onChange?.(e);
   };
 
   return (
@@ -164,13 +164,12 @@ const FileField = ({ field }: { field: FormField }) => {
           hidden
           onChange={(e: any) => {
             setSelectedFile(e.target.files[0]);
-            field.onChange &&
-              field.onChange({
-                target: {
-                  name: field.name,
-                  value: e.target.files?.length ? e.target.files[0] : null,
-                },
-              });
+            field.onChange?.({
+              target: {
+                name: field.name,
+                value: e.target.files?.length ? e.target.files[0] : null,
+              },
+            });
           }}
         />
       </Button>

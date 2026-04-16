@@ -15,10 +15,9 @@ const SwitchField = ({ field }: { field: FormField }) => {
         <Switch
           checked={Boolean(field.value)}
           onChange={(e: any) => {
-            field.onChange &&
-              field.onChange({
-                target: { name: field.name, value: e.target.checked },
-              });
+            field.onChange?.({
+              target: { name: field.name, value: e.target.checked },
+            });
           }}
         />
       }
@@ -34,10 +33,9 @@ const CheckBoxField = ({ field }: { field: FormField }) => {
         <Checkbox
           checked={Boolean(field.value)}
           onChange={(e: any) => {
-            field.onChange &&
-              field.onChange({
-                target: { name: field.name, value: e.target.checked },
-              });
+            field.onChange?.({
+              target: { name: field.name, value: e.target.checked },
+            });
           }}
         />
       }
@@ -56,10 +54,9 @@ const RadioGroupField = ({ field }: { field: FormField }) => {
         name={field.name}
         value={field.value}
         onChange={(e: any) => {
-          field.onChange &&
-            field.onChange({
-              target: { name: field.name, value: e.target.value },
-            });
+          field.onChange?.({
+            target: { name: field.name, value: e.target.value },
+          });
         }}
       >
         {(field?.options ?? []).map((option) => (
