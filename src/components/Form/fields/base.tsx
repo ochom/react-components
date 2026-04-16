@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useId, useState } from "react";
+import { NumericFormat, PatternFormat } from "react-number-format";
 import { FormField } from "../properties";
 
 const DefaultField = ({ field }: { field: FormField }) => {
@@ -69,6 +70,74 @@ const DefaultField = ({ field }: { field: FormField }) => {
   );
 };
 
+const NumberField = ({ field }: { field: FormField }) => {
+  const inputId = useId();
+  const handleChange = (e: any) => {
+    const value = e.target.value;
+
+    // check if number field  and min and max are defined
+    if (field.min !== undefined) {
+      if (Number(value) < field.min) {
+        e.target.value = field.min;
+        return;
+      }
+    }
+
+    if (field.max !== undefined) {
+      if (Number(value) > field.max) {
+        e.target.value = field.max;
+        return;
+      }
+    }
+
+    field.onChange && field.onChange(e);
+  };
+
+  return (
+    <NumericFormat
+      id={inputId}
+      name={field.name}
+      label={field.label}
+      value={field.value}
+      customInput={TextField}
+      size={field.size}
+      required={field.required}
+      disabled={field.disabled}
+      placeholder={field.placeholder}
+      autoComplete={field.autoComplete}
+      onChange={handleChange}
+      valueIsNumericString
+      thousandSeparator
+    />
+  );
+};
+
+const PhoneNumberField = ({ field }: { field: FormField }) => {
+  const inputId = useId();
+  const handleChange = (e: any) => {
+    field.onChange && field.onChange(e);
+  };
+
+  return (
+    <PatternFormat
+      id={inputId}
+      name={field.name}
+      label={field.label}
+      value={field.value}
+      customInput={TextField}
+      size={field.size}
+      required={field.required}
+      disabled={field.disabled}
+      placeholder={field.placeholder || "+254 (701) 234-567"}
+      autoComplete={field.autoComplete}
+      onChange={handleChange}
+      format={field.format || "+254 (###) ##-####"}
+      allowEmptyFormatting
+      mask={"_"}
+    />
+  );
+};
+
 const FileField = ({ field }: { field: FormField }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -107,4 +176,4 @@ const FileField = ({ field }: { field: FormField }) => {
   );
 };
 
-export { DefaultField, FileField };
+export { DefaultField, NumberField, PhoneNumberField, FileField };
