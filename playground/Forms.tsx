@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import { CDrawer, Form, muiConfirm, useForm, useModal } from "../src";
+import { CDrawer, Form, muiConfirm, useForm, useModal } from "../dist";
 
 const initFormData = {
   name: "",

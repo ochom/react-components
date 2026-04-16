@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
-import { muiConfirm, RowActions, Table } from "../src";
+import { muiConfirm, RowActions, Table } from "../dist";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ export default function Tables() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
+          "https://jsonplaceholder.typicode.com/users",
         );
         const json: any[] = await response.json();
         setData(shuffleArray([...json, ...json, ...json]));
