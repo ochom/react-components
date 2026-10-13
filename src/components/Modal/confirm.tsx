@@ -1,4 +1,5 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
+import React from "react";
 import { Modal } from "./modal";
 import { closeConfirm, confirm, useConfirmStore } from "./store";
 
@@ -13,7 +14,7 @@ type ButtonColor =
 
 export type ConfirmProps = {
   title: string;
-  message: string;
+  message: React.ReactNode;
   confirmButtonText?: string;
   cancelButtonText?: string;
   confirmButtonColor?: ButtonColor;
@@ -27,8 +28,8 @@ export function ConfirmHost() {
 
   return (
     <Modal open={isOpen} title={dialog.title}>
-      <Stack sx={{ p: 3, pt: 0 }} spacing={2}>
-        <Typography>{dialog.message}</Typography>
+      <Stack sx={{ p: 3, pt: 0 }} spacing={1}>
+        <Box>{dialog.message}</Box>
         <Stack direction={"row"} spacing={3}>
           <Button
             size="small"

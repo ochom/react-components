@@ -75,11 +75,17 @@ export default function Headers({
   return (
     <thead>
       <tr>
-        {columns.map((column: TableColumn, cIndex: number) => (
-          <th key={cIndex}>
-            <Header column={column} sort={sort} setSort={(v) => setSort?.(v)} />
-          </th>
-        ))}
+        {columns
+          .filter((c) => !c.hidden)
+          .map((column: TableColumn, cIndex: number) => (
+            <th key={cIndex}>
+              <Header
+                column={column}
+                sort={sort}
+                setSort={(v) => setSort?.(v)}
+              />
+            </th>
+          ))}
       </tr>
     </thead>
   );

@@ -8,6 +8,7 @@ export type TableColumn = {
   sortable?: boolean;
   is_button?: boolean;
   style?: any;
+  hidden?: boolean;
 };
 
 export type TableProps = {
