@@ -1,10 +1,12 @@
 import { Container, Typography } from "@mui/material";
-import { CDrawer, Form, muiConfirm, useForm, useModal } from "../src";
+import { CDrawer, Form, muiConfirm, useForm, useModal } from "../dist";
 
 const initFormData = {
   name: "",
   email: "",
+  phone: "",
   password: "",
+  balance: "",
   date: "",
   datetime: "",
   dateRange: [],
@@ -50,7 +52,9 @@ export default function Forms() {
         fields={[
           createField("name", "Name"),
           createField("email", "Email", { type: "email" }),
+          createField("phone", "Phone", { type: "phone" }),
           createField("password", "Password", { type: "password" }),
+          createField("balance", "Balance", { type: "number" }),
           createField("select", "Select", {
             type: "select",
             options: [
@@ -84,14 +88,6 @@ export default function Forms() {
           }),
           createField("datetime", "DateTime", {
             type: "datetime",
-            grow: { xs: 6 },
-          }),
-          createField("dateRange", "Date Range", {
-            type: "date-range",
-            grow: { xs: 6 },
-          }),
-          createField("datetimeRange", "Date Range", {
-            type: "datetime-range",
             grow: { xs: 6 },
           }),
           createField("switch", "Switch", {

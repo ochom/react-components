@@ -1,11 +1,12 @@
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
-import { muiConfirm, RowActions, Table } from "../src";
+import { muiConfirm, RowActions, Table } from "../dist";
 
 export default function Tables() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState<any[]>([]);
+  const [sort, setSort] = useState<string>("");
 
   function shuffleArray(array: any[]) {
     const shuffledArray = [...array];
@@ -26,7 +27,7 @@ export default function Tables() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
+          "https://jsonplaceholder.typicode.com/users",
         );
         const json: any[] = await response.json();
         setData(shuffleArray([...json, ...json, ...json]));
@@ -47,10 +48,17 @@ export default function Tables() {
         loading={loading}
         error={error}
         data={data}
+        sort={sort}
+        onSort={(v) => {
+          console.log("Sorting by", v);
+          setSort(v);
+        }}
         columns={[
           {
-            name: "Name",
+            title: "Name",
+            name: "name",
             selector: (row: any) => row.name,
+            sortable: true,
           },
           {
             name: "Email",
@@ -59,6 +67,7 @@ export default function Tables() {
           {
             name: "Phone",
             selector: "phone",
+            sortable: true,
           },
           {
             name: "Website",

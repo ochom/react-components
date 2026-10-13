@@ -20,6 +20,8 @@ export default function Table({
   paginationAlign = "end",
   containerProps = {},
   tableAreaProps = {},
+  sort,
+  onSort,
 }: TableProps) {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
@@ -100,6 +102,8 @@ export default function Table({
           rowsPerPage={rowsPerPage}
           page={page}
           onRowClicked={onRowClicked}
+          sort={sort}
+          onSort={onSort}
         />
 
         <TablePagination

@@ -1,44 +1,38 @@
-import styled from "@emotion/styled";
-import { Box, Theme, useTheme } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Box } from "@mui/material";
 import { useMemo } from "react";
 import { ErrorPage } from "../EmptyPage";
 import { BarLoader } from "../Monitors";
 import { TableColumn } from "./props";
+import Headers from "./headers";
 
-const StyledTable = styled("table")`
-  width: 100%;
-  border-collapse: collapse;
-  background-color: transparent;
-  thead {
-    tr {
-      border: none;
-      th {
-        padding: 8px;
-        font-weight: bold !important;
-        font-size: 14px;
-        text-align: left;
-        background-color: ${({ theme }: { theme: Theme }) =>
-          theme.palette.action.hover};
-      }
-    }
-  }
-  tbody {
-    tr {
-      margin: 0 5px;
-      transition: 0.3s;
-      border-bottom: 1px solid
-        ${({ theme }: { theme: Theme }) => theme.palette.action.hover};
-      td {
-        padding: 8px;
-      }
-    }
-    tr:hover {
-      cursor: pointer;
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.palette.action.hover};
-    }
-  }
-`;
+const StyledTable = styled("table")(({ theme }) => ({
+  width: "100%",
+  borderCollapse: "collapse",
+  backgroundColor: "transparent",
+  "& thead tr": {
+    border: "none",
+  },
+  "& thead th": {
+    padding: "8px",
+    fontWeight: "bold",
+    fontSize: "14px",
+    textAlign: "left",
+    backgroundColor: theme.palette.action.hover,
+  },
+  "& tbody tr": {
+    margin: "0 5px",
+    transition: "0.3s",
+    borderBottom: `1px solid ${theme.palette.action.hover}`,
+  },
+  "& tbody td": {
+    padding: "8px",
+  },
+  "& tbody tr:hover": {
+    cursor: "pointer",
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
 const Spanned = ({ children, span }: any) => {
   return (
@@ -58,6 +52,8 @@ type TableBodyProps = {
   rowsPerPage: number;
   page: number;
   onRowClicked?: (item: any) => void;
+  sort?: string;
+  onSort?: (value: string) => void;
 };
 
 const TableBody = ({
@@ -70,10 +66,11 @@ const TableBody = ({
   rowsPerPage,
   page,
   onRowClicked,
+  sort,
+  onSort,
 }: TableBodyProps) => {
-  const theme = useTheme();
   const handleRowClicked = (col: TableColumn, item: any) => {
-    if (col.button) {
+    if (col.is_button) {
       return;
     }
     if (onRowClicked) {
@@ -105,14 +102,8 @@ const TableBody = ({
   }, [rows, page, rowsPerPage]);
 
   return (
-    <StyledTable theme={theme}>
-      <thead>
-        <tr>
-          {cols.map((column: TableColumn, cIndex: number) => (
-            <th key={cIndex}>{column.name}</th>
-          ))}
-        </tr>
-      </thead>
+    <StyledTable>
+      <Headers columns={cols} sort={sort} setSort={(s) => onSort?.(s)} />
       <tbody>
         <tr
           style={{

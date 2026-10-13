@@ -1,5 +1,5 @@
 import { Card, Grid } from "@mui/material";
-import { ErrorPage, PageConstruction } from "../src";
+import { ErrorPage, PageConstruction } from "../dist";
 
 export default function EmptyPages() {
   return (

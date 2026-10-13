@@ -2,6 +2,7 @@ import { ButtonProps } from "@mui/material";
 
 export type FieldType =
   | "text"
+  | "phone"
   | "textarea"
   | "email"
   | "password"

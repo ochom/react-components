@@ -6,9 +6,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { Activity, ReactNode } from "react";
 
-import { DefaultField, FileField } from "./fields/base";
+import {
+  DefaultField,
+  FileField,
+  NumberField,
+  PhoneNumberField,
+} from "./fields/base";
 import { CheckBoxField, RadioGroupField, SwitchField } from "./fields/check";
 import { DateField, DateTimeField } from "./fields/date";
 import { MultiSelectField, SearchField } from "./fields/select";
@@ -32,6 +37,12 @@ export const FormFieldComponent = ({
   let customField: CustomField;
 
   switch (field.type) {
+    case "number":
+      customField = NumberField;
+      break;
+    case "phone":
+      customField = PhoneNumberField;
+      break;
     case "search":
     case "select":
       customField = SearchField;
@@ -56,7 +67,6 @@ export const FormFieldComponent = ({
       break;
     case "file":
       customField = FileField;
-      break;
       break;
     default:
       customField = DefaultField;
@@ -160,10 +170,10 @@ export default function Form({
           );
         })}
 
-        {showButtons && (
+        <Activity mode={showButtons ? "visible" : "hidden"}>
           <Grid size={12} sx={{ mt: 2 }}>
             <Stack direction="row" spacing={3} justifyContent="left">
-              {onSubmit !== undefined && (
+              <Activity mode={!!onSubmit ? "visible" : "hidden"}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -172,8 +182,8 @@ export default function Form({
                 >
                   {submitText}
                 </Button>
-              )}
-              {onCancel !== undefined && (
+              </Activity>
+              <Activity mode={!!onCancel ? "visible" : "hidden"}>
                 <Button
                   onClick={onCancel}
                   variant="outlined"
@@ -182,10 +192,10 @@ export default function Form({
                 >
                   {cancelText}
                 </Button>
-              )}
+              </Activity>
             </Stack>
           </Grid>
-        )}
+        </Activity>
       </Grid>
     </Container>
   );

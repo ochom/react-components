@@ -19,14 +19,21 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [
-        ...Object.keys(pkg.dependencies || {}),
-        ...Object.keys(pkg.devDependencies || {}),
-      ],
+      external: (id) => {
+        // Externalize all dependencies and their subpath imports
+        const deps = [...Object.keys(pkg.peerDependencies || {})];
+        return deps.some((dep) => id === dep || id.startsWith(`${dep}/`));
+      },
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
+          "@mui/material": "MaterialUI",
+          "@emotion/react": "emotionReact",
+          "@emotion/styled": "emotionStyled",
+          moment: "moment",
+          "react-number-format": "NumberFormat",
+          "@mui/x-date-pickers": "MaterialXDatePickers",
         },
       },
     },

@@ -11,7 +11,7 @@ import {
 import { deepPurple, grey, purple } from "@mui/material/colors";
 import { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { ConfirmHost, Tabs } from "../src";
+import { ConfirmHost, Tabs } from "../dist";
 import EmptyPages from "./EmptyPages";
 import Forms from "./Forms";
 import Tables from "./Tables";
@@ -66,9 +66,11 @@ const theme = createTheme({
     },
     MuiButton: {
       defaultProps: {
-        size: "small",
+        size: "large",
+        disableElevation: true,
         sx: {
           textTransform: "none",
+          borderRadius: 5,
         },
       },
     },

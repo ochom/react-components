@@ -13,8 +13,7 @@ const DateField = ({ field }: { field: FormField }) => {
       minDate={field.minDate ? moment(field.minDate) : undefined}
       maxDate={field.maxDate ? moment(field.maxDate) : undefined}
       onChange={(newValue) => {
-        field.onChange &&
-          field.onChange({ target: { name: field.name, value: newValue } });
+        field.onChange?.({ target: { name: field.name, value: newValue } });
       }}
       slotProps={{
         textField: {
@@ -36,8 +35,7 @@ const DateTimeField = ({ field }: { field: FormField }) => {
       minDate={field.minDate ? moment(field.minDate) : undefined}
       maxDate={field.maxDate ? moment(field.maxDate) : undefined}
       onChange={(newValue) => {
-        field.onChange &&
-          field.onChange({ target: { name: field.name, value: newValue } });
+        field.onChange?.({ target: { name: field.name, value: newValue } });
       }}
       slotProps={{
         textField: {
